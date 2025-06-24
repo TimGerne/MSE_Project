@@ -4,6 +4,8 @@ import time
 from urllib.robotparser import RobotFileParser
 from urllib.parse import urlparse, urljoin
 
+CRAWLER_NAME = 'MSE_Crawler_1'
+
 seeds = ['https://www.wikipedia.org']
 visited = set()
 parsers = {}
@@ -29,7 +31,7 @@ def parsing_allowed(url):
         return True
 
     # true if parsing allowed or not specified for our parser
-    return rp.can_fetch("MyCrawler 1.0", url)
+    return rp.can_fetch(CRAWLER_NAME, url)
 
 
 def get_crawl_delay(url, default_delay=1):
@@ -43,11 +45,23 @@ def get_crawl_delay(url, default_delay=1):
         print(parsers)
         raise ('TEST')
 
-    delay = rp.crawl_delay("MyCrawler 1.0")
+    delay = rp.crawl_delay(CRAWLER_NAME)
     if delay:
         return delay
     else:
         return default_delay
+
+
+# TODO
+def process_page(url, soup):
+    try:
+        print(soup.find('title').text)
+        print(url)
+    except:
+        print(f'Page has no title')
+        print(url)
+
+    print()
 
 
 # crawls the given url recursively
@@ -64,7 +78,7 @@ def crawl(url):
 
         return
 
-    response = requests.get(url, headers={'User-Agent': 'MyCrawler 1.0'})
+    response = requests.get(url, headers={'User-Agent': CRAWLER_NAME})
 
     # check if website is available
     if response.status_code != 200:
@@ -74,18 +88,11 @@ def crawl(url):
     soup = BeautifulSoup(response.text, 'html.parser')
 
     # do something with the content
-    try:
-        print(soup.find('title').text)
-        print(url)
-        print()
-    except:
-        print(f'Page has no title')
-        print(url)
-        print()
+    process_page(url, soup)
 
     for link in soup.find_all('a', href=True):
 
-        # just returns lik['href'] is the link is absolute
+        # just returns link['href'] is the link is absolute
         next_url = urljoin(url, link['href'])
 
         if next_url.startswith('http'):
