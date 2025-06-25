@@ -3,12 +3,15 @@ from bs4 import BeautifulSoup
 import time
 from urllib.robotparser import RobotFileParser
 from urllib.parse import urlparse, urljoin
+import heapq
 
 CRAWLER_NAME = 'MSE_Crawler_1'
 
-seeds = ['https://www.wikipedia.org']
 visited = set()
 parsers = {}
+
+frontier = [(0, 'https://www.wikipedia.org')]
+heapq.heapify(frontier)
 
 
 def parsing_allowed(url):
@@ -37,13 +40,13 @@ def parsing_allowed(url):
 def get_crawl_delay(url, default_delay=1):
     # TODO make this more efficient as e.g. combine with parsing_allowed()
     domain = urlparse(url).netloc
-    # domain should be in parser at this point as we called parsing_allowed before
 
+    # domain should be in parser at this point as we called parsing_allowed before
     if domain in parsers:
         rp = parsers[domain]
-    else:
-        print(parsers)
-        raise ('TEST')
+    # else:
+    #     print(parsers)
+    #     raise ('TEST')
 
     delay = rp.crawl_delay(CRAWLER_NAME)
     if delay:
@@ -52,7 +55,7 @@ def get_crawl_delay(url, default_delay=1):
         return default_delay
 
 
-# TODO
+# TODO was machen wir mit den dokumenten: - speichern? vektor repräsentationen? ...
 def process_page(url, soup):
     try:
         print(soup.find('title').text)
@@ -62,6 +65,8 @@ def process_page(url, soup):
         print(url)
 
 # TODO
+
+
 def get_last_modified(response):
     # get the head of the response and check if it has Last-Modified tag
     last_modified = response.headers.get('Last-Modified')
@@ -70,52 +75,58 @@ def get_last_modified(response):
         print(f'Last-Modified: {last_modified}')
     else:
         print('No Last-Modified information in page head')
-    
-    print()
 
-    return True
+    print()
 
 
 # crawls the given url recursively
-def crawl(url):
-    if url in visited:
-        print('URL has already been visited')
-        return
+def crawl():
+    counter = len(frontier)
 
-    visited.add(url)
+    while frontier:
+        url = heapq.heappop(frontier)[1]
 
-    # check robots.tsx
-    if not parsing_allowed(url):
-        print('URL not allowed')
+        if url in visited:
+            print('URL has already been visited')
+            continue  # return
 
-        return
+        visited.add(url)
 
-    response = requests.get(url, headers={'User-Agent': CRAWLER_NAME})
+        # check robots.tsx
+        if not parsing_allowed(url):
+            print('URL not allowed')
+            continue  # return
 
-    # check if website is available
-    if response.status_code != 200:
-        print('URL returns wrong code')
-        return
+        time.sleep(get_crawl_delay(url))
 
-    soup = BeautifulSoup(response.text, 'html.parser')
+        # get website
+        response = requests.get(url, headers={'User-Agent': CRAWLER_NAME})
 
-    # do something with the content
-    process_page(url, soup)
-    get_last_modified(response)
+        # check if website is available
+        if response.status_code != 200:
+            print('URL returns wrong code')
+            continue  # return
 
-    for link in soup.find_all('a', href=True):
+        # get page content
+        soup = BeautifulSoup(response.text, 'html.parser')
 
-        # just returns link['href'] is the link is absolute
-        next_url = urljoin(url, link['href'])
+        # do something with the content
+        process_page(url, soup)
+        get_last_modified(response)
 
-        if next_url.startswith('http'):
-            time.sleep(get_crawl_delay(url))
-            if next_url not in visited:
-                crawl(next_url)
+        # iterate through all links in page and add to priority queue
+        for link in soup.find_all('a', href=True):
+
+            # just returns link['href'] is the link is absolute
+            next_url = urljoin(url, link['href'])
+
+            if next_url.startswith('http') and next_url not in visited:
+                heapq.heappush(frontier, (counter, next_url))
+                counter += 1
 
 
 def main():
-    crawl(seeds[0])
+    crawl()
     print(f'Number of visited sites: {len(visited)}')
 
 
