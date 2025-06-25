@@ -61,7 +61,19 @@ def process_page(url, soup):
         print(f'Page has no title')
         print(url)
 
+# TODO
+def get_last_modified(response):
+    # get the head of the response and check if it has Last-Modified tag
+    last_modified = response.headers.get('Last-Modified')
+
+    if last_modified:
+        print(f'Last-Modified: {last_modified}')
+    else:
+        print('No Last-Modified information in page head')
+    
     print()
+
+    return True
 
 
 # crawls the given url recursively
@@ -89,6 +101,7 @@ def crawl(url):
 
     # do something with the content
     process_page(url, soup)
+    get_last_modified(response)
 
     for link in soup.find_all('a', href=True):
 
