@@ -10,7 +10,13 @@ CRAWLER_NAME = 'MSE_Crawler_1'
 visited = set()
 parsers = {}
 
-frontier = [(0, 'https://www.wikipedia.org')]
+# frontier = [(0, 'https://www.wikipedia.org')]
+
+frontier = [(0, 'https://www.tuebingen.de/'),
+            (0.5, 'https://docs.python.org/'),
+            # this site blocks access by bots
+            (1, 'https://www.tuebingen-info.de/'),
+            (2, 'https://de.wikipedia.org/wiki/T%C3%BCbingen')]
 heapq.heapify(frontier)
 
 
@@ -26,12 +32,12 @@ def parsing_allowed(url):
         rp.set_url(f"https://{domain}/robots.txt")
         parsers[domain] = rp
 
-    # check if robots.tsx does exist and is readable
-    try:
-        rp.read()
-    # if not allow to crawl
-    except:
-        return True
+        # check if robots.tsx does exist and is readable
+        try:
+            rp.read()
+        # if not allow to crawl
+        except:
+            return True
 
     # true if parsing allowed or not specified for our parser
     return rp.can_fetch(CRAWLER_NAME, url)
@@ -44,9 +50,6 @@ def get_crawl_delay(url, default_delay=1):
     # domain should be in parser at this point as we called parsing_allowed before
     if domain in parsers:
         rp = parsers[domain]
-    # else:
-    #     print(parsers)
-    #     raise ('TEST')
 
     delay = rp.crawl_delay(CRAWLER_NAME)
     if delay:
@@ -64,8 +67,6 @@ def process_page(url, soup):
         print(f'Page has no title')
         print(url)
 
-# TODO
-
 
 def get_last_modified(response):
     # get the head of the response and check if it has Last-Modified tag
@@ -79,33 +80,39 @@ def get_last_modified(response):
     print()
 
 
-# crawls the given url recursively
+# crawls the frontier
 def crawl():
     counter = len(frontier)
 
     while frontier:
-        url = heapq.heappop(frontier)[1]
+        # get node with highest priority (i.e. lowest priority number)
+        node = heapq.heappop(frontier)  # removes node from frontier
+        url = node[1]
+        priority = node[0]
+
+        print(f'Priority: {priority}')
 
         if url in visited:
-            print('URL has already been visited')
-            continue  # return
+            print(f'URL has already been visited: {url}')
+            continue
 
         visited.add(url)
-
-        # check robots.tsx
-        if not parsing_allowed(url):
-            print('URL not allowed')
-            continue  # return
-
-        time.sleep(get_crawl_delay(url))
 
         # get website
         response = requests.get(url, headers={'User-Agent': CRAWLER_NAME})
 
         # check if website is available
+        # we check this before checking robots.txt because if the used parser cannot access the website it does not throw an error
         if response.status_code != 200:
-            print('URL returns wrong code')
-            continue  # return
+            print(f'URL returns wrong code: {url}')
+            continue
+
+        # check robots.tsx
+        if not parsing_allowed(url):
+            print(f'URL not allowed: {url}\n')
+            continue
+
+        time.sleep(get_crawl_delay(url))
 
         # get page content
         soup = BeautifulSoup(response.text, 'html.parser')
