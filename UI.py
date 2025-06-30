@@ -21,11 +21,25 @@ def stop_crawl():
     st.session_state.crawling = False
     #TODO add pause function for crawler.py
 
-def start_searching():
+
+def retrieve_queries(query:str,query_file)->list:
+    queries = []
+    if query:
+        queries.append(query)
+    if query_file:
+        query_file_content = query_file.read().decode("utf-8")
+        lines = query_file_content.splitlines()
+        queries.append(lines)
+    return queries
+    
+
+def start_searching(query,queries):
+    retrieve_queries(query,queries)
     with st.spinner(text="Search in Progress"):
         time.sleep(2)
         #TODO: Replace by actual start search call
         st.success("Retrieved Documents")
+
 
 st.set_page_config(layout="wide")
 st.title("Our search engine")
@@ -44,12 +58,19 @@ if "ndocs" not in st.session_state:
 left_column, right_column = st.columns(2)
 
 with left_column:
-    if st.session_state.crawling:
-        st.button('Pause Crawling',on_click=stop_crawl)
-    elif st.session_state.has_crawled:
-        st.button('Resume Crawling',on_click=start_crawl)
-    else:
-        st.button('Start Crawling',on_click=start_crawl)
+
+    st.subheader("Crawling")
+
+    button_side,time_side = st.columns([5,2])
+    with button_side:    
+        if st.session_state.crawling:
+            st.button('Pause Crawling',on_click=stop_crawl)
+        elif st.session_state.has_crawled:
+            st.button('Resume Crawling',on_click=start_crawl)
+        else:
+            st.button('Start Crawling',on_click=start_crawl)
+    with time_side:
+        d=0
 
     #on-click activation
     latest_iteration = st.empty()
@@ -62,15 +83,18 @@ with left_column:
 
     st.markdown(f':green-badge[Crawling completed] :orange-badge[{st.session_state.ndocs} documents]')
     
-    st.markdown("Insert your queries here:")
-    text_side, upload_side = st.columns([3,1])
-    with text_side:
-        st.text_area("Your Queries here",help="Insert one or more queries here with line breaks")
-    with upload_side:
-        st.file_uploader("Upload Query",help="Upload Queryfile")
+    
+    st.subheader("Search")
 
+    with st.form("search_form"):
+        queries_file = st.file_uploader("Upload Queries via file 📁",help="Upload tab separated format") 
+        query = st.text_input("or put your Query here 👇",placeholder="What are you looking for?",help="Accept only one lined query")
+            
     #Search    
-    st.button('Start Search',disabled=st.session_state.has_crawled,on_click=start_searching)
+        submitted = st.form_submit_button('Start Search 🔎',disabled=st.session_state.has_crawled,on_click=start_searching)
+        if submitted:
+            start_searching(query,queries_file)
+
 
 
 
@@ -84,21 +108,23 @@ with right_column:
     
     st.subheader("Search results")
 
-    query_tabs_name = [f"Query {i}" for i in range(len(queries))]
+    query_tabs_name = [f"Results {i}" for i in range(len(queries))]
     query_tabs = st.tabs(query_tabs_name)
     for i,(query,tab) in enumerate(zip(queries,query_tabs)):
         tab.write(f"Query: {query}")
-        retrieved_docs = example_retrieved_docs.loc[example_retrieved_docs["Query"]==i]
+        retrieved_docs = example_retrieved_docs.loc[example_retrieved_docs["Query"]==i].iloc[:,1:]
         #tab.dataframe(retrieved_docs)
-        tab.data_editor(
+        tab.dataframe(
             retrieved_docs,
             column_config={
-                "URL": st.column_config.LinkColumn("URL")
+                "Rank": st.column_config.NumberColumn("Rank",width="small"),
+                "URL": st.column_config.LinkColumn("URL",width="mid"),
+                "Relevance": st.column_config.NumberColumn("Relevance",width="small")
             },
             hide_index=True,
         )
 
-    st.download_button('download search results', example_retrieved_docs.to_csv(index=False,header=False,sep='\t'))
+    st.download_button('download search results', example_retrieved_docs.to_csv(index=False,header=False,sep='\t'),file_name="Results.tsv")
 
 #@st.cache_resource for ML resources
 #https://docs.streamlit.io/get-started/fundamentals/advanced-concepts #DB connection
