@@ -4,6 +4,7 @@ import time
 from urllib.robotparser import RobotFileParser
 from urllib.parse import urlparse, urljoin
 import heapq
+from langdetect import detect_langs
 
 CRAWLER_NAME = 'MSE_Crawler_1'
 
@@ -16,7 +17,7 @@ frontier = [(0, 'https://www.tuebingen.de/'),
             (0.5, 'https://docs.python.org/'),
             # this site blocks access by bots
             (1, 'https://www.tuebingen-info.de/'),
-            (2, 'https://de.wikipedia.org/wiki/T%C3%BCbingen')]
+            (2, 'https://en.wikipedia.org/wiki/T%C3%BCbingen')]
 heapq.heapify(frontier)
 
 
@@ -59,6 +60,7 @@ def get_crawl_delay(url, default_delay=1):
 
 
 # TODO was machen wir mit den dokumenten: - speichern? vektor repräsentationen? ...
+# nur links speichern und dann die links von den embedding modellen aufrufen
 def process_page(url, soup):
     try:
         print(soup.find('title').text)
@@ -78,6 +80,27 @@ def get_last_modified(response):
         print('No Last-Modified information in page head')
 
     print()
+
+
+def page_is_english(page_content, threshold=0.66) -> bool:
+    # parse website again (needed as changes to soup are permanent)
+    soup = BeautifulSoup(page_content, 'html.parser')
+
+    # remove html tags
+    for tag in soup(['script', 'style']):
+        tag.decompose()
+
+    # just get readable text
+    text = soup.get_text(separator=' ', strip=True)
+
+    # create dictionary with languages and their probabilities, based on naive bayes
+    # which/how many languages should be included cannot be controlled
+    lang_probs = {item.lang: item.prob for item in detect_langs(text)}
+    prob_english = lang_probs.get('en', 0)
+
+    most_prob_lang = next(iter(lang_probs))
+
+    return prob_english >= threshold, most_prob_lang
 
 
 # crawls the frontier
@@ -112,7 +135,12 @@ def crawl():
             print(f'URL not allowed: {url}\n')
             continue
 
-        time.sleep(get_crawl_delay(url))
+        time.sleep(get_crawl_delay(url))  # TODO when do we call this
+
+        english_page, most_prob_lang = page_is_english(response.text)
+        if not english_page:
+            print(f'Site is not in english but {most_prob_lang}: {url}\n')
+            continue
 
         # get page content
         soup = BeautifulSoup(response.text, 'html.parser')
