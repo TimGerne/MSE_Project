@@ -8,6 +8,8 @@ from langdetect import detect_langs
 
 CRAWLER_NAME = 'MSE_Crawler_1'
 REQUEST_TIMEOUT = 10    # in seconds
+TUEBINGENS = ['tübingen', 'tubingen', 'tuebingen']
+
 
 visited = set()
 parsers = {}
@@ -132,6 +134,14 @@ def is_unwanted_file_type(url) -> bool:
     return False
 
 
+def contains_tuebingen(text):
+    for tue in TUEBINGENS:
+        if tue in text.lower():
+            return True
+
+    return False
+
+
 # crawls the frontier
 def crawl():
     counter = len(frontier)
@@ -183,6 +193,11 @@ def crawl():
         # do something with the content
         process_page(url, soup)
         get_last_modified(response)
+
+        # check if current url or content contain word tübingen (in different spellings)
+        tuebingen_url = contains_tuebingen(response.url)  # TODO decode url
+        tuebingen_content = contains_tuebingen(response.text)
+        # print(f'Tübingen URL: {tuebingen_url} and Tübingen content: {tuebingen_content}')
 
         # iterate through all links in page and add to priority queue
         for link in soup.find_all('a', href=True):
