@@ -23,7 +23,7 @@ frontier = [(-1000, 0, 'https://www.tuebingen.de/'),
 heapq.heapify(frontier)
 
 
-def parsing_allowed(url):
+def parsing_allowed(url: str) -> bool:
     # get domain
     domain = urlparse(url).netloc
 
@@ -46,7 +46,7 @@ def parsing_allowed(url):
     return rp.can_fetch(CRAWLER_NAME, url)
 
 
-def get_crawl_delay(url, default_delay=1):
+def get_crawl_delay(url: str, default_delay: int = 1) -> int:
     # TODO make this more efficient as e.g. combine with parsing_allowed()
     domain = urlparse(url).netloc
 
@@ -63,7 +63,7 @@ def get_crawl_delay(url, default_delay=1):
 
 # TODO was machen wir mit den dokumenten: - speichern? vektor repräsentationen? ...
 # nur links speichern und dann die links von den embedding modellen aufrufen
-def process_page(url, soup):
+def process_page(url: str, soup: BeautifulSoup) -> None:
     try:
         print(soup.find('title').text)
         print(url)
@@ -72,7 +72,7 @@ def process_page(url, soup):
         print(url)
 
 
-def get_last_modified(response):
+def get_last_modified(response: str requests.Response) -> None:
     # get the head of the response and check if it has Last-Modified tag
     last_modified = response.headers.get('Last-Modified')
 
@@ -84,7 +84,7 @@ def get_last_modified(response):
     print()
 
 
-def page_is_english(page_content, threshold=0.66) -> bool:
+def page_is_english(page_content, threshold: int = 0.66) -> bool:
     # parse website again (needed as changes to soup are permanent)
     soup = BeautifulSoup(page_content, 'html.parser')
 
@@ -105,7 +105,7 @@ def page_is_english(page_content, threshold=0.66) -> bool:
     return prob_english >= threshold, most_prob_lang
 
 
-def is_unwanted_file_type(url) -> bool:
+def is_unwanted_file_type(url: str) -> bool:
     unwanted_url_endings = [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".svg",
                             ".webp", ".pdf", ".ppt", ".pptx", ".doc", ".docx", ".xls", ".xlsx",
                             ".mp3", ".mp4", ".avi", ".mov", ".wmv", ".zip", ".rar", ".gz"]
@@ -134,7 +134,7 @@ def is_unwanted_file_type(url) -> bool:
     return False
 
 
-def contains_tuebingen(text):
+def contains_tuebingen(text: str) -> bool:
     for tue in TUEBINGENS:
         if tue in text.lower():
             return True
@@ -142,7 +142,7 @@ def contains_tuebingen(text):
     return False
 
 
-def calc_priority_score(url, depth, anchor_text) -> int:
+def calc_priority_score(url: str, depth: int, anchor_text: str) -> int:
     # best score is 27
     score = 0
 
