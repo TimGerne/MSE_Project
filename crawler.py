@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import time
 from urllib.robotparser import RobotFileParser
-from urllib.parse import urlparse, urljoin
+from urllib.parse import urlparse, urljoin, unquote_plus
 import heapq
 from langdetect import detect_langs
 
@@ -14,12 +14,12 @@ TUEBINGENS = ['tübingen', 'tubingen', 'tuebingen']
 visited = set()
 parsers = {}
 
-frontier = [(0, 'https://www.tuebingen.de/'),
-            (0.5, 'https://docs.python.org/'),
+# entry has pattern (priority_score, depth, url)
+frontier = [(-1000, 0, 'https://www.tuebingen.de/'),
             # this site blocks access by bots
-            (1, 'https://www.tuebingen-info.de/'),
-            (2, 'https://en.wikipedia.org/wiki/T%C3%BCbingen'),
-            (3, 'https://en.wikipedia.org/wiki/T%C3%BCbingen#/media/File:Altstadt-tuebingen-1.jpg')]
+            (-999, 0, 'https://www.tuebingen-info.de/'),
+            (-998, 0, 'https://en.wikipedia.org/wiki/T%C3%BCbingen'),
+            (-997, 0, 'https://en.wikipedia.org/wiki/T%C3%BCbingen#/media/File:Altstadt-tuebingen-1.jpg')]
 heapq.heapify(frontier)
 
 
@@ -142,17 +142,35 @@ def contains_tuebingen(text):
     return False
 
 
+def calc_priority_score(url, depth, anchor_text) -> int:
+    # best score is 27
+    score = 0
+
+    score += max(0, 15 - depth)
+
+    if contains_tuebingen(unquote_plus(url)):
+        score += 5
+
+    if contains_tuebingen(anchor_text):
+        score += 7
+
+    return score
+
+
 # crawls the frontier
 def crawl():
-    counter = len(frontier)
+    n_iterations = 0
 
     while frontier:
         # get node with highest priority (i.e. lowest priority number)
         node = heapq.heappop(frontier)  # removes node from frontier
-        url = node[1]
-        priority = node[0]
+        url = node[2]
+        priority_score = node[0]
+        depth = node[1]
 
-        print(f'Priority: {priority}')
+        n_iterations += 1
+
+        print(f'n={n_iterations} | Priority: {priority_score} | Depth: {depth}')
 
         if url in visited:
             print(f'URL has already been visited: {url}')
@@ -194,11 +212,6 @@ def crawl():
         process_page(url, soup)
         get_last_modified(response)
 
-        # check if current url or content contain word tübingen (in different spellings)
-        tuebingen_url = contains_tuebingen(response.url)  # TODO decode url
-        tuebingen_content = contains_tuebingen(response.text)
-        # print(f'Tübingen URL: {tuebingen_url} and Tübingen content: {tuebingen_content}')
-
         # iterate through all links in page and add to priority queue
         for link in soup.find_all('a', href=True):
 
@@ -206,8 +219,12 @@ def crawl():
             next_url = urljoin(url, link['href'])
 
             if next_url.startswith('http') and next_url not in visited:
-                heapq.heappush(frontier, (counter, next_url))
-                counter += 1
+                anchor_text = link.get_text(strip=True)
+                # negate score as we use a min heap
+                score = - calc_priority_score(next_url, depth, anchor_text)
+
+                # depth used as secondary priority counter when two entries have same score
+                heapq.heappush(frontier, (score, (depth+1), next_url))
 
 
 def main():
