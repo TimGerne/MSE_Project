@@ -6,9 +6,12 @@ from urllib.parse import urlparse, urljoin, unquote_plus
 import heapq
 from langdetect import detect_langs
 
+from crawler_file_IO import write_saved_pages, save_frontier, empty_file
+
 CRAWLER_NAME = 'MSE_Crawler_1'
 REQUEST_TIMEOUT = 10    # in seconds
 TUEBINGENS = ['tübingen', 'tubingen', 'tuebingen']
+CHUNKSIZE = 10
 
 
 visited = set()
@@ -20,6 +23,7 @@ frontier = [(-1000, 0, 'https://www.tuebingen.de/'),
             (-999, 0, 'https://www.tuebingen-info.de/'),
             (-998, 0, 'https://en.wikipedia.org/wiki/T%C3%BCbingen'),
             (-997, 0, 'https://en.wikipedia.org/wiki/T%C3%BCbingen#/media/File:Altstadt-tuebingen-1.jpg')]
+
 heapq.heapify(frontier)
 
 
@@ -72,7 +76,7 @@ def process_page(url: str, soup: BeautifulSoup) -> None:
         print(url)
 
 
-def get_last_modified(response: str requests.Response) -> None:
+def get_last_modified(response: requests.Response) -> None:
     # get the head of the response and check if it has Last-Modified tag
     last_modified = response.headers.get('Last-Modified')
 
@@ -160,16 +164,23 @@ def calc_priority_score(url: str, depth: int, anchor_text: str) -> int:
 # crawls the frontier
 def crawl():
     n_iterations = 0
+    pages_to_save = []      # keeps track of visited pages
 
     while frontier:
+        if n_iterations % CHUNKSIZE == 0:
+            save_frontier('frontier.csv', frontier)
+
+            if pages_to_save:
+                write_saved_pages('saved_pages.csv', pages_to_save)
+                pages_to_save = []  # empty the list
+
         # get node with highest priority (i.e. lowest priority number)
         node = heapq.heappop(frontier)  # removes node from frontier
-        url = node[2]
         priority_score = node[0]
         depth = node[1]
+        url = node[2]
 
         n_iterations += 1
-
         print(f'n={n_iterations} | Priority: {priority_score} | Depth: {depth}')
 
         if url in visited:
@@ -177,6 +188,8 @@ def crawl():
             continue
 
         visited.add(url)
+        # currently we save even if we cannot open the page TODO think about this
+        pages_to_save.append(node)
 
         # get website
         response = requests.get(
@@ -228,6 +241,10 @@ def crawl():
 
 
 def main():
+    # empty frontier and index -> especially useful for testing while writing the crawler
+    empty_file('frontier.csv')
+    empty_file('saved_pages.csv')
+
     crawl()
     print(f'Number of visited sites: {len(visited)}')
 
