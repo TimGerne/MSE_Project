@@ -23,7 +23,7 @@ frontier = [(-1000, 0, 'https://www.tuebingen.de/'),
             # this site blocks access by bots
             (-999, 0, 'https://www.tuebingen-info.de/'),
             (-998, 0, 'https://en.wikipedia.org/wiki/T%C3%BCbingen'),
-            (-997, 0, 'https://en.wikipedia.org/wiki/T%C3%BCbingen#/media/File:Altstadt-tuebingen-1.jpg')]
+            (-997, 0, 'https://www.reddit.com/r/Tuebingen/')]
 
 heapq.heapify(frontier)
 
@@ -199,6 +199,12 @@ def crawl():
         # currently we save even if we cannot open the page TODO think about this
         pages_to_save.append(node)
 
+        # check robots.tsx
+        if not parsing_allowed(url):
+            print(f'URL not allowed: {url}\n')
+            blocking_pages_to_save.append(node)
+            continue
+
         # get website
         response = requests.get(
             url, headers={'User-Agent': CRAWLER_NAME}, timeout=REQUEST_TIMEOUT)
@@ -207,12 +213,6 @@ def crawl():
         # we check this before checking robots.txt because if the used parser cannot access the website it does not throw an error
         if response.status_code != 200:
             print(f'URL returns wrong code: {url}')
-            continue
-
-        # check robots.tsx
-        if not parsing_allowed(url):
-            print(f'URL not allowed: {url}\n')
-            blocking_pages_to_save.append(node)
             continue
 
         time.sleep(get_crawl_delay(url))  # TODO when do we call this
