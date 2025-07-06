@@ -11,6 +11,7 @@ from crawler_file_IO import write_saved_pages, save_frontier, empty_file
 CRAWLER_NAME = 'MSE_Crawler_1'
 REQUEST_TIMEOUT = 10    # in seconds
 TUEBINGENS = ['tübingen', 'tubingen', 'tuebingen']
+# after how many crawler loop iterations frontier and visited_pages get saved to file
 CHUNKSIZE = 10
 
 
@@ -164,7 +165,9 @@ def calc_priority_score(url: str, depth: int, anchor_text: str) -> int:
 # crawls the frontier
 def crawl():
     n_iterations = 0
-    pages_to_save = []      # keeps track of visited pages
+    pages_to_save = []              # keeps track of visited pages
+    # keeps track of sites the crawler was not allowed to visit
+    blocking_pages_to_save = []
 
     while frontier:
         if n_iterations % CHUNKSIZE == 0:
@@ -173,6 +176,11 @@ def crawl():
             if pages_to_save:
                 write_saved_pages('saved_pages.csv', pages_to_save)
                 pages_to_save = []  # empty the list
+
+            if blocking_pages_to_save:
+                write_saved_pages('blocked_saved_pages.csv',
+                                  blocking_pages_to_save)
+                blocking_pages_to_save = []  # empty the list
 
         # get node with highest priority (i.e. lowest priority number)
         node = heapq.heappop(frontier)  # removes node from frontier
@@ -184,7 +192,7 @@ def crawl():
         print(f'n={n_iterations} | Priority: {priority_score} | Depth: {depth}')
 
         if url in visited:
-            print(f'URL has already been visited: {url}')
+            print(f'URL has already been visited: {url}\n')
             continue
 
         visited.add(url)
@@ -204,6 +212,7 @@ def crawl():
         # check robots.tsx
         if not parsing_allowed(url):
             print(f'URL not allowed: {url}\n')
+            blocking_pages_to_save.append(node)
             continue
 
         time.sleep(get_crawl_delay(url))  # TODO when do we call this
