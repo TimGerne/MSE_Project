@@ -6,27 +6,27 @@ from urllib.parse import urlparse, urljoin, unquote_plus
 import heapq
 from langdetect import detect_langs
 
-from crawler_file_IO import write_saved_pages, save_frontier, empty_file
+from crawler_file_IO import write_saved_pages, save_frontier, save_visited, empty_file, read_saved_frontier, read_saved_visited
+
+
+# set this to False if you want to start the crawl with a given frontier, and visited set
+START_NEW_SEARCH = False
+# after how many crawler loop iterations frontier and visited_pages get saved to file
+CHUNKSIZE = 10  # TODO set bigger value for deployment
 
 CRAWLER_NAME = 'MSE_Crawler_1'
 REQUEST_TIMEOUT = 10    # in seconds
 TUEBINGENS = ['tübingen', 'tubingen', 'tuebingen']
 
-# after how many crawler loop iterations frontier and visited_pages get saved to file
-CHUNKSIZE = 10  # TODO set bigger value for deployment
 
-
-visited = set()
 parsers = {}
 
 # entry has pattern (priority_score, depth, url)
-frontier = [(-1000, 0, 'https://www.tuebingen.de/'),
-            # this site blocks access by bots
-            (-999, 0, 'https://www.tuebingen-info.de/'),
-            (-998, 0, 'https://en.wikipedia.org/wiki/T%C3%BCbingen'),
-            (-997, 0, 'https://www.reddit.com/r/Tuebingen/')]
-
-heapq.heapify(frontier)
+default_frontier = [(-1000, 0, 'https://www.tuebingen.de/'),
+                    # this site blocks access by bots
+                    (-999, 0, 'https://www.tuebingen-info.de/'),
+                    (-998, 0, 'https://en.wikipedia.org/wiki/T%C3%BCbingen'),
+                    (-997, 0, 'https://www.reddit.com/r/Tuebingen/')]
 
 
 def parsing_allowed(url: str) -> bool:
@@ -190,7 +190,7 @@ def calc_priority_score(url: str, depth: int, anchor_text: str) -> int:
 
 
 # crawls the frontier
-def crawl():
+def crawl(frontier, visited):
     n_iterations = 0
     pages_to_save = []              # keeps track of visited pages
     # keeps track of sites the crawler was not allowed to visit
@@ -208,6 +208,8 @@ def crawl():
                 write_saved_pages('blocked_saved_pages.csv',
                                   blocking_pages_to_save)
                 blocking_pages_to_save = []  # empty the list
+
+            save_visited('visited.csv', visited)
 
         # get node with highest priority (i.e. lowest priority number)
         node = heapq.heappop(frontier)  # removes node from frontier
@@ -283,13 +285,21 @@ def crawl():
 
 
 def main():
-    # empty frontier and index -> especially useful for testing while writing the crawler
-    empty_file('frontier.csv')
-    empty_file('saved_pages.csv')
-    empty_file('blocked_saved_pages.csv')
+    if START_NEW_SEARCH:
+        for file in ['frontier.csv', 'saved_pages.csv', 'blocked_saved_pages.csv', 'visited.csv']:
+            empty_file(file)
 
-    crawl()
-    print(f'Number of visited sites: {len(visited)}')
+        frontier = default_frontier
+        visited = set()
+
+    else:
+        frontier = read_saved_frontier('frontier.csv')
+        heapq.heapify(frontier)
+
+        visited = set(read_saved_visited('visited.csv'))
+
+    heapq.heapify(frontier)
+    crawl(frontier, visited)
 
 
 if __name__ == '__main__':
