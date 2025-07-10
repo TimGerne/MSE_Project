@@ -97,6 +97,8 @@ def get_last_modified(response: requests.Response) -> None:
     except Exception as e:
         print(f'[ERROR] while retrieving page last modified data: {e}')
 
+# TODO threshold value
+
 
 def page_is_english(page_content, threshold: int = 0.66) -> bool:
     try:
@@ -216,13 +218,18 @@ def crawl():
         n_iterations += 1
         print(f'n={n_iterations} | Priority: {priority_score} | Depth: {depth}')
 
+        # we do not want to crawl images, powerpoint, ...
+        if is_unwanted_file_type(url):
+            print(f'Site is unwanted file type: {url}\n')
+            continue
+
         if url in visited:
             print(f'URL has already been visited: {url}\n')
             continue
 
         visited.add(url)
         # currently we save even if we cannot open the page TODO think about this
-        pages_to_save.append(node)
+        # pages_to_save.append(node)
 
         # check robots.tsx
         if not parsing_allowed(url):
@@ -236,7 +243,7 @@ def crawl():
                 url, headers={'User-Agent': CRAWLER_NAME}, timeout=REQUEST_TIMEOUT)
         except requests.exceptions.RequestException as e:
             print(f'[ERROR] while fetching url {url}: {e}')
-            continue  # Skip to the next URL
+            continue
 
         # check if website is available
         # we check this before checking robots.txt because if the used parser cannot access the website it does not throw an error
@@ -244,24 +251,21 @@ def crawl():
             print(f'URL returns wrong code: {url}')
             continue
 
-        time.sleep(get_crawl_delay(url))  # TODO when do we call this
-
-        # we do not want to crawl images, powerpoint, ...
-        if is_unwanted_file_type(url):
-            print(f'Site is unwanted file type: {url}\n')
-
         # we only want to crawl english pages
         english_page, most_prob_lang = page_is_english(response.text)
         if not english_page:
             print(f'Site is not in english but {most_prob_lang}: {url}\n')
             continue
 
+        time.sleep(get_crawl_delay(url))  # TODO when do we call this
+
         # get page content
         soup = BeautifulSoup(response.text, 'html.parser')
 
         # do something with the content
         process_page(url, soup)
-        get_last_modified(response)
+        # get_last_modified(response)
+        pages_to_save.append(node)
 
         # iterate through all links in page and add to priority queue
         for link in soup.find_all('a', href=True):
@@ -282,6 +286,7 @@ def main():
     # empty frontier and index -> especially useful for testing while writing the crawler
     empty_file('frontier.csv')
     empty_file('saved_pages.csv')
+    empty_file('blocked_saved_pages.csv')
 
     crawl()
     print(f'Number of visited sites: {len(visited)}')
