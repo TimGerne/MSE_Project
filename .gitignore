@@ -8,3 +8,6 @@ README.md
 main.py
 uv.lock
 __pycache__/models.cpython-38.pyc
+blocked_saved_pages.csv
+saved_pages.csv
+frontier.csv
