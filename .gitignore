@@ -11,3 +11,6 @@ __pycache__/models.cpython-38.pyc
 blocked_saved_pages.csv
 saved_pages.csv
 frontier.csv
+keys.py
+qrels.txt
+__pycache__/keys.cpython-38.pyc
