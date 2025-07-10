@@ -8,3 +8,6 @@ README.md
 main.py
 uv.lock
 __pycache__/models.cpython-38.pyc
+keys.py
+qrels.txt
+__pycache__/keys.cpython-38.pyc
