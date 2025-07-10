@@ -4,7 +4,7 @@ from collections import Counter
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
-
+from sklearn.preprocessing import MinMaxScaler
 
 class BaseRetrievalModel:
     def __init__(self, texts, urls):
@@ -95,4 +95,95 @@ class DenseRetrievalModel(BaseRetrievalModel):
                 'snippet': self.texts[i][:300]
             }
             for i in top_indices
+        ]
+        
+
+class HybridRetrievalModel(BaseRetrievalModel):
+    def __init__(self, bm25_model, dense_model, alpha=0.5):
+        self.bm25 = bm25_model
+        self.dense = dense_model
+        self.alpha = alpha  # weight between BM25 and dense
+
+    def retrieve(self, query, top_k=100):
+        bm25_results = self.bm25.retrieve(query, top_k=None)
+        dense_results = self.dense.retrieve(query, top_k=None)
+
+        # Convert to dictionaries: url -> score
+        bm25_scores = {r['url']: r['score'] for r in bm25_results}
+        dense_scores = {r['url']: r['score'] for r in dense_results}
+
+        # Union of URLs
+        all_urls = set(bm25_scores) | set(dense_scores)
+
+        # Normalize both sets of scores
+        def normalize(score_dict):
+            urls = list(score_dict.keys())
+            scores = np.array(list(score_dict.values())).reshape(-1, 1)
+            scaler = MinMaxScaler()
+            norm_scores = scaler.fit_transform(scores).flatten()
+            return dict(zip(urls, norm_scores))
+
+        norm_bm25 = normalize(bm25_scores)
+        norm_dense = normalize(dense_scores)
+
+        # Weighted combination
+        final_scores = {
+            url: self.alpha * norm_bm25.get(url, 0) + (1 - self.alpha) * norm_dense.get(url, 0)
+            for url in all_urls
+        }
+
+        # Sort and return top_k
+        ranked = sorted(final_scores.items(), key=lambda x: -x[1])[:top_k]
+        return [
+            {
+                'url': url,
+                'score': score,
+                'snippet': self.bm25.texts[self.bm25.urls.index(url)][:300]
+            }
+            for url, score in ranked
+        ]
+        
+class HybridRetrievalModel(BaseRetrievalModel):
+    def __init__(self, bm25_model, dense_model, alpha=0.5):
+        self.bm25 = bm25_model
+        self.dense = dense_model
+        self.alpha = alpha  # weight between BM25 and dense
+
+    def retrieve(self, query, top_k=100):
+        bm25_results = self.bm25.retrieve(query, top_k=None)
+        dense_results = self.dense.retrieve(query, top_k=None)
+
+        # Convert to dictionaries: url -> score
+        bm25_scores = {r['url']: r['score'] for r in bm25_results}
+        dense_scores = {r['url']: r['score'] for r in dense_results}
+
+        # Union of URLs
+        all_urls = set(bm25_scores) | set(dense_scores)
+
+        # Normalize both sets of scores
+        def normalize(score_dict):
+            urls = list(score_dict.keys())
+            scores = np.array(list(score_dict.values())).reshape(-1, 1)
+            scaler = MinMaxScaler()
+            norm_scores = scaler.fit_transform(scores).flatten()
+            return dict(zip(urls, norm_scores))
+
+        norm_bm25 = normalize(bm25_scores)
+        norm_dense = normalize(dense_scores)
+
+        # Weighted combination
+        final_scores = {
+            url: self.alpha * norm_bm25.get(url, 0) + (1 - self.alpha) * norm_dense.get(url, 0)
+            for url in all_urls
+        }
+
+        # Sort and return top_k
+        ranked = sorted(final_scores.items(), key=lambda x: -x[1])[:top_k]
+        return [
+            {
+                'url': url,
+                'score': score,
+                'snippet': self.bm25.texts[self.bm25.urls.index(url)][:300]
+            }
+            for url, score in ranked
         ]
