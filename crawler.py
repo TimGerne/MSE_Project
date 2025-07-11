@@ -6,25 +6,27 @@ from urllib.parse import urlparse, urljoin, unquote_plus
 import heapq
 from langdetect import detect_langs
 
-from crawler_file_IO import write_saved_pages, save_frontier, empty_file
+from crawler_file_IO import write_saved_pages, save_frontier, save_visited, empty_file, read_saved_frontier, read_saved_visited
+
+
+# set this to False if you want to start the crawl with a given frontier, and visited set
+START_NEW_SEARCH = False
+# after how many crawler loop iterations frontier and visited_pages get saved to file
+CHUNKSIZE = 10  # TODO set bigger value for deployment
 
 CRAWLER_NAME = 'MSE_Crawler_1'
 REQUEST_TIMEOUT = 10    # in seconds
 TUEBINGENS = ['tübingen', 'tubingen', 'tuebingen']
-CHUNKSIZE = 10
 
 
-visited = set()
 parsers = {}
 
 # entry has pattern (priority_score, depth, url)
-frontier = [(-1000, 0, 'https://www.tuebingen.de/'),
-            # this site blocks access by bots
-            (-999, 0, 'https://www.tuebingen-info.de/'),
-            (-998, 0, 'https://en.wikipedia.org/wiki/T%C3%BCbingen'),
-            (-997, 0, 'https://en.wikipedia.org/wiki/T%C3%BCbingen#/media/File:Altstadt-tuebingen-1.jpg')]
-
-heapq.heapify(frontier)
+default_frontier = [(-1000, 0, 'https://www.tuebingen.de/'),
+                    # this site blocks access by bots
+                    (-999, 0, 'https://www.tuebingen-info.de/'),
+                    (-998, 0, 'https://en.wikipedia.org/wiki/T%C3%BCbingen'),
+                    (-997, 0, 'https://www.reddit.com/r/Tuebingen/')]
 
 
 def parsing_allowed(url: str) -> bool:
@@ -35,33 +37,38 @@ def parsing_allowed(url: str) -> bool:
     if domain in parsers:
         rp = parsers[domain]
     else:
-        rp = RobotFileParser()
-        rp.set_url(f"https://{domain}/robots.txt")
-        parsers[domain] = rp
-
-        # check if robots.tsx does exist and is readable
         try:
+            rp = RobotFileParser()
+            rp.set_url(f"https://{domain}/robots.txt")
+            parsers[domain] = rp
+
+            # check if robots.tsx does exist and is readable
             rp.read()
-        # if not allow to crawl
-        except:
+            # if not allow to crawl
+        except Exception as e:
+            print(f"[ERROR] Failed to read robots.txt for {domain}: {e}")
             return True
 
     # true if parsing allowed or not specified for our parser
     return rp.can_fetch(CRAWLER_NAME, url)
 
 
+# has to be called after parsing_allowed to make sure that domain is in parsers dic
 def get_crawl_delay(url: str, default_delay: int = 1) -> int:
     # TODO make this more efficient as e.g. combine with parsing_allowed()
     domain = urlparse(url).netloc
 
     # domain should be in parser at this point as we called parsing_allowed before
-    if domain in parsers:
+    try:
         rp = parsers[domain]
 
-    delay = rp.crawl_delay(CRAWLER_NAME)
-    if delay:
-        return delay
-    else:
+        delay = rp.crawl_delay(CRAWLER_NAME)
+        if delay:
+            return delay
+        else:
+            return default_delay
+    except Exception as e:
+        print(f"[ERROR] getting delay failed for {url}: {e}")
         return default_delay
 
 
@@ -71,42 +78,52 @@ def process_page(url: str, soup: BeautifulSoup) -> None:
     try:
         print(soup.find('title').text)
         print(url)
-    except:
-        print(f'Page has no title')
+    except Exception as e:
+        print(f'[ERROR] Page title could not be read: {e}')
         print(url)
 
 
 def get_last_modified(response: requests.Response) -> None:
-    # get the head of the response and check if it has Last-Modified tag
-    last_modified = response.headers.get('Last-Modified')
+    try:
+        # get the head of the response and check if it has Last-Modified tag
+        last_modified = response.headers.get('Last-Modified')
 
-    if last_modified:
-        print(f'Last-Modified: {last_modified}')
-    else:
-        print('No Last-Modified information in page head')
+        if last_modified:
+            print(f'Last-Modified: {last_modified}')
+        else:
+            print('No Last-Modified information in page head')
 
-    print()
+        print()
+    except Exception as e:
+        print(f'[ERROR] while retrieving page last modified data: {e}')
+
+# TODO threshold value
 
 
 def page_is_english(page_content, threshold: int = 0.66) -> bool:
-    # parse website again (needed as changes to soup are permanent)
-    soup = BeautifulSoup(page_content, 'html.parser')
+    try:
+        # parse website again (needed as changes to soup are permanent)
+        soup = BeautifulSoup(page_content, 'html.parser')
 
-    # remove html tags
-    for tag in soup(['script', 'style']):
-        tag.decompose()
+        # remove html tags
+        for tag in soup(['script', 'style']):
+            tag.decompose()
 
-    # just get readable text
-    text = soup.get_text(separator=' ', strip=True)
+        # just get readable text
+        text = soup.get_text(separator=' ', strip=True)
 
-    # create dictionary with languages and their probabilities, based on naive bayes
-    # which/how many languages should be included cannot be controlled
-    lang_probs = {item.lang: item.prob for item in detect_langs(text)}
-    prob_english = lang_probs.get('en', 0)
+        # create dictionary with languages and their probabilities, based on naive bayes
+        # which/how many languages should be included cannot be controlled
+        lang_probs = {item.lang: item.prob for item in detect_langs(text)}
+        prob_english = lang_probs.get('en', 0)
 
-    most_prob_lang = next(iter(lang_probs))
+        most_prob_lang = next(iter(lang_probs))
 
-    return prob_english >= threshold, most_prob_lang
+        return prob_english >= threshold, most_prob_lang
+
+    except Exception as e:
+        print(f'[ERROR] while checking page language: {e}')
+        return True  # TODO might change this to False
 
 
 def is_unwanted_file_type(url: str) -> bool:
@@ -121,29 +138,40 @@ def is_unwanted_file_type(url: str) -> bool:
                               "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                               "application/vnd.openxmlformats-officedocument.presentationml.presentation"]
 
-    # check for url endings
-    for ending in unwanted_url_endings:
-        if url.lower().endswith(ending):
-            return True
+    try:
+        # check for url endings
+        for ending in unwanted_url_endings:
+            if url.lower().endswith(ending):
+                return True
 
-    # only if url endings are ok, do request
-    head_response = requests.head(url, headers={'User-Agent': CRAWLER_NAME},
-                                  allow_redirects=True, timeout=REQUEST_TIMEOUT)
-    page_content_type = head_response.headers.get('Content-Type', '').lower()
+        # only if url endings are ok, do request
+        head_response = requests.head(url, headers={'User-Agent': CRAWLER_NAME},
+                                      allow_redirects=True, timeout=REQUEST_TIMEOUT)
+        page_content_type = head_response.headers.get(
+            'Content-Type', '').lower()
 
-    for type in unwanted_content_types:
-        if page_content_type.startswith(type):
-            return True
+        for type in unwanted_content_types:
+            if page_content_type.startswith(type):
+                return True
 
-    return False
+        return False
+
+    except Exception as e:
+        print(f'[ERROR] while checking for unwanted file type: {e}')
+        return True  # TODO might change this to False
 
 
 def contains_tuebingen(text: str) -> bool:
-    for tue in TUEBINGENS:
-        if tue in text.lower():
-            return True
+    try:
+        for tue in TUEBINGENS:
+            if tue in text.lower():
+                return True
 
-    return False
+        return False
+
+    except Exception as e:
+        print(f'[ERROR] checking if Tuebingen in page: {e}')
+        return False
 
 
 def calc_priority_score(url: str, depth: int, anchor_text: str) -> int:
@@ -162,9 +190,11 @@ def calc_priority_score(url: str, depth: int, anchor_text: str) -> int:
 
 
 # crawls the frontier
-def crawl():
+def crawl(frontier, visited):
     n_iterations = 0
-    pages_to_save = []      # keeps track of visited pages
+    pages_to_save = []              # keeps track of visited pages
+    # keeps track of sites the crawler was not allowed to visit
+    blocking_pages_to_save = []
 
     while frontier:
         if n_iterations % CHUNKSIZE == 0:
@@ -173,6 +203,13 @@ def crawl():
             if pages_to_save:
                 write_saved_pages('saved_pages.csv', pages_to_save)
                 pages_to_save = []  # empty the list
+
+            if blocking_pages_to_save:
+                write_saved_pages('blocked_saved_pages.csv',
+                                  blocking_pages_to_save)
+                blocking_pages_to_save = []  # empty the list
+
+            save_visited('visited.csv', visited)
 
         # get node with highest priority (i.e. lowest priority number)
         node = heapq.heappop(frontier)  # removes node from frontier
@@ -183,17 +220,32 @@ def crawl():
         n_iterations += 1
         print(f'n={n_iterations} | Priority: {priority_score} | Depth: {depth}')
 
+        # we do not want to crawl images, powerpoint, ...
+        if is_unwanted_file_type(url):
+            print(f'Site is unwanted file type: {url}\n')
+            continue
+
         if url in visited:
-            print(f'URL has already been visited: {url}')
+            print(f'URL has already been visited: {url}\n')
             continue
 
         visited.add(url)
         # currently we save even if we cannot open the page TODO think about this
-        pages_to_save.append(node)
+        # pages_to_save.append(node)
+
+        # check robots.tsx
+        if not parsing_allowed(url):
+            print(f'URL not allowed: {url}\n')
+            blocking_pages_to_save.append(node)
+            continue
 
         # get website
-        response = requests.get(
-            url, headers={'User-Agent': CRAWLER_NAME}, timeout=REQUEST_TIMEOUT)
+        try:
+            response = requests.get(
+                url, headers={'User-Agent': CRAWLER_NAME}, timeout=REQUEST_TIMEOUT)
+        except requests.exceptions.RequestException as e:
+            print(f'[ERROR] while fetching url {url}: {e}')
+            continue
 
         # check if website is available
         # we check this before checking robots.txt because if the used parser cannot access the website it does not throw an error
@@ -201,29 +253,21 @@ def crawl():
             print(f'URL returns wrong code: {url}')
             continue
 
-        # check robots.tsx
-        if not parsing_allowed(url):
-            print(f'URL not allowed: {url}\n')
-            continue
-
-        time.sleep(get_crawl_delay(url))  # TODO when do we call this
-
-        # we do not want to crawl images, powerpoint, ...
-        if is_unwanted_file_type(url):
-            print(f'Site is unwanted file type: {url}\n')
-
         # we only want to crawl english pages
         english_page, most_prob_lang = page_is_english(response.text)
         if not english_page:
             print(f'Site is not in english but {most_prob_lang}: {url}\n')
             continue
 
+        time.sleep(get_crawl_delay(url))  # TODO when do we call this
+
         # get page content
         soup = BeautifulSoup(response.text, 'html.parser')
 
         # do something with the content
         process_page(url, soup)
-        get_last_modified(response)
+        # get_last_modified(response)
+        pages_to_save.append(node)
 
         # iterate through all links in page and add to priority queue
         for link in soup.find_all('a', href=True):
@@ -241,12 +285,21 @@ def crawl():
 
 
 def main():
-    # empty frontier and index -> especially useful for testing while writing the crawler
-    empty_file('frontier.csv')
-    empty_file('saved_pages.csv')
+    if START_NEW_SEARCH:
+        for file in ['frontier.csv', 'saved_pages.csv', 'blocked_saved_pages.csv', 'visited.csv']:
+            empty_file(file)
 
-    crawl()
-    print(f'Number of visited sites: {len(visited)}')
+        frontier = default_frontier
+        visited = set()
+
+    else:
+        frontier = read_saved_frontier('frontier.csv')
+        heapq.heapify(frontier)
+
+        visited = set(read_saved_visited('visited.csv'))
+
+    heapq.heapify(frontier)
+    crawl(frontier, visited)
 
 
 if __name__ == '__main__':
