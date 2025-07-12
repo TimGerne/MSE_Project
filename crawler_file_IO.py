@@ -59,3 +59,14 @@ def read_saved_hashes(filename: str) -> list:
         for row in reader:
             result.append(int(row[0]))
     return result
+
+
+def read_frontier_seeds(filepath: str, start_priority: int = -1000, start_depth: int = 0) -> list:
+    default_frontier = []
+    with open(filepath, 'r', encoding='utf-8') as f:
+        lines = [line.strip() for line in f if line.strip()]
+    
+    for i, url in enumerate(lines):
+        default_frontier.append((start_priority + i, start_depth, url))
+    
+    return default_frontier

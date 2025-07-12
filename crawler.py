@@ -8,7 +8,7 @@ from langdetect import detect_langs
 from simhash import Simhash, SimhashIndex
 
 
-from crawler_file_IO import write_saved_pages, save_frontier, save_set_to_csv, empty_file, read_saved_frontier, read_saved_visited, read_saved_hashes
+from crawler_file_IO import write_saved_pages, save_frontier, save_set_to_csv, empty_file, read_saved_frontier, read_saved_visited, read_saved_hashes, read_frontier_seeds
 
 
 # set this to False if you want to start the crawl with a given frontier, and visited set
@@ -23,12 +23,12 @@ SIMHASH_THRESHOLD = 5
 
 parsers = {}
 
-# entry has pattern (priority_score, depth, url)
-default_frontier = [(-1000, 0, 'https://www.tuebingen.de/'),
-                    # this site blocks access by bots
-                    (-999, 0, 'https://www.tuebingen-info.de/'),
-                    (-998, 0, 'https://en.wikipedia.org/wiki/T%C3%BCbingen'),
-                    (-997, 0, 'https://www.reddit.com/r/Tuebingen/')]
+# # entry has pattern (priority_score, depth, url)
+# default_frontier = [(-1000, 0, 'https://www.tuebingen.de/'),
+#                     # this site blocks access by bots
+#                     (-999, 0, 'https://www.tuebingen-info.de/'),
+#                     (-998, 0, 'https://en.wikipedia.org/wiki/T%C3%BCbingen'),
+#                     (-997, 0, 'https://www.reddit.com/r/Tuebingen/')]
 
 
 def parsing_allowed(url: str) -> bool:
@@ -340,7 +340,7 @@ def main():
         for file in ['frontier.csv', 'saved_pages.csv', 'blocked_saved_pages.csv', 'visited.csv']:
             empty_file(file)
 
-        frontier = default_frontier
+        frontier = read_frontier_seeds('frontier_seeds.txt')
         visited = set()
         all_hashes = set()
 
