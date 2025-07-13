@@ -9,7 +9,7 @@ import io
 import streamlit as st
 from st_screen_stats import ScreenData, StreamlitNativeWidgetScreen, WindowQuerySize, WindowQueryHelper
 
-MOBILE_THRESHOLD_PX = 768  # e.g., treat widths < 768px as mobile
+MOBILE_THRESHOLD_PX = 76  # e.g., treat widths < 76px as mobile
 # Initialize the screen stats component (with a 1-second delay for initial data)
 screen_data = ScreenData(setTimeout=300)  
 screen_stats = screen_data.st_screen_data()  # Get a dict of screen and window dimensions
@@ -75,11 +75,49 @@ if "ndocs" not in st.session_state:
 st.session_state.n_results = 100
 if "queries" not in st.session_state:
     st.session_state.queries = None
+if "history" not in st.session_state:
+    st.session_state.history = []
 
 
 queries_file=None
 query=None
 
+def load_query_from_history(session_queries,session_docs,index_tab=None):
+    st.write(session_queries)
+
+
+def create_sidebar(history):
+    if not history:
+        st.write("No history")
+    else:
+        for i,session in enumerate(history):
+            session_queries = session[0]
+            session_docs = session[1]
+            left_sb,right_sb = st.columns(2)
+
+            #if left_sb.button(f"{session[2]}",key=f"Session{i}",type="tertiary"):
+            #        load_query_from_history(session_queries,session_docs)
+            st.session_state.history[i][2] = left_sb.text_input("",session[2],label_visibility="collapsed")
+            popover = right_sb.popover("",use_container_width=True)
+            for j,session_query in enumerate(session_queries):
+                if popover.button(session_query,key=f"Session{i}{j}",type="tertiary"):
+                    load_query_from_history(session_queries,session_docs,j)
+
+
+
+
+#history_sidebar = st.sidebar()
+with st.sidebar:
+    
+    st.title("History")
+    #st.divider()
+    st.html("<hr>")
+    create_sidebar(st.session_state.history)
+    st.html("<hr>")
+    right_sidebar,middle_sidebar,left_sidebar =  st.columns([8,2,8])
+    if middle_sidebar.button("⟳",key="restart",type="tertiary",use_container_width=False):
+        st.rerun()
+    
 
 if window_width<MOBILE_THRESHOLD_PX:
     #activate mobile view
@@ -87,9 +125,6 @@ if window_width<MOBILE_THRESHOLD_PX:
 else:
     #activate desktop view
     st.title("Our search engine")
-    
-
-    
 
     st.markdown(f':orange-badge[{st.session_state.ndocs} documents to search]')
 
@@ -104,12 +139,14 @@ else:
             queries = get_queries(query,queries_file)
             st.session_state.queries=queries
             docs = start_searching(query,queries_file)
-            docs = example_retrieved_docs#TODO: remove when search implemented
+            docs = example_retrieved_docs #TODO: remove when search implemented
             st.session_state.pd_docs = docs
+            st.session_state.history.append([queries,docs,f"Session {len(st.session_state.history)}"])
+            st.rerun()
 
 
     #queries = example_queries#
-
+    st.html("<hr>")
     left,right = st.columns([6,1])
     with left:
         st.markdown("### Search results")
@@ -148,5 +185,3 @@ else:
         #st.table() might be helpful for results.
     else:
         st.markdown("## No results")
-
-    st.write(f"{st.session_state.queries}")
