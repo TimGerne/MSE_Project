@@ -80,19 +80,58 @@ if "queries" not in st.session_state:
 queries_file=None
 query=None
 
-
+st.title("Our search engine")
+st.markdown(f':orange-badge[{st.session_state.ndocs} documents to search]')
 if window_width<MOBILE_THRESHOLD_PX:
     #activate mobile view
-    st.write(window_width)
+    with st.form("search_form"):
+        queries_file = st.file_uploader("file upload 📁",help="Upload tab separated format",accept_multiple_files=False) 
+        query = st.text_input("or Write 👇",placeholder="Query here",help="Accept only one lined query")
+        
+        submitted = st.form_submit_button('Search 🔎')#,on_click=start_searching)
+        if submitted:
+            queries = get_queries(query,queries_file)
+            st.session_state.queries=queries
+            docs = start_searching(query,queries_file)
+            docs = example_retrieved_docs#TODO: remove when search implemented
+            st.session_state.pd_docs = docs
+
+
+        left,right = st.columns([6,1])
+    with left:
+        st.markdown("### Search results")
+
+    if st.session_state.queries:
+        with right:
+            st.session_state.n_results = st.number_input("Number of results",min_value=1,value=100,label_visibility="visible")
+
+        query_tabs_name = [f"Results {i}" for i in range(len(st.session_state.queries))]
+        st.sidebar
+        query_tabs = st.tabs(query_tabs_name)
+        for i,(query,tab) in enumerate(zip(st.session_state.queries,query_tabs)):
+            with tab:
+                example_retrieved_docs = st.session_state.pd_docs
+                ls,rs = st.columns([7,1])
+                ls.markdown(f"##### Query: {query}")
+                rs.download_button("Download",example_retrieved_docs[example_retrieved_docs["Query"]==i].to_csv(index=False,header=False,sep='\t'),file_name=f"results_query_{query}.tsc")
+                retrieved_docs = example_retrieved_docs.loc[example_retrieved_docs["Query"]==i].iloc[:,1:]
+                shown_docs = retrieved_docs.iloc[:st.session_state.n_results,:]
+                #tab.dataframe(retrieved_docs)
+                tab.dataframe(
+                    shown_docs,
+                    column_config={
+                        "Rank": st.column_config.NumberColumn("Rank",width="small"),
+                        "URL": st.column_config.LinkColumn("URL",width="mid"),
+                        "Relevance": st.column_config.NumberColumn("Relevance",width="small")
+                    },
+                    hide_index=True,
+                )
+
+        
+
 else:
     #activate desktop view
-    st.title("Our search engine")
     
-
-    
-
-    st.markdown(f':orange-badge[{st.session_state.ndocs} documents to search]')
-
     with st.form("search_form"):
         queries_file = st.file_uploader("Upload Queries via file 📁",help="Upload tab separated format",accept_multiple_files=False) 
         query = st.text_input("or put your Query here 👇",placeholder="What are you looking for?",help="Accept only one lined query")
@@ -149,4 +188,3 @@ else:
     else:
         st.markdown("## No results")
 
-    st.write(f"{st.session_state.queries}")
