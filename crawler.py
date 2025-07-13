@@ -5,28 +5,30 @@ from urllib.robotparser import RobotFileParser
 from urllib.parse import urlparse, urljoin, unquote_plus
 import heapq
 from langdetect import detect_langs
+from simhash import Simhash, SimhashIndex
 
-from crawler_file_IO import write_saved_pages, save_frontier, save_visited, empty_file, read_saved_frontier, read_saved_visited
+
+from crawler_file_IO import write_saved_pages, save_frontier, save_set_to_csv, empty_file, read_saved_frontier, read_saved_visited, read_saved_hashes, read_frontier_seeds
 
 
 # set this to False if you want to start the crawl with a given frontier, and visited set
-START_NEW_SEARCH = False
+START_NEW_SEARCH = True
 # after how many crawler loop iterations frontier and visited_pages get saved to file
 CHUNKSIZE = 10  # TODO set bigger value for deployment
 
 CRAWLER_NAME = 'MSE_Crawler_1'
 REQUEST_TIMEOUT = 10    # in seconds
 TUEBINGENS = ['tübingen', 'tubingen', 'tuebingen']
-
+SIMHASH_THRESHOLD = 5
 
 parsers = {}
 
-# entry has pattern (priority_score, depth, url)
-default_frontier = [(-1000, 0, 'https://www.tuebingen.de/'),
-                    # this site blocks access by bots
-                    (-999, 0, 'https://www.tuebingen-info.de/'),
-                    (-998, 0, 'https://en.wikipedia.org/wiki/T%C3%BCbingen'),
-                    (-997, 0, 'https://www.reddit.com/r/Tuebingen/')]
+# # entry has pattern (priority_score, depth, url)
+# default_frontier = [(-1000, 0, 'https://www.tuebingen.de/'),
+#                     # this site blocks access by bots
+#                     (-999, 0, 'https://www.tuebingen-info.de/'),
+#                     (-998, 0, 'https://en.wikipedia.org/wiki/T%C3%BCbingen'),
+#                     (-997, 0, 'https://www.reddit.com/r/Tuebingen/')]
 
 
 def parsing_allowed(url: str) -> bool:
@@ -100,7 +102,7 @@ def get_last_modified(response: requests.Response) -> None:
 # TODO threshold value
 
 
-def page_is_english(page_content, threshold: int = 0.66) -> bool:
+def page_is_english(page_content, threshold: int = 0.66) -> tuple[bool, str]:
     try:
         # parse website again (needed as changes to soup are permanent)
         soup = BeautifulSoup(page_content, 'html.parser')
@@ -174,6 +176,51 @@ def contains_tuebingen(text: str) -> bool:
         return False
 
 
+# def check_duplicate(soup, index: SimhashIndex, hash_store: set):
+#     # remove unwanted tags
+#     for tag in soup(['script', 'style']):
+#         tag.decompose()
+
+#     text = soup.get_text(separator=' ', strip=True)
+#     tokens = text.lower().split()
+#     curr_hash = Simhash(tokens)
+
+#     print(curr_hash.value)
+
+#     # Query index for near duplicates
+#     duplicates = index.get_near_dups(curr_hash)
+#     if duplicates:
+#         return True, index, hash_store
+
+#     # Add new hash to the index
+#     # Need a unique key for each hash; use hash value or a counter
+#     key = str(curr_hash.value)
+#     index.add(key, curr_hash)
+#     hash_store.add(curr_hash.value)
+
+#     return False, index, hash_store
+
+
+def check_duplicate(soup, all_hashes: set, threshold: int = 3) -> tuple[bool, set]:
+    # remove unwanted tags
+    for tag in soup(['script', 'style']):
+        tag.decompose()
+
+    text = soup.get_text(separator=' ', strip=True)
+    tokens = text.lower().split()
+    curr_hash = Simhash(tokens).value
+
+    for hash in all_hashes:
+        hamming_distance = bin(curr_hash ^ hash).count('1')
+        if hamming_distance <= threshold:
+            return True, all_hashes
+
+    # only add when no duplicate is found, as otherwise we skip the page
+    all_hashes.add(curr_hash)
+
+    return False, all_hashes
+
+
 def calc_priority_score(url: str, depth: int, anchor_text: str) -> int:
     # best score is 27
     score = 0
@@ -190,7 +237,7 @@ def calc_priority_score(url: str, depth: int, anchor_text: str) -> int:
 
 
 # crawls the frontier
-def crawl(frontier, visited):
+def crawl(frontier, visited: set, all_hashes: set) -> None:
     n_iterations = 0
     pages_to_save = []              # keeps track of visited pages
     # keeps track of sites the crawler was not allowed to visit
@@ -209,7 +256,9 @@ def crawl(frontier, visited):
                                   blocking_pages_to_save)
                 blocking_pages_to_save = []  # empty the list
 
-            save_visited('visited.csv', visited)
+            save_set_to_csv('visited.csv', visited)
+            # TODO rename function
+            save_set_to_csv('all_hashes.csv', all_hashes)
 
         # get node with highest priority (i.e. lowest priority number)
         node = heapq.heappop(frontier)  # removes node from frontier
@@ -230,8 +279,6 @@ def crawl(frontier, visited):
             continue
 
         visited.add(url)
-        # currently we save even if we cannot open the page TODO think about this
-        # pages_to_save.append(node)
 
         # check robots.tsx
         if not parsing_allowed(url):
@@ -264,9 +311,13 @@ def crawl(frontier, visited):
         # get page content
         soup = BeautifulSoup(response.text, 'html.parser')
 
+        is_duplicate, all_hashes = check_duplicate(soup, all_hashes)
+        if is_duplicate:
+            print(f'Page is duplicate: {url}')
+            continue
+
         # do something with the content
         process_page(url, soup)
-        # get_last_modified(response)
         pages_to_save.append(node)
 
         # iterate through all links in page and add to priority queue
@@ -289,17 +340,17 @@ def main():
         for file in ['frontier.csv', 'saved_pages.csv', 'blocked_saved_pages.csv', 'visited.csv']:
             empty_file(file)
 
-        frontier = default_frontier
+        frontier = read_frontier_seeds('frontier_seeds.txt')
         visited = set()
+        all_hashes = set()
 
     else:
         frontier = read_saved_frontier('frontier.csv')
-        heapq.heapify(frontier)
-
         visited = set(read_saved_visited('visited.csv'))
+        all_hashes = set(read_saved_hashes('all_hashes.csv'))
 
     heapq.heapify(frontier)
-    crawl(frontier, visited)
+    crawl(frontier, visited, all_hashes)
 
 
 if __name__ == '__main__':

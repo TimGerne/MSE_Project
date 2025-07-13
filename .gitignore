@@ -12,5 +12,7 @@ blocked_saved_pages.csv
 saved_pages.csv
 frontier.csv
 keys.py
+visited.csv
+all_hashes.csv
 qrels.txt
 __pycache__/keys.cpython-38.pyc
