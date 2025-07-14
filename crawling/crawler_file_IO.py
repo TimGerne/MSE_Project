@@ -70,3 +70,15 @@ def read_frontier_seeds(filepath: str, start_priority: int = -1000, start_depth:
         default_frontier.append((start_priority + i, start_depth, url))
     
     return default_frontier
+
+
+def count_entries_in_csv(file_path: str) -> int:
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            return sum(1 for _ in f)
+    except FileNotFoundError:
+        print(f"File not found: {file_path}")
+        return 0
+    except Exception as e:
+        print(f"Error reading file {file_path}: {e}")
+        return 0

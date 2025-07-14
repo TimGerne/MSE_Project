@@ -1,20 +1,22 @@
 import requests
+import os
 from bs4 import BeautifulSoup
 import time
 from urllib.robotparser import RobotFileParser
 from urllib.parse import urlparse, urljoin, unquote_plus
 import heapq
 from langdetect import detect_langs
-from simhash import Simhash, SimhashIndex
+from simhash import Simhash
+import psutil
+
+from crawler_file_IO import (write_saved_pages, save_frontier, save_set_to_csv, empty_file,
+                             read_saved_frontier, read_saved_visited, read_saved_hashes, read_frontier_seeds, count_entries_in_csv)
 
 
-from crawler_file_IO import write_saved_pages, save_frontier, save_set_to_csv, empty_file, read_saved_frontier, read_saved_visited, read_saved_hashes, read_frontier_seeds
-
-
-# set this to False if you want to start the crawl with a given frontier, and visited set
-START_NEW_SEARCH = True
-# after how many crawler loop iterations frontier and visited_pages get saved to file
-CHUNKSIZE = 10  # TODO set bigger value for deployment
+# TODO set this to False if you want to start the crawl with a given frontier, and visited set
+START_NEW_SEARCH = False
+# TODO set to specify after how many crawler loops information is saved
+CHUNKSIZE = 10
 
 CRAWLER_NAME = 'MSE_Crawler_1'
 REQUEST_TIMEOUT = 10    # in seconds
@@ -23,19 +25,12 @@ SIMHASH_THRESHOLD = 5
 
 parsers = {}
 
-# # entry has pattern (priority_score, depth, url)
-# default_frontier = [(-1000, 0, 'https://www.tuebingen.de/'),
-#                     # this site blocks access by bots
-#                     (-999, 0, 'https://www.tuebingen-info.de/'),
-#                     (-998, 0, 'https://en.wikipedia.org/wiki/T%C3%BCbingen'),
-#                     (-997, 0, 'https://www.reddit.com/r/Tuebingen/')]
-
 
 def parsing_allowed(url: str) -> bool:
     # get domain
     domain = urlparse(url).netloc
 
-    # check if parser exists and use or create it
+    # check if parser exists and use it or create it
     if domain in parsers:
         rp = parsers[domain]
     else:
@@ -46,7 +41,11 @@ def parsing_allowed(url: str) -> bool:
 
             # check if robots.tsx does exist and is readable
             rp.read()
-            # if not allow to crawl
+
+            # This is an edge case were we cannot access robots.txt (e.g. because of rerouting to main page)
+            # We assume that we are allowed to crawl in this case
+            if not rp.last_checked:
+                return True
         except Exception as e:
             print(f"[ERROR] Failed to read robots.txt for {domain}: {e}")
             return True
@@ -56,8 +55,7 @@ def parsing_allowed(url: str) -> bool:
 
 
 # has to be called after parsing_allowed to make sure that domain is in parsers dic
-def get_crawl_delay(url: str, default_delay: int = 1) -> int:
-    # TODO make this more efficient as e.g. combine with parsing_allowed()
+def get_crawl_delay(url: str, default_delay: float = 1.0) -> float:
     domain = urlparse(url).netloc
 
     # domain should be in parser at this point as we called parsing_allowed before
@@ -65,7 +63,7 @@ def get_crawl_delay(url: str, default_delay: int = 1) -> int:
         rp = parsers[domain]
 
         delay = rp.crawl_delay(CRAWLER_NAME)
-        if delay:
+        if delay and delay <= 10:
             return delay
         else:
             return default_delay
@@ -74,12 +72,11 @@ def get_crawl_delay(url: str, default_delay: int = 1) -> int:
         return default_delay
 
 
-# TODO was machen wir mit den dokumenten: - speichern? vektor repräsentationen? ...
-# nur links speichern und dann die links von den embedding modellen aufrufen
 def process_page(url: str, soup: BeautifulSoup) -> None:
     try:
         print(soup.find('title').text)
         print(url)
+        print()
     except Exception as e:
         print(f'[ERROR] Page title could not be read: {e}')
         print(url)
@@ -98,8 +95,6 @@ def get_last_modified(response: requests.Response) -> None:
         print()
     except Exception as e:
         print(f'[ERROR] while retrieving page last modified data: {e}')
-
-# TODO threshold value
 
 
 def page_is_english(page_content, threshold: int = 0.66) -> tuple[bool, str]:
@@ -125,7 +120,7 @@ def page_is_english(page_content, threshold: int = 0.66) -> tuple[bool, str]:
 
     except Exception as e:
         print(f'[ERROR] while checking page language: {e}')
-        return True  # TODO might change this to False
+        return True  # assume page is english when we cannot get its language
 
 
 def is_unwanted_file_type(url: str) -> bool:
@@ -133,7 +128,6 @@ def is_unwanted_file_type(url: str) -> bool:
                             ".webp", ".pdf", ".ppt", ".pptx", ".doc", ".docx", ".xls", ".xlsx",
                             ".mp3", ".mp4", ".avi", ".mov", ".wmv", ".zip", ".rar", ".gz"]
 
-    # TODO check if necessary and how long this takes
     unwanted_content_types = ["image/", "video/", "audio/", "application/pdf", "application/zip", "application/gzip",
                               "application/msword", "application/vnd.ms-excel", "application/vnd.ms-powerpoint",
                               "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
@@ -160,7 +154,7 @@ def is_unwanted_file_type(url: str) -> bool:
 
     except Exception as e:
         print(f'[ERROR] while checking for unwanted file type: {e}')
-        return True  # TODO might change this to False
+        return True     # we are cautious here if we cannot check the filetype
 
 
 def contains_tuebingen(text: str) -> bool:
@@ -174,31 +168,6 @@ def contains_tuebingen(text: str) -> bool:
     except Exception as e:
         print(f'[ERROR] checking if Tuebingen in page: {e}')
         return False
-
-
-# def check_duplicate(soup, index: SimhashIndex, hash_store: set):
-#     # remove unwanted tags
-#     for tag in soup(['script', 'style']):
-#         tag.decompose()
-
-#     text = soup.get_text(separator=' ', strip=True)
-#     tokens = text.lower().split()
-#     curr_hash = Simhash(tokens)
-
-#     print(curr_hash.value)
-
-#     # Query index for near duplicates
-#     duplicates = index.get_near_dups(curr_hash)
-#     if duplicates:
-#         return True, index, hash_store
-
-#     # Add new hash to the index
-#     # Need a unique key for each hash; use hash value or a counter
-#     key = str(curr_hash.value)
-#     index.add(key, curr_hash)
-#     hash_store.add(curr_hash.value)
-
-#     return False, index, hash_store
 
 
 def check_duplicate(soup, all_hashes: set, threshold: int = 3) -> tuple[bool, set]:
@@ -236,33 +205,51 @@ def calc_priority_score(url: str, depth: int, anchor_text: str) -> int:
     return score
 
 
-# crawls the frontier
+def save_files(frontier, visited, all_hashes, pages_to_save, blocking_pages_to_save):
+    save_frontier('frontier.csv', frontier)
+    save_set_to_csv('visited.csv', visited)
+    save_set_to_csv('all_hashes.csv', all_hashes)
+
+    if pages_to_save:
+        write_saved_pages('saved_pages.csv', pages_to_save)
+        pages_to_save = []  # empty list as its just used for this file
+
+    if blocking_pages_to_save:
+        write_saved_pages('blocked_saved_pages.csv',
+                          blocking_pages_to_save)
+        blocking_pages_to_save = []  # empty list as its just used for this file
+
+    len_frontier = count_entries_in_csv('frontier.csv')
+    len_saved_pages = count_entries_in_csv('saved_pages.csv')
+    print(
+        f'\nAmount of saved pages: {len_saved_pages} | Frontier size: {len_frontier}\n')
+
+    return pages_to_save, blocking_pages_to_save
+
+
 def crawl(frontier, visited: set, all_hashes: set) -> None:
     n_iterations = 0
-    pages_to_save = []              # keeps track of visited pages
+    # keeps track of visited pages
+    pages_to_save = []
     # keeps track of sites the crawler was not allowed to visit
     blocking_pages_to_save = []
 
     while frontier:
+        # makes sure RAM does not get full
+        if psutil.virtual_memory().percent > 90:
+            pages_to_save, blocking_pages_to_save = save_files(
+                frontier, visited, all_hashes, pages_to_save, blocking_pages_to_save)
+            print("[WARNING] Memory usage high. Saving and stopping crawler")
+            quit()
+
         if n_iterations % CHUNKSIZE == 0:
-            save_frontier('frontier.csv', frontier)
-
-            if pages_to_save:
-                write_saved_pages('saved_pages.csv', pages_to_save)
-                pages_to_save = []  # empty the list
-
-            if blocking_pages_to_save:
-                write_saved_pages('blocked_saved_pages.csv',
-                                  blocking_pages_to_save)
-                blocking_pages_to_save = []  # empty the list
-
-            save_set_to_csv('visited.csv', visited)
-            # TODO rename function
-            save_set_to_csv('all_hashes.csv', all_hashes)
+            pages_to_save, blocking_pages_to_save = save_files(
+                frontier, visited, all_hashes, pages_to_save, blocking_pages_to_save)
 
         # get node with highest priority (i.e. lowest priority number)
-        node = heapq.heappop(frontier)  # removes node from frontier
+        node = heapq.heappop(frontier)  # get and remove node from frontier
         priority_score = node[0]
+        # how many "steps" this node is away from frontier seeds
         depth = node[1]
         url = node[2]
 
@@ -295,9 +282,8 @@ def crawl(frontier, visited: set, all_hashes: set) -> None:
             continue
 
         # check if website is available
-        # we check this before checking robots.txt because if the used parser cannot access the website it does not throw an error
         if response.status_code != 200:
-            print(f'URL returns wrong code: {url}')
+            print(f'URL returns wrong code {response.status_code}: {url}\n')
             continue
 
         # we only want to crawl english pages
@@ -306,15 +292,15 @@ def crawl(frontier, visited: set, all_hashes: set) -> None:
             print(f'Site is not in english but {most_prob_lang}: {url}\n')
             continue
 
-        time.sleep(get_crawl_delay(url))  # TODO when do we call this
-
         # get page content
         soup = BeautifulSoup(response.text, 'html.parser')
 
         is_duplicate, all_hashes = check_duplicate(soup, all_hashes)
         if is_duplicate:
-            print(f'Page is duplicate: {url}')
+            print(f'Page is duplicate: {url}\n')
             continue
+
+        time.sleep(get_crawl_delay(url))
 
         # do something with the content
         process_page(url, soup)
@@ -336,9 +322,13 @@ def crawl(frontier, visited: set, all_hashes: set) -> None:
 
 
 def main():
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    os.chdir(script_dir)
+
     if START_NEW_SEARCH:
         for file in ['frontier.csv', 'saved_pages.csv', 'blocked_saved_pages.csv', 'visited.csv']:
             empty_file(file)
+        print()
 
         frontier = read_frontier_seeds('frontier_seeds.txt')
         visited = set()
