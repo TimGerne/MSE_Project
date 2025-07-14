@@ -16,3 +16,4 @@ visited.csv
 all_hashes.csv
 qrels.txt
 __pycache__/keys.cpython-38.pyc
+__pycache__/evaluation.cpython-38.pyc
