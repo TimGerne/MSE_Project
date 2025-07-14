@@ -1,5 +1,6 @@
 import streamlit as st
 from streamlit_js_eval import streamlit_js_eval, get_geolocation
+from streamlit_extras.stylable_container import stylable_container
 
 import pandas as pd
 import numpy as np
@@ -64,26 +65,9 @@ def get_queries(query:str|None,queries_file:st.runtime.uploaded_file_manager.Upl
         return None
 
 
-st.set_page_config(page_title="Search",page_icon="🔎",layout="wide")
-
-if "pd_docs" not in st.session_state:
-    st.session_state.pd_docs = None
-if "has_searched" not in st.session_state:
-        st.session_state.has_searched=False
-if "ndocs" not in st.session_state:
-    st.session_state.ndocs=10000 #Look for documents
-st.session_state.n_results = 100
-if "queries" not in st.session_state:
-    st.session_state.queries = None
-if "history" not in st.session_state:
-    st.session_state.history = []
-
-
-queries_file=None
-query=None
-
-def load_query_from_history(session_queries,session_docs,index_tab=None):
-    st.write(session_queries)
+def load_session(current_session:int):
+    st.session_state.current_session = current_session
+    st.rerun()
 
 
 def create_sidebar(history):
@@ -91,33 +75,63 @@ def create_sidebar(history):
         st.write("No history")
     else:
         for i,session in enumerate(history):
-            session_queries = session[0]
-            session_docs = session[1]
-            left_sb,right_sb = st.columns(2)
+            my_style = """
+                button {
+                    background-color: #262730;
+                    color: white;
+                    border-radius: 0px;
+                }
+                button[data-testid="stPopoverButton"] {
+                    border: None !important;
+                }
+                div[data-testid="st] div[data-testid="stHorizontalBlock"] div[data-testid="stTextInput"] input {
+                    color: white;
+                }
+                """
 
-            #if left_sb.button(f"{session[2]}",key=f"Session{i}",type="tertiary"):
-            #        load_query_from_history(session_queries,session_docs)
-            st.session_state.history[i][2] = left_sb.text_input("",session[2],label_visibility="collapsed")
-            popover = right_sb.popover("",use_container_width=True)
-            for j,session_query in enumerate(session_queries):
-                if popover.button(session_query,key=f"Session{i}{j}",type="tertiary"):
-                    load_query_from_history(session_queries,session_docs,j)
+            with stylable_container(
+                key=f"style_container{i}",
+                css_styles=my_style,
+            ):
+                with st.container(border=True):
+                    if st.session_state.current_session==i:
+                        st.badge("active", color="green")
+                    left_sb,middle_sb,right_sb = st.columns([2,5,2])
+                    session_queries = session[0]
+                    session_name = session[2]
+                    
+                    #name session
+                    st.session_state.history[i][2] = middle_sb.text_input("Sessioname_text{i}",session_name,label_visibility="collapsed")
+                    session_name = st.session_state.history[i][2]
+                    #load session
+                    if left_sb.button("→",type="tertiary",key=f"Session_load_{i}",use_container_width=True):
+                        load_session(i)
+                    #shows all queries
+                    popover = right_sb.popover(label='')
+                    for j,session_query in enumerate(session_queries):
+                        popover.text(session_query)
+                    
 
 
+##Initialization
+st.set_page_config(page_title="Search",page_icon="🔎",layout="wide")
+if "ndocs" not in st.session_state:
+    st.session_state.ndocs=10000 #TODO Look for documents
+st.session_state.n_results = 100
+if "current_session" not in st.session_state:
+    st.session_state.current_session =None
+if "history" not in st.session_state:
+    st.session_state.history = []
 
 
-#history_sidebar = st.sidebar()
+queries_file=None
+query=None
+
 with st.sidebar:
-    
-    st.title("History")
-    #st.divider()
-    st.html("<hr>")
+    st.header("History",width="stretch",divider="grey")
     create_sidebar(st.session_state.history)
     st.html("<hr>")
     right_sidebar,middle_sidebar,left_sidebar =  st.columns([8,2,8])
-    if middle_sidebar.button("⟳",key="restart",type="tertiary",use_container_width=False):
-        st.rerun()
-    
 
 if window_width<MOBILE_THRESHOLD_PX:
     #activate mobile view
@@ -132,40 +146,46 @@ else:
         queries_file = st.file_uploader("Upload Queries via file 📁",help="Upload tab separated format",accept_multiple_files=False) 
         query = st.text_input("or put your Query here 👇",placeholder="What are you looking for?",help="Accept only one lined query")
         
-    #Search
-
+        #Search code
         submitted = st.form_submit_button('Start Search 🔎')#,on_click=start_searching)
         if submitted:
             queries = get_queries(query,queries_file)
-            st.session_state.queries=queries
             docs = start_searching(query,queries_file)
             docs = example_retrieved_docs #TODO: remove when search implemented
-            st.session_state.pd_docs = docs
-            st.session_state.history.append([queries,docs,f"Session {len(st.session_state.history)}"])
+            
+            st.session_state.current_session = len(st.session_state.history)
+            session_name = f"Session {st.session_state.current_session}"
+            st.session_state.history.append([queries,docs,session_name])
             st.rerun()
 
 
-    #queries = example_queries#
     st.html("<hr>")
-    left,right = st.columns([6,1])
-    with left:
-        st.markdown("### Search results")
+    
+    st.markdown("### Search results")
 
-    if st.session_state.queries:
+    if len(st.session_state.history)>0: #check if already searched
+
+        current_session = st.session_state.current_session
+        current_queries,current_docs,current_session_name = st.session_state.history[current_session]
+        
+        left,right = st.columns([6,1])
+        with left:
+            st.markdown(f"## {current_session_name}")
         with right:
-            st.session_state.n_results = st.number_input("Number of results",min_value=1,value=100,label_visibility="visible")
+            st.session_state.n_results = st.number_input("Number of results",min_value=1,value=100,label_visibility="collapsed",help="Number of results shown")
 
-        query_tabs_name = [f"Results {i}" for i in range(len(st.session_state.queries))]
+        query_tabs_name = [f"Results {i}" for i in range(len(current_queries))]
         query_tabs = st.tabs(query_tabs_name)
-        for i,(query,tab) in enumerate(zip(st.session_state.queries,query_tabs)):
+        for i,(query,tab) in enumerate(zip(current_queries,query_tabs)):
             with tab:
-                example_retrieved_docs = st.session_state.pd_docs
+                example_retrieved_docs = current_docs
                 ls,rs = st.columns([7,1])
                 ls.markdown(f"##### Query: {query}")
-                rs.download_button("Download",example_retrieved_docs[example_retrieved_docs["Query"]==i].to_csv(index=False,header=False,sep='\t'),file_name=f"results_query_{query}.tsc")
+                rs.download_button("📥",example_retrieved_docs[example_retrieved_docs["Query"]==i].to_csv(index=False,header=False,sep='\t'),file_name=f"results_query_{query}.tsc")
                 retrieved_docs = example_retrieved_docs.loc[example_retrieved_docs["Query"]==i].iloc[:,1:]
                 shown_docs = retrieved_docs.iloc[:st.session_state.n_results,:]
-                #tab.dataframe(retrieved_docs)
+                
+                #Show results as Dataframe
                 tab.dataframe(
                     shown_docs,
                     column_config={
@@ -178,10 +198,6 @@ else:
 
         st.download_button('Download all results', example_retrieved_docs.to_csv(index=False,header=False,sep='\t'),file_name="Results.tsv")
 
-        #@st.cache_resource for ML resources
-        #https://docs.streamlit.io/get-started/fundamentals/advanced-concepts #DB connection
-        #st.html("<p>Foo bar <p>")
-        #st.metric("Some Value",42,2)
-        #st.table() might be helpful for results.
+        #@st.cache_resource for ML resources #https://docs.streamlit.io/get-started/fundamentals/advanced-concepts #DB connection #st.metric("Some Value",42,2)
     else:
         st.markdown("## No results")
