@@ -1,4 +1,5 @@
 import requests
+import os
 from bs4 import BeautifulSoup
 import time
 from urllib.robotparser import RobotFileParser
@@ -296,7 +297,7 @@ def crawl(frontier, visited: set, all_hashes: set) -> None:
 
         is_duplicate, all_hashes = check_duplicate(soup, all_hashes)
         if is_duplicate:
-            print(f'Page is duplicate: {url}')
+            print(f'Page is duplicate: {url}\n')
             continue
 
         time.sleep(get_crawl_delay(url))
@@ -321,6 +322,9 @@ def crawl(frontier, visited: set, all_hashes: set) -> None:
 
 
 def main():
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    os.chdir(script_dir)
+
     if START_NEW_SEARCH:
         for file in ['frontier.csv', 'saved_pages.csv', 'blocked_saved_pages.csv', 'visited.csv']:
             empty_file(file)
