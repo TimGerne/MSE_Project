@@ -9,7 +9,7 @@ from simhash import Simhash
 import psutil
 
 from crawler_file_IO import (write_saved_pages, save_frontier, save_set_to_csv, empty_file,
-                             read_saved_frontier, read_saved_visited, read_saved_hashes, read_frontier_seeds)
+                             read_saved_frontier, read_saved_visited, read_saved_hashes, read_frontier_seeds, count_entries_in_csv)
 
 
 # TODO set this to False if you want to start the crawl with a given frontier, and visited set
@@ -218,6 +218,11 @@ def save_files(frontier, visited, all_hashes, pages_to_save, blocking_pages_to_s
                           blocking_pages_to_save)
         blocking_pages_to_save = []  # empty list as its just used for this file
 
+    len_frontier = count_entries_in_csv('frontier.csv')
+    len_saved_pages = count_entries_in_csv('saved_pages.csv')
+    print(
+        f'\nAmount of saved pages: {len_saved_pages} | Frontier size: {len_frontier}\n')
+
     return pages_to_save, blocking_pages_to_save
 
 
@@ -319,6 +324,7 @@ def main():
     if START_NEW_SEARCH:
         for file in ['frontier.csv', 'saved_pages.csv', 'blocked_saved_pages.csv', 'visited.csv']:
             empty_file(file)
+        print()
 
         frontier = read_frontier_seeds('frontier_seeds.txt')
         visited = set()
