@@ -8,6 +8,7 @@ import heapq
 from langdetect import detect_langs
 from simhash import Simhash
 import psutil
+import sys
 
 from crawler_file_IO import (write_saved_pages, save_frontier, save_set_to_csv, empty_file,
                              read_saved_frontier, read_saved_visited, read_saved_hashes, read_frontier_seeds, count_entries_in_csv)
@@ -16,7 +17,7 @@ from crawler_file_IO import (write_saved_pages, save_frontier, save_set_to_csv, 
 # TODO set this to False if you want to start the crawl with a given frontier, and visited set
 START_NEW_SEARCH = False
 # TODO set to specify after how many crawler loops information is saved
-CHUNKSIZE = 10
+CHUNKSIZE = 50
 
 CRAWLER_NAME = 'MSE_Crawler_1'
 REQUEST_TIMEOUT = 10    # in seconds
@@ -120,35 +121,42 @@ def page_is_english(page_content, threshold: int = 0.66) -> tuple[bool, str]:
 
     except Exception as e:
         print(f'[ERROR] while checking page language: {e}')
-        return True  # assume page is english when we cannot get its language
+        # assume page is english when we cannot get its language
+        return True, 'language not found'
 
 
 def is_unwanted_file_type(url: str) -> bool:
     unwanted_url_endings = [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".svg",
                             ".webp", ".pdf", ".ppt", ".pptx", ".doc", ".docx", ".xls", ".xlsx",
-                            ".mp3", ".mp4", ".avi", ".mov", ".wmv", ".zip", ".rar", ".gz"]
+                            ".mp3", ".mp4", ".avi", ".mov", ".wmv", ".zip", ".rar", ".gz", ".faces"]
 
-    unwanted_content_types = ["image/", "video/", "audio/", "application/pdf", "application/zip", "application/gzip",
-                              "application/msword", "application/vnd.ms-excel", "application/vnd.ms-powerpoint",
-                              "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-                              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                              "application/vnd.openxmlformats-officedocument.presentationml.presentation"]
+    # unwanted_content_types = ["image/", "video/", "audio/", "application/pdf", "application/zip", "application/gzip",
+    #                           "application/msword", "application/vnd.ms-excel", "application/vnd.ms-powerpoint",
+    #                           "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    #                           "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    #                           "application/vnd.openxmlformats-officedocument.presentationml.presentation"]
 
+    unwanted_url_beginnings = ["image.", "video.", "audio."]
     try:
         # check for url endings
         for ending in unwanted_url_endings:
             if url.lower().endswith(ending):
                 return True
 
-        # only if url endings are ok, do request
-        head_response = requests.head(url, headers={'User-Agent': CRAWLER_NAME},
-                                      allow_redirects=True, timeout=REQUEST_TIMEOUT)
-        page_content_type = head_response.headers.get(
-            'Content-Type', '').lower()
-
-        for type in unwanted_content_types:
-            if page_content_type.startswith(type):
+        # this is a bit of a  heuristic but seems to work
+        for content_type in unwanted_url_beginnings:
+            if urlparse(url).netloc.startswith(content_type):
                 return True
+
+        # # only if url endings are ok, do request
+        # head_response = requests.head(url, headers={'User-Agent': CRAWLER_NAME},
+        #                               allow_redirects=True, timeout=REQUEST_TIMEOUT)
+        # page_content_type = head_response.headers.get(
+        #     'Content-Type', '').lower()
+
+        # for type in unwanted_content_types:
+        #     if page_content_type.startswith(type):
+        #         return True
 
         return False
 
@@ -240,6 +248,7 @@ def crawl(frontier, visited: set, all_hashes: set) -> None:
             pages_to_save, blocking_pages_to_save = save_files(
                 frontier, visited, all_hashes, pages_to_save, blocking_pages_to_save)
             print("[WARNING] Memory usage high. Saving and stopping crawler")
+            sys.exit()
             quit()
 
         if n_iterations % CHUNKSIZE == 0:
