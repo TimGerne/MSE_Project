@@ -6,8 +6,8 @@ import argparse
 import os
 
 # Paths to the index and document mapping
-INDEX_PATH = "../indexing/output/semantic_index.faiss"
-DOC_MAPPING_PATH = "../indexing/output/doc_mapping.json"
+INDEX_PATH = "../indexing/indexing/output/semantic_index.faiss"
+DOC_MAPPING_PATH = "../indexing/indexing/output/doc_mapping.json"
 
 # Load SentenceTransformer model (same one used in indexing)
 model = SentenceTransformer("all-MiniLM-L6-v2")
