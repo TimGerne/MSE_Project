@@ -134,7 +134,7 @@ class BM25RetrievalModel(BaseRetrievalModel):
         return [
             {"url": self.urls[i], "score": s, "snippet": self.texts[i][:300]}
             for i, s in ranked
-        ]
+        ] 
 
 
 class TFIDFRetrievalModel(BaseRetrievalModel):
