@@ -1,0 +1,8 @@
+q1	Tübingen attractions
+q2	food and drinks
+q3	Things to do in Tübingen
+q4	tübingen university history
+q5	Public transport Tübingen
+q6	Festivals in Tübingen
+q7	Hiking near Tübingen
+q8	english guide to tübingen

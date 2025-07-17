@@ -6,6 +6,7 @@ from keys import API_KEY, CSE_ID
 # additionally creates qrels.txt file containing top 10 websites to each topic according to Google API
 # can be increased to 100 top results via num_results parameter
 
+
 categories = [
     "attractions", "food and drinks", "restaurants", "cafes", "bars", "hotels", "university", "student life",
     "museums", "architecture", "history", "weather", "transportation", "bike rentals",
