@@ -9,6 +9,7 @@ from langdetect import detect_langs
 from simhash import Simhash
 import psutil
 import sys
+import random
 
 from crawler_file_IO import (write_saved_pages, save_frontier, save_set_to_csv, empty_file,
                              read_saved_frontier, read_saved_visited, read_saved_hashes, read_frontier_seeds, count_entries_in_csv)
@@ -198,23 +199,57 @@ def check_duplicate(soup, all_hashes: set, threshold: int = 3) -> tuple[bool, se
     return False, all_hashes
 
 
-def calc_priority_score(url: str, depth: int, anchor_text: str) -> int:
-    # best score is 27
+# def calc_priority_score(url: str, depth: int, anchor_text: str) -> int:
+#     # best score is 27
+#     score = 0
+
+#     score += max(0, 15 - depth)
+
+#     if contains_tuebingen(unquote_plus(url)):
+#         score += 5
+
+#     if contains_tuebingen(anchor_text):
+#         score += 7
+
+#     return score
+
+
+def calc_priority_score_updated(
+    url: str,
+    depth: int,
+    visited_domains: set,
+    max_depth: int = 10
+) -> int:
     score = 0
 
-    score += max(0, 15 - depth)
+    if depth > max_depth:
+        print('ERROR: max depth overstepped')
+        return -1000  # very low priority -> will never be crawled
 
+    current_domain = urlparse(url).netloc
+
+    # 1. Closer pages get higher score
+    score += max(0, 12 - depth)
+
+    # 2. URL contains Tübingen -> decays with depth
     if contains_tuebingen(unquote_plus(url)):
-        score += 5
+        score += max(0, int(4 * (1 - (depth / max_depth))))
 
-    if contains_tuebingen(anchor_text):
-        score += 7
+    # 4. New domain bonus to motivate domain diversity -> decays with depth
+    if current_domain not in visited_domains:
+        score += int(5 * (1 - (depth / max_depth)))
+
+    # 6. Random exploration to further motivate diversity
+    # score += random.randint(0, 2)
+    score += random.randint(0, int(2 * (1 - depth / max_depth)))
 
     return score
 
 
 def save_files(frontier, visited, all_hashes, pages_to_save, blocking_pages_to_save):
-    save_frontier('frontier.csv', frontier)
+   # save_frontier('frontier.csv', frontier)
+    save_frontier('new_prioritized_frontier.csv', frontier)
+
     save_set_to_csv('visited.csv', visited)
     save_set_to_csv('all_hashes.csv', all_hashes)
 
@@ -227,7 +262,9 @@ def save_files(frontier, visited, all_hashes, pages_to_save, blocking_pages_to_s
                           blocking_pages_to_save)
         blocking_pages_to_save = []  # empty list as its just used for this file
 
-    len_frontier = count_entries_in_csv('frontier.csv')
+    # len_frontier = count_entries_in_csv('frontier.csv')
+    len_frontier = count_entries_in_csv('new_prioritized_frontier.csv')
+
     len_saved_pages = count_entries_in_csv('saved_pages.csv')
     print(
         f'\nAmount of saved pages: {len_saved_pages} | Frontier size: {len_frontier}\n')
@@ -235,7 +272,7 @@ def save_files(frontier, visited, all_hashes, pages_to_save, blocking_pages_to_s
     return pages_to_save, blocking_pages_to_save
 
 
-def crawl(frontier, visited: set, all_hashes: set) -> None:
+def crawl(frontier, visited: set, all_hashes: set, visited_domains: set) -> None:
     n_iterations = 0
     # keeps track of visited pages
     pages_to_save = []
@@ -264,6 +301,7 @@ def crawl(frontier, visited: set, all_hashes: set) -> None:
 
         n_iterations += 1
         print(f'n={n_iterations} | Priority: {priority_score} | Depth: {depth}')
+        print(url)
 
         # we do not want to crawl images, powerpoint, ...
         if is_unwanted_file_type(url):
@@ -318,13 +356,19 @@ def crawl(frontier, visited: set, all_hashes: set) -> None:
         # iterate through all links in page and add to priority queue
         for link in soup.find_all('a', href=True):
 
+            # some mailing links are not filtered out properly by the parsers otherwise
+            if '[at]' in link['href'].lower():
+                continue
+
             # just returns link['href'] is the link is absolute
             next_url = urljoin(url, link['href'])
 
             if next_url.startswith('http') and next_url not in visited:
-                anchor_text = link.get_text(strip=True)
+                # anchor_text = link.get_text(strip=True)
                 # negate score as we use a min heap
-                score = - calc_priority_score(next_url, depth, anchor_text)
+                # score = - calc_priority_score(next_url, depth, anchor_text)
+                score = - \
+                    calc_priority_score_updated(url, depth, visited_domains)
 
                 # depth used as secondary priority counter when two entries have same score
                 heapq.heappush(frontier, (score, (depth+1), next_url))
@@ -342,14 +386,19 @@ def main():
         frontier = read_frontier_seeds('frontier_seeds.txt')
         visited = set()
         all_hashes = set()
+        visited_domains = set()
 
     else:
-        frontier = read_saved_frontier('frontier.csv')
+        # frontier = read_saved_frontier('frontier.csv')
+        frontier = read_saved_frontier('new_prioritized_frontier.csv')
         visited = set(read_saved_visited('visited.csv'))
         all_hashes = set(read_saved_hashes('all_hashes.csv'))
 
+        # right now visited_domains gets not updated in the crawler and is a snapshot taken after the previous crawl
+        visited_domains = set(read_saved_visited('visited_domains.csv'))
+
     heapq.heapify(frontier)
-    crawl(frontier, visited, all_hashes)
+    crawl(frontier, visited, all_hashes, visited_domains)
 
 
 if __name__ == '__main__':
