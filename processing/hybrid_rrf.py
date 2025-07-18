@@ -17,7 +17,7 @@ class HybridReciprocalRankFusionModel:
         }
 
     def retrieve(self, query: str, top_k: int = 10) -> List[Dict[str, Any]]:
-        print(f"[HybridRRF] Using RRF k = {self.k}")
+        #print(f"[HybridRRF] Using RRF k = {self.k}")
         bm25_results = self.bm25_model.retrieve(query, top_k=top_k * 10)
         dense_results = self.dense_model.retrieve(query, top_k=top_k * 10)
 

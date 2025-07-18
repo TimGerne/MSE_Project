@@ -13,7 +13,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sentence_transformers import SentenceTransformer
 from indexing.tokenize_utils import normalize_and_tokenize
 from indexing.embedding_index import build_embeddings, build_faiss_index
-
+from query_expansion import expand_query_with_prf, expand_query_with_synonyms, expand_query_with_filtered_synonyms
 
 INDEX_DIR: str = "indexing/output"
 FAISS_INDEX_PATH: str = f"{INDEX_DIR}/semantic_index.faiss"
@@ -24,9 +24,10 @@ class BaseRetrievalModel(ABC):
     """
     Abstract base class for all retrieval models.
     """
-    def __init__(self, texts: List[str], urls: List[str]) -> None:
+    def __init__(self, texts: List[str], urls: List[str], use_expansion: bool = False) -> None:
         self.texts = texts
         self.urls = urls
+        self.use_expansion = use_expansion
         self.doc_tokens: List[List[str]] = [normalize_and_tokenize(t) for t in texts]
         self.N: int = len(texts)
 
@@ -61,12 +62,14 @@ class BM25RetrievalModel(BaseRetrievalModel):
     """
     Custom BM25 retrieval model implementation.
     """
-    def __init__(self, texts: List[str], urls: List[str], k1: float = 1.5, b: float = 0.75) -> None:
-        super().__init__(texts, urls)
+    def __init__(self, texts: List[str], urls: List[str], k1: float = 1.5, b: float = 0.75, use_expansion: bool = False) -> None:
+        super().__init__(texts, urls, use_expansion=use_expansion)
         self.k1 = k1
         self.b = b
+        self.use_expansion = use_expansion
         self.doc_lengths: List[int] = [len(doc) for doc in self.doc_tokens]
         self.avg_dl: float = np.mean(self.doc_lengths)
+        self.vocabulary: set = set(term for doc in self.doc_tokens for term in doc)
         self.df: Counter = self._compute_df()
         self.idf: Dict[str, float] = self._compute_idf()
 
@@ -129,6 +132,10 @@ class BM25RetrievalModel(BaseRetrievalModel):
         Returns:
             List[Dict[str, Any]]: Ranked results with URL, score, snippet.
         """
+        if self.use_expansion:
+            #query = query = expand_query_with_filtered_synonyms(query, self.vocabulary)
+            query = expand_query_with_prf(query, self.texts, top_k=10, num_terms=3)
+
         query_tokens = self.tokenize(query)
         scores = [
             (i, self._score(query_tokens, doc, len(doc)))
@@ -145,8 +152,8 @@ class TFIDFRetrievalModel(BaseRetrievalModel):
     """
     Custom TF-IDF retrieval model using scikit-learn vectorizer.
     """
-    def __init__(self, texts: List[str], urls: List[str]) -> None:
-        super().__init__(texts, urls)
+    def __init__(self, texts: List[str], urls: List[str], use_expansion: bool = False) -> None:
+        super().__init__(texts, urls, use_expansion=use_expansion)
         self.vectorizer = TfidfVectorizer()
         self.doc_matrix = self.vectorizer.fit_transform(texts)
 
@@ -161,6 +168,9 @@ class TFIDFRetrievalModel(BaseRetrievalModel):
         Returns:
             List[Dict[str, Any]]: Ranked results with URL, score, snippet.
         """
+        if self.use_expansion:
+            query = expand_query_with_synonyms(query)
+
         query_vec = self.vectorizer.transform([query])
         scores = (self.doc_matrix @ query_vec.T).toarray().flatten()
         ranked = np.argsort(-scores)[:top_k]
@@ -177,10 +187,12 @@ class DenseRetrievalModel:
     def __init__(self,
                  faiss_index: faiss.IndexFlatIP,
                  doc_mapping: Dict[str, Dict[str, Any]],
-                 model_name: str = "all-MiniLM-L6-v2") -> None:
+                 model_name: str = "all-MiniLM-L6-v2", 
+                 use_expansion: bool = False) -> None:
         self.index = faiss_index
         self.doc_mapping = doc_mapping
         self.model = SentenceTransformer(model_name)
+        self.use_expansion = use_expansion
 
     def retrieve(self, query: str, top_k: int = 5) -> List[Dict[str, Any]]:
         """
@@ -193,6 +205,9 @@ class DenseRetrievalModel:
         Returns:
             List[Dict[str, Any]]: Ranked results with title, URL, score.
         """
+        if self.use_expansion:
+            query = expand_query_with_synonyms(query)
+
         query_vec = self.model.encode([query], convert_to_numpy=True).astype("float32")
         D, I = self.index.search(query_vec, top_k)
         return [

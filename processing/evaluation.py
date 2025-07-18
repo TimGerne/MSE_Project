@@ -132,6 +132,7 @@ if __name__ == "__main__":
     parser.add_argument("--qrels", required=True)
     parser.add_argument("--topk", type=int, default=10)
     parser.add_argument("--alpha", type=float, default=0.5, help="Alpha weight for BM25 in hybrid_alpha model")
+    parser.add_argument("--use_expansion", action="store_true", help="Enable query expansion")
 
     args = parser.parse_args()
 
@@ -147,16 +148,16 @@ if __name__ == "__main__":
 
     # Select model
     if args.model == "bm25":
-        model = BM25RetrievalModel(texts, urls)
+        model = BM25RetrievalModel(texts, urls, use_expansion=args.use_expansion)
     elif args.model == "dense":
-        model = DenseRetrievalModel(faiss_index, faiss_mapping)
+        model = DenseRetrievalModel(faiss_index, faiss_mapping, use_expansion=args.use_expansion)
     elif args.model == "hybrid_rrf":
-        bm25_model = BM25RetrievalModel(texts, urls)
-        dense_model = DenseRetrievalModel(faiss_index, faiss_mapping)
+        bm25_model = BM25RetrievalModel(texts, urls, use_expansion=args.use_expansion)
+        dense_model = DenseRetrievalModel(faiss_index, faiss_mapping, use_expansion=args.use_expansion)
         model = HybridReciprocalRankFusionModel(bm25_model, dense_model, doc_mapping=faiss_mapping, k=20)
     elif args.model == "hybrid_alpha":
-        bm25_model = BM25RetrievalModel(texts, urls)
-        dense_model = DenseRetrievalModel(faiss_index, faiss_mapping)
+        bm25_model = BM25RetrievalModel(texts, urls, use_expansion=args.use_expansion)
+        dense_model = DenseRetrievalModel(faiss_index, faiss_mapping, use_expansion=args.use_expansion)
         model = HybridAlphaModel(bm25_model, dense_model, alpha=args.alpha)
     else:
         raise ValueError(f"Unknown model: {args.model}")
