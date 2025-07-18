@@ -43,12 +43,28 @@ def evaluate(model, queries_path, qrels_path, k=10):
 
     metrics = {'precision': [], 'recall': [], 'ndcg': []}
 
-    for line in lines:
-        qid, query = line.strip().split('\t')
-        relevant = qrels.get(qid, set())
+    # for line in lines:
+    #     qid, query = line.strip().split('\t')
+    #     relevant = qrels.get(qid, set())
 
-        results = model.retrieve(query, top_k=k)
-        retrieved_urls = [r['url'] for r in results]
+    #     results = model.retrieve(query, top_k=k)
+    #     retrieved_urls = [r['url'] for r in results]
+
+    #     metrics['precision'].append(precision_at_k(retrieved_urls, relevant, k))
+    #     metrics['recall'].append(recall_at_k(retrieved_urls, relevant, k))
+    #     metrics['ndcg'].append(ndcg_at_k(retrieved_urls, relevant, k))
+    with open("retrieved_urls_log.txt", "w", encoding="utf-8") as out:
+        for line in lines:
+            qid, query = line.strip().split('\t')
+            relevant = qrels.get(qid, set())
+
+            results = model.retrieve(query, top_k=k)
+            retrieved_urls = [r['url'] for r in results]
+
+            out.write(f"\nQuery {qid}: {query}\n")
+            for i, r in enumerate(results, 1):
+                mark = "✅" if r['url'] in relevant else ""
+                out.write(f"{i}. {r['url']} {mark}\n")
 
         metrics['precision'].append(precision_at_k(retrieved_urls, relevant, k))
         metrics['recall'].append(recall_at_k(retrieved_urls, relevant, k))
@@ -93,38 +109,7 @@ def plot_alpha_scores(results):
     plt.grid(True)
     plt.show()
 
-# if __name__ == "__main__":
-#     parser = argparse.ArgumentParser()
-#     parser.add_argument("--model", choices=["hybrid_rrf"], required=True)
-#     parser.add_argument("--queries", type=str, required=True)
-#     parser.add_argument("--qrels", type=str, required=True)
-#     parser.add_argument("--topk", type=int, default=10)
-#     args = parser.parse_args()
 
-#     # Load index + mapping
-#     faiss_index, doc_mapping = load_faiss_and_mapping(
-#         "../indexing/indexing/output/semantic_index.faiss",
-#         "../indexing/indexing/output/doc_mapping.json"
-#     )
-
-#     texts = [doc["title"] for doc in doc_mapping.values()]
-#     urls = [doc["url"] for doc in doc_mapping.values()]
-
-#     # Init models
-#     bm25_model = BM25RetrievalModel(texts, urls)
-#     dense_model = DenseRetrievalModel(faiss_index, doc_mapping)
-
-#     if args.model == "hybrid_rrf":
-#         model = HybridReciprocalRankFusionModel(bm25_model, dense_model, doc_mapping)
-#     else:
-#         raise ValueError(f"Unknown model: {args.model}")
-
-#     # Run evaluation
-#     metrics = evaluate(model, args.queries, args.qrels, k=args.topk)
-
-#     print("\nEvaluation Results:")
-#     for metric, value in metrics.items():
-#         print(f"{metric}: {value:.4f}")
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", choices=["bm25", "dense", "hybrid_rrf", "hybrid_alpha"], required=True)

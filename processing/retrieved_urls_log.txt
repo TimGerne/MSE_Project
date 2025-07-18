@@ -1,0 +1,1200 @@
+
+Query 1: tübingen attractions
+1. https://www.krone-tuebingen.de/en/rooms/packages-offers/ 
+2. https://en.wikipedia.org/wiki/Category:Tourist_attractions_in_T%C3%BCbingen 
+3. https://www.krone-tuebingen.de/en/a-holiday-in-tuebingen/tuebingen-the-surrounding-area/ 
+4. https://uni-tuebingen.de/en/faculties/faculty-of-economics-and-social-sciences/subjects/department-of-social-sciences/methods-center/events/past-events/fgme2017/tuebingen-1/attractions/ 
+5. https://www.krone-tuebingen.de/en/a-holiday-in-tuebingen/old-town-area-of-tuebingen/ 
+6. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+7. https://allevents.in/tubingen/performances 
+8. https://allevents.in/tubingen/performer 
+9. https://wanderlog.com/list/geoCategory/1588080/attractions 
+10. https://www.krone-tuebingen.de/en/rooms/packages-offers/experience-tuebingen/ 
+
+Query 2: tübingen food and drinks
+1. https://allevents.in/tubingen/food-drinks 
+2. https://allevents.in/tubingen/food-drinks?ref=eventlist-noevents 
+3. https://wanderlog.com/list/geoCategory/199488/where-to-eat-best-restaurants-in-tubingen 
+4. https://www.krone-tuebingen.de/en/restaurants/breakfast/ 
+5. https://www.eventbrite.com/d/germany--tÃ¼bingen/food-and-drink--festivals/ 
+6. https://wanderlog.com/list/geoCategory/340348/best-italian-restaurants-in-tubingen 
+7. https://www.eventbrite.com/d/germany--tÃ¼bingen/food-and-drink--games/ 
+8. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+9. https://www.eventbrite.com/d/germany--tÃ¼bingen/food-and-drink--events/ 
+10. https://www.krone-tuebingen.de/en/a-holiday-in-tuebingen/ 
+
+Query 3: tübingen restaurants
+1. https://wanderlog.com/list/geoCategory/340348/best-italian-restaurants-in-tubingen 
+2. https://wanderlog.com/list/geoCategory/199488/where-to-eat-best-restaurants-in-tubingen 
+3. https://www.krone-tuebingen.de/en/restaurants/restaurant-ludwigs/ 
+4. https://www.fodors.com/world/europe/germany/heidelberg-and-the-neckar-valley/places/tubingen/restaurants 
+5. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+6. https://www.fodors.com/world/europe/germany/heidelberg-and-the-neckar-valley/places/tubingen/restaurants?keywords=dinner 
+7. https://www.petitfute.co.uk/v48133-tubingen/c1165-restaurants/ 
+8. https://www.booking.com/city/de/tubingen.html 
+9. https://stadttubingen.hotelmix.co.uk/ 
+10. https://uni-tuebingen.de/en/forschung/zentren-und-institute/brasilien-und-lateinamerika-zentrum/german-brazilian-symposium-2024/conference-venue/hotels-and-accommodation/ 
+
+Query 4: tübingen cafes
+1. https://wanderlog.com/list/geoCategory/284004/best-coffee-shops-and-best-cafes-in-tubingen ✅
+2. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+3. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/welcome-to-tuebingen/ 
+4. https://www.radparken-tuebingen.de/en/ 
+5. https://www.booking.com/city/de/tubingen.html 
+6. https://uni-tuebingen.de/en/forschung/zentren-und-institute/brasilien-und-lateinamerika-zentrum/german-brazilian-symposium-2024/about-tuebingen/ 
+7. https://www.booking.com/landmark/de/train-station-tuebingen.html 
+8. https://www.expatrio.com/about-germany/tubingen 
+9. https://www.krone-tuebingen.de/en/a-holiday-in-tuebingen/ 
+10. https://uni-tuebingen.de/en/international/learning-languages/international-in-tuebingen/ 
+
+Query 5: tübingen bars
+1. https://uni-tuebingen.de/en/einrichtungen/zentrum-fuer-datenverarbeitung/support/genius-bar/ 
+2. https://allevents.in/tubingen/fashion 
+3. https://www.krone-tuebingen.de/en/restaurants/ludwigs-vinothek/ 
+4. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+5. http://www.qype.com/place/3044-alter-botanischer-garten-Tuebingen 
+6. https://www.booking.com/city/de/tubingen.html 
+7. https://wanderlog.com/place/details/9945368/the-public-pub--bar-tÃ¼bingen 
+8. https://www.booking.com/hotel/de/barbarina.html 
+9. https://wanderlog.com/place/details/3118819/cafÃ©-bar-centrale-tÃ¼bingen 
+10. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1562.html 
+
+Query 6: tübingen hotels
+1. https://uni-tuebingen.de/en/forschung/zentren-und-institute/brasilien-und-lateinamerika-zentrum/german-brazilian-symposium-2024/conference-venue/hotels-and-accommodation/ 
+2. https://www.krone-tuebingen.de/en/hotel/city-hotel-in-tuebingen/ 
+3. https://www.booking.com/city/de/tubingen.html ✅
+4. https://www.krone-tuebingen.de/en/a-holiday-in-tuebingen/ 
+5. https://www.krone-tuebingen.de/en/ ✅
+6. https://www.booking.com/hotel/de/am-bad-tubingen.html 
+7. https://www.booking.com/landmark/de/eberhard-karls-university-tuebingen.html 
+8. https://www.krone-tuebingen.de/en/rooms/packages-offers/all-inclusive-arrangement-tuebingen-melange/ 
+9. https://www.booking.com/pets/city/de/tubingen.html 
+10. https://www.booking.com/landmark/de/eberhard-karls-university-tuebingen.en-gb.html 
+
+Query 7: tübingen university
+1. https://uni-tuebingen.de/en/international/welcome-center/university-services/ 
+2. https://uni-tuebingen.de/en/study/finding-a-course/masters-studies-at-the-university-of-tuebingen/ 
+3. https://web.archive.org/web/20241209073713/https://employability.uq.edu.au/host/university-t%C3%BCbingen#qt-uq_university_profile_tabs-foundation-tabs-1 
+4. https://uni-tuebingen.de/en/facilities/university-library/ 
+5. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/full-degree-students/ 
+6. https://uni-tuebingen.de/en/facilities/university-library/university-archives/ 
+7. https://uni-tuebingen.de/en/university/profile/ 
+8. http://www.uni-tuebingen.de/en/university/profile/history-of-the-university/ 
+9. https://uni-tuebingen.de/en/faculties/faculty-of-economics-and-social-sciences/subjects/school-of-business-and-economics/school-of-business-and-economics/studies/ 
+10. https://uni-tuebingen.de/en/faculties/center-for-islamic-theology/center/university-and-family/ 
+
+Query 8: tübingen student life
+1. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/full-degree-students/ 
+2. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/student-life/ 
+3. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/incoming-exchange-students/ 
+4. https://uni-tuebingen.de/en/study/prospective-students/ 
+5. https://uni-tuebingen.de/en/research/centers-and-institutes/college-of-fellows/fellows/fellow-life/ 
+6. https://uni-tuebingen.de/en/university/profile/ 
+7. https://tuebingenresearchcampus.com/en/tuebingen/living-in-tuebingen/family/life-with-kids 
+8. https://www.studit-tuebingen.de/en/ 
+9. https://tuebingenresearchcampus.com/en/tuebingen ✅
+10. https://uni-tuebingen.de/en/faculties/faculty-of-economics-and-social-sciences/subjects/school-of-business-and-economics/school-of-business-and-economics/studies/ 
+
+Query 9: tübingen museums
+1. https://whichmuseum.com/place/tubingen-11296/history 
+2. https://whichmuseum.com/place/tubingen-11296/art 
+3. https://whichmuseum.com/place/tubingen-11296 
+4. https://visit-tubingen.co.uk/museum-of-the-university-of-tubingen/ 
+5. https://whichmuseum.com/place/tubingen-11296/best-museums 
+6. https://whichmuseum.com/museum/museum-alte-kulturen-tubingen-26667 
+7. https://www.unimuseum.uni-tuebingen.de/en/museum-at-hohentuebingen-castle ✅
+8. https://www.unimuseum.uni-tuebingen.de/en/info/bookable-guided-tours/at-night-at-the-museum 
+9. https://www.krone-tuebingen.de/en/a-holiday-in-tuebingen/old-town-area-of-tuebingen/ 
+10. https://wanderlog.com/list/geoCategory/1610724/museums 
+
+Query 10: tübingen architecture
+1. https://commons.wikimedia.org/wiki/Category:Architecture_of_T%C3%BCbingen 
+2. https://www.booking.com/city/de/tubingen.html 
+3. https://commons.wikimedia.org/wiki/Category:Architecture_of_Landkreis_T%C3%BCbingen 
+4. https://velvetescape.com/things-to-do-in-tubingen/ 
+5. https://commons.wikimedia.org/wiki/Category:Renaissance_architecture_in_T%C3%BCbingen 
+6. https://wanderlog.com/list/geoCategory/1596922/tubingen-skyline-most-iconic-buildings-and-best-views-in-tubingen 
+7. https://commons.wikimedia.org/wiki/Category:Architectural_elements_in_T%C3%BCbingen 
+8. https://www.mygermanyvacation.com/best-things-to-do-and-see-in-tubingen-germany/ 
+9. https://portal.mlcloud.uni-tuebingen.de/user-guide/ferranti/ferranti_system_architecture 
+10. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+
+Query 11: tübingen history
+1. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1560_1590.html 
+2. https://visit-tubingen.co.uk/history-of-tubingen-from-pre-history-to-the-present/ ✅
+3. https://web.archive.org/web/20090523102058/http://www.tuebingen.de/en/1560_8014.html 
+4. https://whichmuseum.com/place/tubingen-11296/history 
+5. https://uni-tuebingen.de/en/forschung/zentren-und-institute/brasilien-und-lateinamerika-zentrum/german-brazilian-symposium-2024/about-the-symposium/history/ 
+6. https://www.mygermanyvacation.com/best-things-to-do-and-see-in-tubingen-germany/ 
+7. https://velvetescape.com/things-to-do-in-tubingen/ 
+8. https://uni-tuebingen.de/en/faculties/faculty-of-economics-and-social-sciences/subjects/department-of-social-sciences/sports-science/institute/history/ 
+9. https://justinpluslauren.com/things-to-do-in-tubingen-germany/ 
+10. https://uni-tuebingen.de/en/faculties/faculty-of-humanities/departments/ancient-studies-and-art-history/institute-for-ancient-near-eastern-studies/institute/history/ 
+
+Query 12: tübingen weather
+1. https://www.weather-forecast.com/locations/Tubingen/forecasts/latest ✅
+2. https://wanderlog.com/weather/11001/1/tubingen-weather-in-january 
+3. https://www.theweathernetwork.com/en/city/de/baden-wurttemberg/tubingen/7-days 
+4. https://wanderlog.com/weather/11001/5/tubingen-weather-in-may 
+5. https://wanderlog.com/weather/11001/8/tubingen-weather-in-august 
+6. https://wanderlog.com/weather/11001/3/tubingen-weather-in-march 
+7. https://wanderlog.com/weather/11001/11/tubingen-weather-in-november 
+8. https://wanderlog.com/weather/11001/9/tubingen-weather-in-september 
+9. https://www.theweathernetwork.com/en/city/de/baden-wurttemberg/tubingen/14-days 
+10. https://www.wunderground.com/precipitation/de/tÃ¼bingen 
+
+Query 13: tübingen transportation
+1. https://commons.wikimedia.org/wiki/Category:Road_transport_in_T%C3%BCbingen 
+2. https://commons.wikimedia.org/wiki/Category:Transport_in_T%C3%BCbingen 
+3. https://justinpluslauren.com/things-to-do-in-tubingen-germany/ 
+4. https://uni-tuebingen.de/en/forschung/zentren-und-institute/brasilien-und-lateinamerika-zentrum/german-brazilian-symposium-2024/about-tuebingen/how-can-i-arrive-in-tuebingen/ 
+5. https://tuebingenresearchcampus.com/en/tuebingen/living-in-tuebingen/mobility/by-public-transport ✅
+6. https://velvetescape.com/things-to-do-in-tubingen/ 
+7. https://commons.wikimedia.org/wiki/Category:Transport_buildings_in_T%C3%BCbingen 
+8. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1562.html 
+9. https://commons.wikimedia.org/wiki/Category:Transport_infrastructure_in_T%C3%BCbingen 
+10. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+
+Query 14: tübingen bike rentals
+1. https://www.radparken-tuebingen.de/en/ ✅
+2. https://www.komoot.com/highlight/92113 
+3. https://uni-tuebingen.de/en/facilities/zentrum-fuer-datenverarbeitung/services/media-services/camera-rental/ 
+4. https://www.komoot.com/highlight/3585562 
+5. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+6. https://www.booking.com/cars/city/de/tubingen.html 
+7. https://uni-tuebingen.de/en/forschung/zentren-und-institute/brasilien-und-lateinamerika-zentrum/german-brazilian-symposium-2024/conference-venue/hotels-and-accommodation/ 
+8. https://www.komoot.com/collection/1092705/13-exciting-themed-bike-tours-around-tuebingen-in-germany 
+9. https://www.radparken-tuebingen.de/en/order/booking 
+10. https://www.booking.com/city/de/tubingen.html 
+
+Query 15: tübingen day trips
+1. https://velvetescape.com/things-to-do-in-tubingen/ ✅
+2. https://visit-tubingen.co.uk/example-day-out-in-tubingen-1/ 
+3. https://justinpluslauren.com/things-to-do-in-tubingen-germany/ 
+4. https://visit-tubingen.co.uk/category/day-trips-near-tubingen/ 
+5. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+6. https://uni-tuebingen.de/en/faculties/faculty-of-humanities/departments/asian-and-oriental-studies/indology/people/heike-oberlin-moser/field-trips/ 
+7. https://globaltravelescapades.com/things-to-do-in-tubingen-germany/ 
+8. https://wanderlog.com/list/itinerary/113361/2-day-tubingen-itinerary 
+9. https://www.tuebingen.mpg.de/250055/internationaler-frauentag 
+10. https://wanderlog.com/list/geoCategory/199488/where-to-eat-best-restaurants-in-tubingen 
+
+Query 16: tübingen nature
+1. https://uni-tuebingen.de/en/facilities/university-library/about-us/library-holdings/subject-areas/natural-sciences/ 
+2. https://justinpluslauren.com/things-to-do-in-tubingen-germany/ 
+3. https://uni-tuebingen.de/en/research/centers-and-institutes/international-center-for-ethics-in-the-sciences-and-humanities/research/nature-and-sustainable-development/ 
+4. https://velvetescape.com/things-to-do-in-tubingen/ 
+5. https://uni-tuebingen.de/en/research/centers-and-institutes/tuebingen-center-for-digital-education/offers/register-of-experts/subjects/natural-science-subjects/ 
+6. https://www.mygermanyvacation.com/best-things-to-do-and-see-in-tubingen-germany/ 
+7. https://commons.wikimedia.org/wiki/Category:Natural_monuments_in_T%C3%BCbingen 
+8. https://www.bbc.com/travel/article/20220320-tbingen-europes-fiercely-vegan-fairy-tale-city 
+9. https://www.expatrio.com/about-germany/tubingen 
+10. https://uni-tuebingen.de/en/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/geowissenschaften/arbeitsgruppen/urgeschichte-naturwissenschaftliche-archaeologie/ina/palaeoanthropologie/studies/living-and-studying-in-tuebingen/ 
+
+Query 17: tübingen hiking trails
+1. https://hiiker.app/trails/germany/tubingen/forest 
+2. https://www.komoot.com/guide/81604/mountain-hikes-around-landkreis-tuebingen 
+3. https://hiiker.app/trails/germany/tubingen 
+4. https://www.komoot.com/highlight/5699245 
+5. https://www.komoot.com/highlight/3585562 
+6. https://www.komoot.com/highlight/657638 
+7. https://hiiker.app/trails/germany/tubingen/grafenberg-loop-from-altingen 
+8. https://www.komoot.com/guide/881/hiking-around-landkreis-tuebingen ✅
+9. https://www.visit-bw.com/en/nature/hiking ✅
+10. https://hiiker.app/trails/germany/tubingen/kalberauchtert-and-ob-den-breitwiesen-loop 
+
+Query 18: tübingen events
+1. https://allevents.in/tubingen/all?page=4 
+2. https://allevents.in/tubingen/all 
+3. https://allevents.in/tubingen/all?page=2 
+4. https://www.kyb.tuebingen.mpg.de/talks-events 
+5. https://allevents.in/tubingen/performances 
+6. https://www.cmfi.uni-tuebingen.de/en/events 
+7. https://allevents.in/tubingen/performer 
+8. https://www.fml.tuebingen.mpg.de/23823/events 
+9. https://imprs-mmfd.tuebingen.mpg.de/5004/events-overview 
+10. https://allevents.in/tubingen/music 
+
+Query 19: tübingen theater
+1. https://www.krone-tuebingen.de/en/a-holiday-in-tuebingen/old-town-area-of-tuebingen/ 
+2. https://wanderlog.com/place/details/296543/room-theater-tÃ¼bingen-gmbh 
+3. https://allevents.in/tubingen/performances 
+4. https://allevents.in/tubingen/performer 
+5. https://commons.wikimedia.org/wiki/Category:Theaters_in_T%C3%BCbingen 
+6. https://jazz-concerts.com/en/venue/Room-Theater-Tubingen-GmbH-Tubingen-5764/statistics 
+7. https://en.wikipedia.org/wiki/Landestheater_T%C3%BCbingen 
+8. https://wanderlog.com/place/details/5028733/landestheater-tÃ¼bingen 
+9. https://uni-tuebingen.de/en/study/student-life/clubs-and-societies/ ✅
+10. https://allevents.in/tubingen/theatre 
+
+Query 20: tübingen art galleries
+1. https://allevents.in/tubingen/exhibitions 
+2. https://allevents.in/tubingen/exhibitions?ref=eventlist-noevents 
+3. https://www.krone-tuebingen.de/en/a-holiday-in-tuebingen/old-town-area-of-tuebingen/ 
+4. https://whichmuseum.com/place/tubingen-11296/art 
+5. https://commons.wikimedia.org/wiki/Category:Gallery_pages_of_T%C3%BCbingen 
+6. https://www.unimuseum.uni-tuebingen.de/en/collections/professors-gallery 
+7. https://allevents.in/tubingen/performing-arts 
+8. https://wanderlog.com/list/geoCategory/1721140/best-art-galleries-in-tubingen 
+9. https://whichmuseum.com/museum/kunsthalle-tubingen-26664 
+10. https://www.internationales-gitarrenfestival-tuebingen.de/en/galerie/ 
+
+Query 21: tübingen shopping
+1. https://www.krone-tuebingen.de/en/a-holiday-in-tuebingen/metzingen/ 
+2. https://www.unimuseum.uni-tuebingen.de/en/shop 
+3. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+4. https://www.krone-tuebingen.de/en/rooms/packages-offers/outletcity-metzingen/ 
+5. https://www.booking.com/hostels/city/de/tubingen.html 
+6. https://www.krone-tuebingen.de/en/rooms/packages-offers/ 
+7. https://commons.wikimedia.org/wiki/Category:Food_shops_in_T%C3%BCbingen 
+8. https://www.booking.com/hostels/city/de/tubingen.en-gb.html 
+9. https://commons.wikimedia.org/wiki/Category:Shops_in_T%C3%BCbingen_by_type 
+10. https://www.booking.com/city/de/tubingen.html 
+
+Query 22: tübingen souvenirs
+1. https://www.radparken-tuebingen.de/en/ 
+2. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+3. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/welcome-to-tuebingen/ 
+4. https://uni-tuebingen.de/en/forschung/zentren-und-institute/brasilien-und-lateinamerika-zentrum/german-brazilian-symposium-2024/about-tuebingen/ 
+5. https://allevents.in/tubingen/exhibitions 
+6. https://www.expatrio.com/about-germany/tubingen 
+7. https://allevents.in/tubingen/exhibitions?ref=eventlist-noevents 
+8. https://uni-tuebingen.de/en/international/learning-languages/international-in-tuebingen/ 
+9. https://allevents.in/tubingen/fashion 
+10. https://uni-tuebingen.de/en/excellence-strategy/information/calls-for-proposals/tuebingen-reloaded/ 
+
+Query 23: tübingen local cuisine
+1. https://commons.wikimedia.org/wiki/Category:Cuisine_of_T%C3%BCbingen 
+2. https://wanderlog.com/list/geoCategory/199488/where-to-eat-best-restaurants-in-tubingen 
+3. https://uni-tuebingen.de/en/facilities/university-library/about-us/new-here/non-local-guests/ 
+4. https://wanderlog.com/list/geoCategory/340348/best-italian-restaurants-in-tubingen 
+5. https://uni-tuebingen.de/en/faculties/faculty-of-economics-and-social-sciences/subjects/department-of-social-sciences/research-on-far-right-extremism/institute/research-units/local-political-cultures/ 
+6. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+7. https://commons.wikimedia.org/wiki/Category:Cuisine_of_Landkreis_T%C3%BCbingen_by_municipality 
+8. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1562.html 
+9. https://tuebingen.ai/news/have-a-pint-with-your-local-scientist 
+10. https://www.krone-tuebingen.de/en/a-holiday-in-tuebingen/ 
+
+Query 24: tübingen vegan food
+1. https://www.gamberorossointernational.com/news/tubingen-germanys-sustainable-and-vegan-city/ 
+2. https://www.onegreenplanet.org/vegan-food/tubingen-the-european-eco-friendly-vegan-dream-city/ ✅
+3. https://www.bbc.com/travel/article/20220320-tbingen-europes-fiercely-vegan-fairy-tale-city ✅
+4. https://allevents.in/tubingen/food-drinks 
+5. https://allevents.in/tubingen/food-drinks?ref=eventlist-noevents 
+6. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1562.html 
+7. https://allevents.in/tubingen/food-trucks 
+8. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+9. https://allevents.in/tubingen/street food 
+10. https://www.krone-tuebingen.de/en/restaurants/breakfast/ 
+
+Query 25: tübingen bakeries
+1. https://commons.wikimedia.org/wiki/Category:Bakeries_in_T%C3%BCbingen 
+2. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+3. https://commons.wikimedia.org/wiki/Category:Bakeries_in_Landkreis_T%C3%BCbingen 
+4. https://www.mygermanyvacation.com/best-things-to-do-and-see-in-tubingen-germany/ 
+5. https://www.radparken-tuebingen.de/en/ 
+6. https://www.krone-tuebingen.de/en/a-holiday-in-tuebingen/ 
+7. https://uni-tuebingen.de/en/forschung/zentren-und-institute/brasilien-und-lateinamerika-zentrum/german-brazilian-symposium-2024/about-tuebingen/ 
+8. https://uni-tuebingen.de/en/forschung/zentren-und-institute/european-research-center-on-contemporary-taiwan/links/ 
+9. https://www.expatrio.com/about-germany/tubingen 
+10. https://www.krone-tuebingen.de/en/rooms/packages-offers/all-inclusive-arrangement-tuebingen-melange/ 
+
+Query 26: tübingen public transport
+1. https://tuebingenresearchcampus.com/en/tuebingen/living-in-tuebingen/mobility/by-public-transport ✅
+2. https://uni-tuebingen.de/en/forschung/zentren-und-institute/european-research-center-on-contemporary-taiwan/links/ 
+3. https://commons.wikimedia.org/wiki/Category:Public_transport_in_T%C3%BCbingen 
+4. https://justinpluslauren.com/things-to-do-in-tubingen-germany/ 
+5. https://commons.wikimedia.org/wiki/Category:Road_transport_in_T%C3%BCbingen 
+6. https://www.kyb.tuebingen.mpg.de/614229/publications 
+7. https://www.tuebingen.mpg.de/172008/Leben-in-Tuebingen 
+8. https://www.fml.tuebingen.mpg.de/26766/publikationen 
+9. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+10. https://www.fml.tuebingen.mpg.de/64555/Publications 
+
+Query 27: tübingen train station
+1. https://en.wikipedia.org/wiki/T%C3%BCbingen_West_station 
+2. https://www.booking.com/landmark/de/train-station-tuebingen.html 
+3. https://commons.wikimedia.org/wiki/Category:Trains_at_train_stations_in_Landkreis_T%C3%BCbingen 
+4. https://www.booking.com/city/de/tubingen.html 
+5. https://commons.wikimedia.org/wiki/Category:Train_stations_in_T%C3%BCbingen 
+6. https://en.wikipedia.org/wiki/T%C3%BCbingen_Hauptbahnhof ✅
+7. https://commons.wikimedia.org/wiki/Category:Train_stations_at_night_in_Landkreis_T%C3%BCbingen 
+8. https://uni-tuebingen.de/en/forschung/zentren-und-institute/european-research-center-on-contemporary-taiwan/links/ 
+9. https://www.booking.com/landmark/de/eberhard-karls-university-tuebingen.html 
+10. https://commons.wikimedia.org/wiki/Category:T%C3%BCbingen_Westbahnhof 
+
+Query 28: tübingen nightlife
+1. https://www.radparken-tuebingen.de/en/ 
+2. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/welcome-to-tuebingen/ 
+3. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+4. https://uni-tuebingen.de/en/forschung/zentren-und-institute/brasilien-und-lateinamerika-zentrum/german-brazilian-symposium-2024/about-tuebingen/ 
+5. https://www.krone-tuebingen.de/en/ 
+6. https://www.expatrio.com/about-germany/tubingen 
+7. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559_webcam.html 
+8. https://uni-tuebingen.de/en/international/learning-languages/international-in-tuebingen/ 
+9. https://allevents.in/tubingen 
+10. https://uni-tuebingen.de/en/excellence-strategy/information/calls-for-proposals/tuebingen-reloaded/ 
+
+Query 29: tübingen parks
+1. https://www.booking.com/parking/city/de/tubingen.html 
+2. https://www.bahnhof.de/en/tuebingen-hbf/parking-spaces 
+3. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+4. https://uni-tuebingen.de/en/faculties/faculty-of-humanities/departments/asian-and-oriental-studies/koreanistik/faculty/park-jinseo/ 
+5. https://www.booking.com/city/de/tubingen.html 
+6. https://commons.wikimedia.org/wiki/Category:Parking_in_T%C3%BCbingen 
+7. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1562.html 
+8. https://commons.wikimedia.org/wiki/Category:Gardens_and_parks_in_T%C3%BCbingen 
+9. https://www.booking.com/hostels/city/de/tubingen.html 
+10. https://commons.wikimedia.org/wiki/Category:Bicycle_parking_in_T%C3%BCbingen 
+
+Query 30: tübingen castles
+1. https://visit-tubingen.co.uk/hohentubingen-castle/ 
+2. https://en.wikipedia.org/wiki/Category:Castles_in_T%C3%BCbingen_(district) 
+3. https://web.archive.org/web/20090416010806/http://www.tuebingen.de/en/1560_2532.html 
+4. https://www.komoot.com/highlight/174277 
+5. https://en.wikipedia.org/wiki/Template:Castles_in_T%C3%BCbingen 
+6. https://www.unimuseum.uni-tuebingen.de/en/exhibitions/visit-the-mut-exhibitions/castle-laboratory 
+7. https://www.mygermanyvacation.com/best-things-to-do-and-see-in-tubingen-germany/ 
+8. https://visit-tubingen.co.uk/example-day-out-in-tubingen-1/ 
+9. https://uni-tuebingen.de/en/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/geowissenschaften/arbeitsgruppen/urgeschichte-naturwissenschaftliche-archaeologie/ina/palaeoanthropologie/studies/living-and-studying-in-tuebingen/ 
+10. https://www.unimuseum.uni-tuebingen.de/en/collections/castle-barrel 
+
+Query 31: tübingen churches
+1. https://commons.wikimedia.org/wiki/Category:Churches_in_T%C3%BCbingen 
+2. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+3. https://web.archive.org/web/20090416010806/http://www.tuebingen.de/en/1560_2566.html 
+4. https://www.mygermanyvacation.com/best-things-to-do-and-see-in-tubingen-germany/ 
+5. https://web.archive.org/web/20090416010806/http://www.tuebingen.de/en/1560_2573.html 
+6. https://www.booking.com/city/de/tubingen.html 
+7. https://en.wikipedia.org/wiki/St._George%27s_Collegiate_Church,_T%C3%BCbingen ✅
+8. https://www.krone-tuebingen.de/en/a-holiday-in-tuebingen/old-town-area-of-tuebingen/ 
+9. https://www.komoot.com/highlight/958536 
+10. https://commons.wikimedia.org/wiki/Category:Catholic_churches_in_T%C3%BCbingen 
+
+Query 32: tübingen riverside walk
+1. http://hiiker.app/trails/germany/tubingen/pfaffingen-to-tubingen-walk 
+2. https://www.kyb.tuebingen.mpg.de/800048/science-walk 
+3. https://visit-tubingen.co.uk/category/things-to-do-in-tubingen/ 
+4. https://www.tuebingen.mpg.de/science-walk 
+5. https://hiiker.app/trails/germany/tubingen/sitzbank-mit-aussicht-ins-ammertal-loop 
+6. https://www.komoot.com/guide/881/hiking-around-landkreis-tuebingen 
+7. https://www.komoot.com/highlight/1752490 
+8. https://hiiker.app/trails/germany/tubingen/tuebingen-and-gratweg 
+9. http://hiiker.app/trails/germany/tubingen/pfaffingen-to-tubingen-walk/map 
+10. https://hiiker.app/trails/germany/tubingen/pfaffenberg-loop 
+
+Query 33: tübingen Neckar river
+1. https://www.komoot.com/highlight/6899568 
+2. https://web.archive.org/web/20090416010806/http://www.tuebingen.de/en/1560_2570.html 
+3. https://www.krone-tuebingen.de/en/a-holiday-in-tuebingen/boat-tours/ 
+4. https://visit-tubingen.co.uk/neckar-island-a-tranquil-oasis-in-tubingen/ 
+5. https://hiiker.app/trails/germany/tubingen/neckar-and-oberes-stenach-loop 
+6. https://www.komoot.com/highlight/269959 
+7. https://hiiker.app/trails/germany/tubingen/gartenstadt-and-blasibad-loop-via-river-steinlach 
+8. https://www.komoot.com/highlight/92113 
+9. https://visit-tubingen.co.uk/punting-on-the-neckar/ 
+10. https://www.germany.travel/en/cities-culture/tuebingen.html ✅
+
+Query 34: tübingen market square
+1. https://www.komoot.com/highlight/578154 
+2. https://www.booking.com/city/de/tubingen.html 
+3. https://commons.wikimedia.org/wiki/Category:Squares_in_T%C3%BCbingen 
+4. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+5. https://placesofgermany.de/en/places/tubingen-market-place/ ✅
+6. https://stadttubingen.hotelmix.co.uk/ 
+7. https://commons.wikimedia.org/wiki/Category:Markets_in_T%C3%BCbingen 
+8. https://www.booking.com/landmark/de/eberhard-karls-university-tuebingen.html 
+9. https://www.radparken-tuebingen.de/en/ 
+10. https://uni-tuebingen.de/en/fakultaeten/juristische-fakultaet/forschung/fachvereinigungen/ai-meets-law/machine-learning-market-manipulation-and-collusion-on-capital-markets-hybrid-talk-report/ 
+
+Query 35: tübingen Christmas market
+1. https://allevents.in/tubingen/christmas 
+2. https://commons.wikimedia.org/wiki/Category:Christmas_markets_in_Landkreis_T%C3%BCbingen 
+3. https://historicgermany.travel/event/tuebingen-christmas-market/ 
+4. https://placesofgermany.de/en/places/tubingen-market-place/ 
+5. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+6. https://commons.wikimedia.org/wiki/Category:Markets_in_T%C3%BCbingen 
+7. https://www.krone-tuebingen.de/en/rooms/packages-offers/ 
+8. https://uni-tuebingen.de/en/fakultaeten/juristische-fakultaet/forschung/fachvereinigungen/ai-meets-law/machine-learning-market-manipulation-and-collusion-on-capital-markets-hybrid-talk-report/ 
+9. https://allevents.in/tubingen/exhibitions 
+10. https://commons.wikimedia.org/wiki/Category:Market_stands_in_Landkreis_T%C3%BCbingen 
+
+Query 36: tübingen summer festivals
+1. https://allevents.in/tubingen/street food 
+2. https://allevents.in/tubingen/festivals 
+3. https://allevents.in/tubingen/food-drinks?ref=eventlist-noevents 
+4. https://allevents.in/tubingen/music-festivals 
+5. https://allevents.in/tubingen/food-drinks 
+6. https://www.songkick.com/metro-areas/28594-germany-tubingen 
+7. https://jazz-concerts.com/en/city/Tubingen-2929/festivals 
+8. https://allevents.in/tubingen/street-food-festival-tÃ¼bingen-2025/200027715243208 
+9. https://allevents.in/tubingen/performances 
+10. https://uni-tuebingen.de/en/forschung/zentren-und-institute/interdisciplinary-centre-for-global-south-studies/events/summer-school/summer-school/ 
+
+Query 37: tübingen wine tasting
+1. https://www.krone-tuebingen.de/en/restaurants/ludwigs-vinothek/ 
+2. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/welcome-to-tuebingen/ 
+3. https://www.expatrio.com/about-germany/tubingen 
+4. https://www.unimuseum.uni-tuebingen.de/en/museum-at-hohentuebingen-castle/riesenfass 
+5. https://wanderlog.com/list/geoCategory/199488/where-to-eat-best-restaurants-in-tubingen 
+6. https://www.radparken-tuebingen.de/en/ 
+7. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+8. https://uni-tuebingen.de/en/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/geowissenschaften/arbeitsgruppen/urgeschichte-naturwissenschaftliche-archaeologie/ina/palaeoanthropologie/studies/living-and-studying-in-tuebingen/ 
+9. https://uni-tuebingen.de/en/forschung/zentren-und-institute/brasilien-und-lateinamerika-zentrum/german-brazilian-symposium-2024/about-tuebingen/ 
+10. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1562.html 
+
+Query 38: tübingen traditional food
+1. https://allevents.in/tubingen/food-drinks 
+2. https://allevents.in/tubingen/food-drinks?ref=eventlist-noevents 
+3. https://wanderlog.com/list/geoCategory/199488/where-to-eat-best-restaurants-in-tubingen 
+4. https://wanderlog.com/list/geoCategory/340348/best-italian-restaurants-in-tubingen 
+5. https://allevents.in/tubingen/food-trucks 
+6. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+7. https://allevents.in/tubingen/street food 
+8. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1562.html 
+9. https://commons.wikimedia.org/wiki/Category:Food_of_T%C3%BCbingen 
+10. https://www.krone-tuebingen.de/en/a-holiday-in-tuebingen/ 
+
+Query 39: tübingen student housing
+1. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/student-housing/ 
+2. https://www.neuroschool-tuebingen.de/application/student-housing/ 
+3. https://uni-tuebingen.de/en/224925 
+4. https://uni-tuebingen.de/en/study/student-life/student-housing/ ✅
+5. https://tuebingen.ai/wiki/housing-and-cost-of-living 
+6. https://www.booking.com/guest-house/city/de/tubingen.html 
+7. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/full-degree-students/ 
+8. https://www.wg-gesucht.de/en/haeuser-in-Tuebingen.127.3.3.0.html 
+9. https://www.booking.com/guest-house/city/de/tubingen.en-gb.html 
+10. https://commons.wikimedia.org/wiki/Category:Student_housing_in_Landkreis_T%C3%BCbingen 
+
+Query 40: tübingen dorms
+1. https://www.expatrio.com/about-germany/tubingen 
+2. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/welcome-to-tuebingen/ 
+3. https://www.radparken-tuebingen.de/en/ 
+4. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/student-housing/ 
+5. https://uni-tuebingen.de/en/international/study-in-tuebingen/erasmus-and-exchange-to-tuebingen/ 
+6. https://uni-tuebingen.de/en/forschung/zentren-und-institute/brasilien-und-lateinamerika-zentrum/german-brazilian-symposium-2024/about-tuebingen/ 
+7. https://www.booking.com/landmark/de/eberhard-karls-university-tuebingen.en-gb.html 
+8. https://www.mygermanyvacation.com/best-things-to-do-and-see-in-tubingen-germany/ 
+9. https://uni-tuebingen.de/en/international/learning-languages/international-in-tuebingen/ 
+10. https://www.neuroschool-tuebingen.de/application/student-housing/ 
+
+Query 41: tübingen libraries
+1. https://en.wikipedia.org/wiki/University_Library_of_T%C3%BCbingen ✅
+2. https://en.wikipedia.org/wiki/Category:Libraries_in_T%C3%BCbingen 
+3. http://www.mph.tuebingen.mpg.de/library 
+4. https://www.tuebingen.mpg.de/library ✅
+5. https://uni-tuebingen.de/en/facilities/university-library/publishing-research/tuebingen-library-publishing/ 
+6. https://uni-tuebingen.de/en/facilities/university-library/about-us/profile-mission/ 
+7. https://www.mygermanyvacation.com/best-things-to-do-and-see-in-tubingen-germany/ 
+8. https://wikipedialibrary.wmflabs.org/search/?q=%22T%C3%BCbingen%22 
+9. https://uni-tuebingen.de/en/faculties/center-for-islamic-theology/center/library/ 
+10. https://uni-tuebingen.de/en/faculties/faculty-of-catholic-theology/faculty/library/ 
+
+Query 42: tübingen concerts
+1. https://allevents.in/tubingen/jazz 
+2. https://allevents.in/tubingen/pop 
+3. https://www.songkick.com/metro-areas/28594-germany-tubingen ✅
+4. https://jazz-concerts.com/en/city/Tubingen-2929/festivals 
+5. https://allevents.in/tubingen/music 
+6. https://allevents.in/tubingen 
+7. https://www.eventbrite.com/b/germany--t%C3%BCbingen/music/ ✅
+8. https://uni-tuebingen.de/en/study/student-life/clubs-and-societies/ 
+9. https://allevents.in/tubingen/punk 
+10. https://allevents.in/tubingen/performing-arts 
+
+Query 43: tübingen bus schedule
+1. https://uni-tuebingen.de/en/forschung/zentren-und-institute/brasilien-und-lateinamerika-zentrum/german-brazilian-symposium-2024/about-tuebingen/how-can-i-arrive-in-tuebingen/ 
+2. https://uni-tuebingen.de/en/international/study-in-tuebingen/erasmus-and-exchange-to-tuebingen/ 
+3. https://www.radparken-tuebingen.de/en/ 
+4. https://uni-tuebingen.de/en/international/study-in-tuebingen/degree-seeking-students/getting-started-and-orientation-for-international-students/schedules/ 
+5. https://uni-tuebingen.de/en/forschung/zentren-und-institute/european-research-center-on-contemporary-taiwan/links/ 
+6. https://uni-tuebingen.de/en/faculties/faculty-of-humanities/departments/modern-languages/english-department/subdivisions/scandinavian-studies/study/weekly-schedule/ 
+7. https://allevents.in/tubingen/band 
+8. https://uni-tuebingen.de/en/faculties/faculty-of-science/departments/geosciences/study/organizing-your-studies/class-schedules/ 
+9. https://uni-tuebingen.de/en/faculties/faculty-of-science/departments/mathematics/department/further-information/how-to-find-us/ 
+10. https://commons.wikimedia.org/wiki/Category:Bus_transport_in_Landkreis_T%C3%BCbingen 
+
+Query 44: tübingen bike paths
+1. https://www.komoot.com/highlight/5054583 
+2. https://www.komoot.com/collection/1092705/13-exciting-themed-bike-tours-around-tuebingen-in-germany 
+3. https://www.komoot.com/highlight/4614355 
+4. https://www.komoot.com/highlight/3585562 
+5. https://www.komoot.com/collection/1069961/road-cycling-around-tuebingen-in-germany 
+6. https://www.komoot.com/highlight/1752490 
+7. https://www.geschichtswerkstatt-tuebingen.de/en/offers/tours/geschichtspfad-zum-nationalsozialismus 
+8. https://www.komoot.com/highlight/6829174 
+9. https://www.komoot.com/highlight/92113 
+10. https://www.radparken-tuebingen.de/en/ 
+
+Query 45: tübingen Tübingen University
+1. https://uni-tuebingen.de/en/study/finding-a-course/masters-studies-at-the-university-of-tuebingen/ 
+2. https://uni-tuebingen.de/en/international/welcome-center/university-services/ 
+3. https://uni-tuebingen.de/en/research/support-for-junior-researchers/doctorates-at-the-university-of-tuebingen/ 
+4. https://uni-tuebingen.de/en/university/profile/ 
+5. https://uni-tuebingen.de/en/university/public-engagement/the-childrens-university-of-tuebingen/ 
+6. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/full-degree-students/ 
+7. https://uni-tuebingen.de/en/lehrende/generative-ki-in-lehre-und-forschung/guideline-of-the-university-of-tuebingen/ 
+8. https://uni-tuebingen.de/en/university/profile/values-and-visions/sustainable-development/sd-at-the-university-tuebingen-at-a-glance/milestones-at-the-university-of-tuebingen/ 
+9. https://uni-tuebingen.de/en/faculties/faculty-of-economics-and-social-sciences/subjects/school-of-business-and-economics/school-of-business-and-economics/studies/ 
+10. https://web.archive.org/web/20221104104415/https://uni-tuebingen.de/en/universitaet/im-dialog/the-childrens-university-of-tuebingen/ 
+
+Query 46: tübingen study abroad
+1. https://uni-tuebingen.de/en/international/studying-abroad/ ✅
+2. https://uni-tuebingen.de/en/faculties/faculty-of-science/studies/counseling-guide/stay-abroad/ 
+3. https://uni-tuebingen.de/en/faculties/faculty-of-science/departments/computer-science/studies/students/international/studying-abroad/ 
+4. https://uni-tuebingen.de/en/faculties/faculty-of-science/departments/mathematics/department/courses-programs/students/studying-abroad/ 
+5. https://web.archive.org/web/20221105030343/https://uni-tuebingen.de/en/international/study-in-tuebingen/erasmus-and-exchange-to-tuebingen/arrival-and-studying/ 
+6. https://uni-tuebingen.de/en/faculties/faculty-of-humanities/study/ 
+7. https://web.archive.org/web/20221115094642/https://uni-tuebingen.de/en/international/study-in-tuebingen/ 
+8. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/full-degree-students/ 
+9. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/incoming-exchange-students/ 
+10. https://www.studit-tuebingen.de/en/ 
+
+Query 47: tübingen international students
+1. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/faecher/fachbereich-wirtschaftswissenschaft/wirtschaftswissenschaft/international/international-students/#c661045 
+2. https://uni-tuebingen.de/en/238077 
+3. https://uni-tuebingen.de/en/university/careers/international-researchers/ 
+4. http://www.uni-tuebingen.de/en/fakultaeten/philosophische-fakultaet/fachbereiche/asien-orient-wissenschaften/ethnologie/studium/international/incoming-international-students/ 
+5. https://uni-tuebingen.de/en/facilities/administration/iv-student-affairs/advising-and-admission-of-international-students/ ✅
+6. https://uni-tuebingen.de/en/faculties/faculty-of-science/departments/computer-science/studies/students/international/information-for-international-students/ 
+7. http://www.uni-tuebingen.de/en/fakultaeten/philosophische-fakultaet/fachbereiche/asien-orient-wissenschaften/ethnologie/studium/international/ 
+8. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/full-degree-students/ 
+9. https://uni-tuebingen.de/en/study/prospective-students/ 
+10. https://www.studit-tuebingen.de/en/ 
+
+Query 48: tübingen visa help
+1. https://uni-tuebingen.de/en/international/study-in-tuebingen/degree-seeking-students/getting-started-and-orientation-for-international-students/help-desk/ 
+2. https://uni-tuebingen.de/en/international/study-in-tuebingen/erasmus-and-exchange-to-tuebingen/ 
+3. https://web.archive.org/web/20221115094642/https://uni-tuebingen.de/en/international/study-in-tuebingen/erasmus-and-exchange-to-tuebingen/ 
+4. https://krimdok.uni-tuebingen.de/Help/Home?topic=search 
+5. https://tuebingen.ai/wiki/housing-and-cost-of-living 
+6. https://www.radparken-tuebingen.de/en/help 
+7. https://web.archive.org/web/20221105030343/https://uni-tuebingen.de/en/international/study-in-tuebingen/erasmus-and-exchange-to-tuebingen/arrival-and-studying/ 
+8. https://uni-tuebingen.de/en/forschung/zentren-und-institute/brasilien-und-lateinamerika-zentrum/german-brazilian-symposium-2024/about-tuebingen/ 
+9. https://uni-tuebingen.de/en/facilities/university-library/searching-borrowing/catalogues/katalog-plus/help/ 
+10. https://www.studit-tuebingen.de/en/ 
+
+Query 49: tübingen expat life
+1. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/student-life/ 
+2. https://www.booking.com/city/de/tubingen.html 
+3. https://uni-tuebingen.de/en/research/centers-and-institutes/college-of-fellows/fellows/fellow-life/ 
+4. https://www.studit-tuebingen.de/en/ 
+5. https://tuebingenresearchcampus.com/en/tuebingen/living-in-tuebingen/family/life-with-kids 
+6. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+7. https://tuebingenresearchcampus.com/en/tuebingen 
+8. https://justinpluslauren.com/things-to-do-in-tubingen-germany/ 
+9. https://www.unimuseum.uni-tuebingen.de/en/info/bookable-courses/a-day-in-the-life-of-seschemnefer 
+10. https://www.booking.com/hostels/city/de/tubingen.html 
+
+Query 50: tübingen job opportunities
+1. https://uni-tuebingen.de/en/faculties/faculty-of-humanities/study/praxisberuf/praxisportal-the-internship-and-job-portal/ 
+2. https://uni-tuebingen.de/en/fakultaeten/philosophische-fakultaet/fachbereiche/altertums-und-kunstwissenschaften/institut-fuer-religionswissenschaft/mantrams/job-opportunities/ 
+3. https://uni-tuebingen.de/en/study/steps-towards-employment/ 
+4. https://uni-tuebingen.de/en/university/careers/publish-job-advertisements/ 
+5. http://www.compsens.uni-tuebingen.de/compsens/index.php/jobs 
+6. https://uni-tuebingen.de/en/university/careers/it-library-technology-maintenance-administration/ 
+7. https://www.tuebingen.mpg.de/177837/karriere-moeglichkeiten 
+8. https://uni-tuebingen.de/en/study/steps-towards-employment/praxisportal-job-and-internship-board/about-us/ 
+9. https://www.tuebingen.mpg.de/177879/Chancengleichheit 
+10. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/full-degree-students/ 
+
+Query 51: tübingen internships
+1. https://uni-tuebingen.de/en/faculties/faculty-of-economics-and-social-sciences/subjects/department-of-social-sciences/sociology/study/internship/ 
+2. https://uni-tuebingen.de/en/faculties/faculty-of-science/studies/counseling-guide/internships-jobs/ 
+3. https://uni-tuebingen.de/en/international/studying-abroad/ways-to-go-abroad/erasmus/erasmus-internship/ 
+4. https://uni-tuebingen.de/en/faculties/faculty-of-humanities/study/praxisberuf/praxisportal-the-internship-and-job-portal/ 
+5. https://uni-tuebingen.de/en/study/steps-towards-employment/praxisportal-job-and-internship-board/ 
+6. https://www.kyb.tuebingen.mpg.de/755403/internships-for-students ✅
+7. https://uni-tuebingen.de/en/faculties/faculty-of-economics-and-social-sciences/subjects/school-of-business-and-economics/school-of-business-and-economics/career-and-alumni-service/students/career/ 
+8. https://www.kyb.tuebingen.mpg.de/757305/internships-for-pupils 
+9. https://uni-tuebingen.de/en/study/steps-towards-employment/ 
+10. https://uni-tuebingen.de/en/study/steps-towards-employment/praxisportal-job-and-internship-board/about-us/ 
+
+Query 52: tübingen city map
+1. https://www.bbc.com/travel/article/20220320-tbingen-europes-fiercely-vegan-fairy-tale-city 
+2. https://www.krone-tuebingen.de/en/hotel/location-and-getting-here/ 
+3. https://commons.wikimedia.org/wiki/Category:City_maps_of_T%C3%BCbingen 
+4. https://justinpluslauren.com/things-to-do-in-tubingen-germany/ 
+5. https://commons.wikimedia.org/wiki/Category:City_walls_and_city_gates_of_T%C3%BCbingen 
+6. https://commons.wikimedia.org/wiki/T%C3%BCbingen 
+7. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1560_1587.html 
+8. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+9. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1560.html 
+10. https://web.archive.org/web/20090416010806/http://www.tuebingen.de/en/1560_2570.html 
+
+Query 53: tübingen photography spots
+1. https://allevents.in/tubingen/photography 
+2. https://umap.openstreetmap.de/de/map/unbenannte-karte_7289#12/48.5250/9.1216 
+3. https://justinpluslauren.com/things-to-do-in-tubingen-germany/ ✅
+4. https://uni-tuebingen.de/en/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/informatik/lehrstuehle/computergrafik/computer-graphics/teaching/computational-photography/ 
+5. https://commons.wikimedia.org/wiki/Category:Photographs_in_T%C3%BCbingen 
+6. https://www.radparken-tuebingen.de/en/ 
+7. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+8. https://uni-tuebingen.de/en/forschung/zentren-und-institute/brasilien-und-lateinamerika-zentrum/german-brazilian-symposium-2024/about-tuebingen/ 
+9. https://commons.wikimedia.org/wiki/Category:Early_Photographs_taken_in_T%C3%BCbingen 
+10. https://www.expatrio.com/about-germany/tubingen 
+
+Query 54: tübingen walking tours
+1. https://www.geschichtswerkstatt-tuebingen.de/en/offers/tours 
+2. http://hiiker.app/trails/germany/tubingen/pfaffingen-to-tubingen-walk 
+3. https://www.kyb.tuebingen.mpg.de/800048/science-walk 
+4. https://visit-tubingen.co.uk/category/things-to-do-in-tubingen/ 
+5. https://www.tuebingen.mpg.de/science-walk 
+6. https://globaltravelescapades.com/things-to-do-in-tubingen-germany/ 
+7. https://uni-tuebingen.de/en/facilities/university-library/learning-working/workshops-consultations-and-guided-tours/guided-tours/ ✅
+8. https://hiiker.app/trails/germany/tubingen/tuebingen-and-gratweg 
+9. https://www.komoot.com/guide/881/hiking-around-landkreis-tuebingen 
+10. https://www.unimuseum.uni-tuebingen.de/en/info/bookable-guided-tours/highlight-tour 
+
+Query 55: tübingen city guide
+1. https://commons.wikimedia.org/wiki/Category:City_walls_and_city_gates_of_T%C3%BCbingen 
+2. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+3. https://fdat.uni-tuebingen.de/help/search 
+4. https://www.mygermanyvacation.com/best-things-to-do-and-see-in-tubingen-germany/ 
+5. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1560_1587.html 
+6. https://justinpluslauren.com/things-to-do-in-tubingen-germany/ ✅
+7. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1560.html 
+8. https://uni-tuebingen.de/en/forschung/zentren-und-institute/european-research-center-on-contemporary-taiwan/links/ 
+9. https://portal.mlcloud.uni-tuebingen.de/user-guide/tutorials/bash/ 
+10. https://web.archive.org/web/20090416010806/http://www.tuebingen.de/en/1560_2570.html 
+
+Query 56: tübingen language schools
+1. https://uni-tuebingen.de/en/faculties/faculty-of-humanities/departments/modern-languages/ 
+2. https://uni-tuebingen.de/en/fakultaeten/philosophische-fakultaet/fachbereiche/neuphilologie/englisches-seminar/study/master-programmes/master-of-education/ 
+3. https://fdat.uni-tuebingen.de/communities/talar?q=&l=list&p=1&s=10&sort=newest 
+4. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-abroad/foreign-languages/ 
+5. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/full-degree-students/ 
+6. https://uni-tuebingen.de/en/faculties/faculty-of-humanities/international/study-in-tuebingen/ 
+7. https://uni-tuebingen.de/en/international/learning-languages/foreign-language-center/languages-and-courses/ 
+8. https://uni-tuebingen.de/en/study/finding-a-course/ 
+9. https://uni-tuebingen.de/en/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/geowissenschaften/arbeitsgruppen/urgeschichte-naturwissenschaftliche-archaeologie/ina/palaeoanthropologie/research/pathways-to-language/ 
+10. https://uni-tuebingen.de/en/238107#c1657356 
+
+Query 57: tübingen living cost
+1. https://tuebingen.ai/wiki/housing-and-cost-of-living ✅
+2. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559_webcam.html 
+3. https://www.tuebingen.mpg.de/172008/Leben-in-Tuebingen 
+4. https://uni-tuebingen.de/en/research/support/applicants-to-professorships/living-and-working/ 
+5. https://uni-tuebingen.de/en/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/geowissenschaften/arbeitsgruppen/urgeschichte-naturwissenschaftliche-archaeologie/ina/palaeoanthropologie/studies/living-and-studying-in-tuebingen/ 
+6. https://www.booking.com/city/de/tubingen.html 
+7. http://www.uni-tuebingen.de/en/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/zentren/zentrum-fuer-molekularbiologie-der-pflanzen/central-facilities/analytics/costs/ 
+8. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+9. https://www.booking.com/hotel/de/gzt-das-ga-stehaus.html 
+10. https://www.expatrio.com/about-germany/tubingen 
+
+Query 58: tübingen budget travel
+1. https://uni-tuebingen.de/en/excellence-strategy/information/calls-for-proposals/tuebingen-reloaded/ 
+2. https://www.fodors.com/world/europe/germany/heidelberg-and-the-neckar-valley/places/tubingen/restaurants 
+3. https://www.booking.com/city/de/tubingen.html 
+4. https://www.fodors.com/world/europe/germany/heidelberg-and-the-neckar-valley/places/tubingen/restaurants?keywords=dinner 
+5. https://www.booking.com/hostels/city/de/tubingen.html 
+6. https://allevents.in/tubingen/trips-adventures 
+7. https://www.booking.com/hostels/city/de/tubingen.en-gb.html 
+8. https://www.germansights.com/tubingen/ 
+9. https://www.booking.com/hotel/de/am-bad-tubingen.html 
+10. https://www.germany.travel/en/cities-culture/tuebingen.html 
+
+Query 59: tübingen local news
+1. https://uni-tuebingen.de/en/facilities/university-library/about-us/new-here/non-local-guests/ 
+2. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+3. https://uni-tuebingen.de/en/faculties/faculty-of-economics-and-social-sciences/subjects/department-of-social-sciences/research-on-far-right-extremism/institute/research-units/local-political-cultures/ 
+4. https://justinpluslauren.com/things-to-do-in-tubingen-germany/ 
+5. https://tuebingen.ai/news/have-a-pint-with-your-local-scientist 
+6. https://allevents.in/tubingen 
+7. https://www.tuebingen.mpg.de/84492/neuigkeiten 
+8. https://wanderlog.com/list/geoCategory/199488/where-to-eat-best-restaurants-in-tubingen 
+9. https://imprs-mmfd.tuebingen.mpg.de/4657/news 
+10. https://web.archive.org/web/20090416010806/http://www.tuebingen.de/en/1560_2570.html 
+
+Query 60: tübingen weather forecast
+1. https://www.weather-forecast.com/locations/Tubingen/forecasts/latest ✅
+2. https://www.timeanddate.com/weather/germany/tuebingen/ext ✅
+3. https://www.theweathernetwork.com/en/city/de/baden-wurttemberg/tubingen/hourly 
+4. https://wanderlog.com/weather/11001/1/tubingen-weather-in-january 
+5. https://www.theweathernetwork.com/en/city/de/baden-wurttemberg/tubingen/7-days 
+6. https://wanderlog.com/weather/11001/11/tubingen-weather-in-november 
+7. https://wanderlog.com/weather/11001/3/tubingen-weather-in-march 
+8. https://wanderlog.com/weather/11001/5/tubingen-weather-in-may 
+9. https://www.theweathernetwork.com/en/city/de/baden-wurttemberg/tubingen/14-days 
+10. https://wanderlog.com/weather/11001/8/tubingen-weather-in-august 
+
+Query 61: tübingen best views
+1. https://wanderlog.com/list/geoCategory/1596922/tubingen-skyline-most-iconic-buildings-and-best-views-in-tubingen 
+2. https://wanderlog.com/list/geoCategory/199488/where-to-eat-best-restaurants-in-tubingen 
+3. https://www.booking.com/city/de/tubingen.html 
+4. https://wanderlog.com/list/geoCategory/340348/best-italian-restaurants-in-tubingen 
+5. https://www.mygermanyvacation.com/best-things-to-do-and-see-in-tubingen-germany/ 
+6. https://www.booking.com/hostels/city/de/tubingen.en-gb.html 
+7. https://www.booking.com/hostels/city/de/tubingen.html 
+8. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+9. https://wanderlog.com/list/geoCategory/284004/best-coffee-shops-and-best-cafes-in-tubingen 
+10. https://www.krone-tuebingen.de/en/a-holiday-in-tuebingen/old-town-area-of-tuebingen/ 
+
+Query 62: tübingen hidden gems
+1. https://www.radparken-tuebingen.de/en/ 
+2. https://www.mygermanyvacation.com/best-things-to-do-and-see-in-tubingen-germany/ 
+3. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/welcome-to-tuebingen/ 
+4. https://uni-tuebingen.de/en/forschung/zentren-und-institute/brasilien-und-lateinamerika-zentrum/german-brazilian-symposium-2024/about-tuebingen/ 
+5. https://allevents.in/tubingen 
+6. https://www.expatrio.com/about-germany/tubingen 
+7. https://wanderlog.com/list/geoCategory/1596922/tubingen-skyline-most-iconic-buildings-and-best-views-in-tubingen 
+8. https://uni-tuebingen.de/en/international/learning-languages/international-in-tuebingen/ 
+9. https://allevents.in/tubingen/performing-arts 
+10. https://uni-tuebingen.de/en/excellence-strategy/information/calls-for-proposals/tuebingen-reloaded/ 
+
+Query 63: tübingen parking
+1. https://www.bahnhof.de/en/tuebingen-hbf/parking-spaces ✅
+2. https://commons.wikimedia.org/wiki/Category:Bicycle_parking_in_T%C3%BCbingen 
+3. https://commons.wikimedia.org/wiki/Category:Parking_in_T%C3%BCbingen 
+4. https://commons.wikimedia.org/wiki/Category:Bicycle_parking_facilities_in_Landkreis_T%C3%BCbingen 
+5. https://commons.wikimedia.org/wiki/Category:Parking_facilities_in_Landkreis_T%C3%BCbingen 
+6. https://www.radparken-tuebingen.de/en/ 
+7. https://www.booking.com/parking/city/de/tubingen.html 
+8. https://commons.wikimedia.org/wiki/Category:Parking_buildings_in_Landkreis_T%C3%BCbingen 
+9. https://commons.wikimedia.org/wiki/Category:Bicycle_parking_in_Landkreis_T%C3%BCbingen 
+10. https://commons.wikimedia.org/wiki/Category:Bicycle_parking_facilities_in_T%C3%BCbingen 
+
+Query 64: tübingen airports near
+1. https://www.booking.com/landmark/de/train-station-tuebingen.html 
+2. https://www.booking.com/landmark/de/eberhard-karls-university-tuebingen.html 
+3. https://uni-tuebingen.de/en/forschung/zentren-und-institute/brasilien-und-lateinamerika-zentrum/german-brazilian-symposium-2024/about-tuebingen/how-can-i-arrive-in-tuebingen/ 
+4. https://uni-tuebingen.de/en/faculties/faculty-of-humanities/departments/ancient-studies-and-art-history/institute-for-ancient-near-eastern-studies/collections/collections/the-near-eastern-collection/ 
+5. https://www.krone-tuebingen.de/en/hotel/location-and-getting-here/ 
+6. https://allevents.in/tubingen/today 
+7. https://uni-tuebingen.de/en/faculties/faculty-of-humanities/departments/ancient-studies-and-art-history/institute-for-ancient-near-eastern-studies/links/links/near-eastern-archaeology/ 
+8. https://uni-tuebingen.de/en/faculties/faculty-of-science/departments/mathematics/department/further-information/how-to-find-us/ 
+9. https://uni-tuebingen.de/en/faculties/faculty-of-humanities/departments/ancient-studies-and-art-history/institute-for-ancient-near-eastern-studies/research/near-eastern-archaeology/ 
+10. https://www.booking.com/city/de/tubingen.html 
+
+Query 65: tübingen travel tips
+1. https://www.germany.travel/en/cities-culture/tuebingen.html ✅
+2. https://www.fodors.com/world/europe/germany/heidelberg-and-the-neckar-valley/places/tubingen/restaurants 
+3. https://justinpluslauren.com/things-to-do-in-tubingen-germany/ ✅
+4. https://www.germany.travel/en/cities-culture/tuebingen.html#main 
+5. https://www.fodors.com/world/europe/germany/heidelberg-and-the-neckar-valley/places/tubingen/restaurants?keywords=dinner 
+6. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+7. https://allevents.in/tubingen/trips-adventures 
+8. https://www.booking.com/city/de/tubingen.html 
+9. https://uni-tuebingen.de/en/facilities/zentrum-fuer-datenverarbeitung/services/media-services/video-conferences/tips-and-hints/ 
+10. https://www.booking.com/hotel/de/domizil-tubingen.en-gb.html 
+
+Query 66: tübingen shopping streets
+1. https://www.krone-tuebingen.de/en/a-holiday-in-tuebingen/metzingen/ 
+2. https://www.unimuseum.uni-tuebingen.de/en/shop 
+3. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+4. https://allevents.in/tubingen/street-fairs 
+5. https://www.booking.com/city/de/tubingen.html 
+6. https://www.krone-tuebingen.de/en/rooms/packages-offers/outletcity-metzingen/ 
+7. https://web.archive.org/web/20090416010806/http://www.tuebingen.de/en/1560_2570.html 
+8. https://www.krone-tuebingen.de/en/rooms/packages-offers/ 
+9. https://commons.wikimedia.org/wiki/Category:Cycle_streets_in_T%C3%BCbingen 
+10. https://www.krone-tuebingen.de/en/a-holiday-in-tuebingen/ 
+
+Query 67: tübingen second-hand stores
+1. https://commons.wikimedia.org/wiki/Category:Second-hand_shops_in_Landkreis_T%C3%BCbingen 
+2. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+3. https://www.radparken-tuebingen.de/en/ 
+4. https://uni-tuebingen.de/en/faculties/faculty-of-economics-and-social-sciences/subjects/school-of-business-and-economics/school-of-business-and-economics/studies/prospective-students/first-hand-impressions/ 
+5. https://www.booking.com/city/de/tubingen.html 
+6. https://uni-tuebingen.de/en/study/organizing-your-studies/fees/tuition-fees/tuition-fees-for-a-second-degree/ 
+7. https://uni-tuebingen.de/en/forschung/zentren-und-institute/brasilien-und-lateinamerika-zentrum/german-brazilian-symposium-2024/conference-venue/hotels-and-accommodation/ 
+8. https://uni-tuebingen.de/en/facilities/university-library/publishing-research/tuebingen-library-publishing/ 
+9. https://uni-tuebingen.de/en/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/informatik/lehrstuehle/systembiologie/start/news/news/article/second-doctoral-degree-of-this-working-group/ 
+10. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1562.html 
+
+Query 68: tübingen organic food
+1. https://allevents.in/tubingen/food-drinks 
+2. https://allevents.in/tubingen/food-drinks?ref=eventlist-noevents 
+3. https://uni-tuebingen.de/en/faculties/faculty-of-science/departments/geosciences/department/organization/ 
+4. https://www.krone-tuebingen.de/en/restaurants/breakfast/ 
+5. https://uni-tuebingen.de/en/faculties/faculty-of-science/departments/physics/department/organization/ 
+6. https://wanderlog.com/list/geoCategory/340348/best-italian-restaurants-in-tubingen 
+7. https://commons.wikimedia.org/wiki/Category:Food_of_T%C3%BCbingen 
+8. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1562.html 
+9. https://wanderlog.com/list/geoCategory/199488/where-to-eat-best-restaurants-in-tubingen 
+10. https://allevents.in/pages/top-organizer?city=tubingen 
+
+Query 69: tübingen brew pubs
+1. https://imprs-mmfd.tuebingen.mpg.de/events/38456/6443 
+2. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+3. https://uni-tuebingen.de/en/faculties/faculty-of-humanities/faculty/doctoral-students-council/pub-night/ 
+4. https://www.booking.com/pets/city/de/tubingen.html 
+5. https://commons.wikimedia.org/wiki/Category:Pubs_in_T%C3%BCbingen 
+6. https://www.booking.com/city/de/tubingen.html 
+7. https://wanderlog.com/place/details/9945368/the-public-pub--bar-tÃ¼bingen 
+8. https://wanderlog.com/list/geoCategory/199488/where-to-eat-best-restaurants-in-tubingen 
+9. https://www.radparken-tuebingen.de/en/ 
+10. https://www.booking.com/landmark/de/train-station-tuebingen.html 
+
+Query 70: tübingen German courses
+1. https://uni-tuebingen.de/en/study/finding-a-course/ 
+2. https://uni-tuebingen.de/en/238107#c1657356 
+3. https://imprs-mmfd.tuebingen.mpg.de/events/35484/6443 
+4. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/full-degree-students/ 
+5. https://imprs-mmfd.tuebingen.mpg.de/events/39525/6443 
+6. https://imprs-mmfd.tuebingen.mpg.de/events/41786/6443 
+7. https://jazz-concerts.com/en/venue/German-American-Institute-Tubingen-Tubingen-4955 
+8. https://uni-tuebingen.de/en/faculties/faculty-of-science/studies/study-international/incoming/ 
+9. https://uni-tuebingen.de/en/facilities/university-library/about-us/library-holdings/subject-areas/german-studies/ 
+10. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/incoming-exchange-students/ 
+
+Query 71: tübingen cultural life
+1. https://www.krone-tuebingen.de/en/a-holiday-in-tuebingen/old-town-area-of-tuebingen/ 
+2. https://tuebingen.ai/wiki/language-culture-and-daily-life ✅
+3. https://uni-tuebingen.de/en/fakultaeten/philosophische-fakultaet/fachbereiche/neuphilologie/englisches-seminar/study/master-programmes/ma-american-studies/career-opportunities/ 
+4. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/student-life/ 
+5. https://uni-tuebingen.de/en/research/centers-and-institutes/college-of-fellows/fellows/fellow-life/ 
+6. https://velvetescape.com/things-to-do-in-tubingen/ 
+7. https://commons.wikimedia.org/wiki/Category:Culture_of_T%C3%BCbingen 
+8. https://tuebingenresearchcampus.com/en/tuebingen/living-in-tuebingen/family/life-with-kids 
+9. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/full-degree-students/ 
+10. https://tuebingenresearchcampus.com/en/tuebingen ✅
+
+Query 72: tübingen open-air cinema
+1. https://commons.wikimedia.org/wiki/Category:Cinemas_in_T%C3%BCbingen 
+2. https://wanderlog.com/place/details/296543/room-theater-tÃ¼bingen-gmbh 
+3. https://commons.wikimedia.org/wiki/Category:Cinemas_in_Landkreis_T%C3%BCbingen 
+4. https://www.krone-tuebingen.de/en/a-holiday-in-tuebingen/old-town-area-of-tuebingen/ 
+5. https://allevents.in/tubingen/nura-â¢-sudhaus-open-air/200027682473452 
+6. https://tuebingen.ai/wiki/language-culture-and-daily-life 
+7. https://www.kyb.tuebingen.mpg.de/open-positions 
+8. https://en.wikipedia.org/wiki/Landestheater_T%C3%BCbingen 
+9. https://www.fml.tuebingen.mpg.de/67440/open-positions 
+10. https://wanderlog.com/place/details/5028733/landestheater-tÃ¼bingen 
+
+Query 73: tübingen student card
+1. https://uni-tuebingen.de/en/faculties/faculty-of-science/studies/for-students/ 
+2. https://web.archive.org/web/20221115094642/https://uni-tuebingen.de/en/international/study-in-tuebingen/ 
+3. https://uni-tuebingen.de/en/facilities/university-library/searching-borrowing/library-card-loans/library-card/ 
+4. https://uni-tuebingen.de/en/international/welcome-center/university-services/information-on-enrollment/ 
+5. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/full-degree-students/ 
+6. https://uni-tuebingen.de/en/facilities/university-library/searching-borrowing/library-card-loans/ 
+7. https://uni-tuebingen.de/en/study/application-and-enrollment/ 
+8. https://uni-tuebingen.de/en/facilities/university-library/searching-borrowing/library-card-loans/library-card/departmental-library-card/ 
+9. https://uni-tuebingen.de/en/international/study-in-tuebingen/degree-seeking-students/getting-started-and-orientation-for-international-students/buddy-program/ 
+10. https://uni-tuebingen.de/en/study/prospective-students/ 
+
+Query 74: tübingen biking routes
+1. https://www.komoot.com/highlight/6829174 
+2. https://www.komoot.com/collection/1092705/13-exciting-themed-bike-tours-around-tuebingen-in-germany 
+3. https://www.komoot.com/guide/884/cycling-around-landkreis-tuebingen ✅
+4. https://www.komoot.com/highlight/3585562 
+5. https://www.komoot.com/highlight/3870397 
+6. https://www.komoot.com/highlight/7022511 
+7. https://www.komoot.com/guide/883/road-cycling-routes-around-landkreis-tuebingen 
+8. https://www.komoot.com/collection/1069961/road-cycling-around-tuebingen-in-germany 
+9. https://www.komoot.com/highlight/7082980 
+10. https://www.komoot.com/highlight/4843310 
+
+Query 75: tübingen rental apartments
+1. https://www.booking.com/apartments/city/de/tubingen.html 
+2. https://uni-tuebingen.de/en/facilities/zentrum-fuer-datenverarbeitung/services/media-services/camera-rental/ 
+3. https://www.booking.com/city/de/tubingen.html 
+4. https://www.booking.com/hotel/de/city-apartment-lustnau.html 
+5. https://www.booking.com/cars/city/de/tubingen.html 
+6. https://uni-tuebingen.de/en/224925 
+7. https://www.booking.com/apartments/city/de/tubingen.en-gb.html 
+8. https://www.booking.com/hotel/de/apartment-zentral-tubingen1.html 
+9. https://uni-tuebingen.de/en/forschung/zentren-und-institute/brasilien-und-lateinamerika-zentrum/german-brazilian-symposium-2024/conference-venue/hotels-and-accommodation/ 
+10. https://www.radparken-tuebingen.de/en/ 
+
+Query 76: tübingen cost of living
+1. https://tuebingen.ai/wiki/housing-and-cost-of-living ✅
+2. https://uni-tuebingen.de/en/research/support/applicants-to-professorships/living-and-working/ 
+3. https://www.tuebingen.mpg.de/172008/Leben-in-Tuebingen 
+4. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559_webcam.html 
+5. https://uni-tuebingen.de/en/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/geowissenschaften/arbeitsgruppen/urgeschichte-naturwissenschaftliche-archaeologie/ina/palaeoanthropologie/studies/living-and-studying-in-tuebingen/ 
+6. https://www.booking.com/city/de/tubingen.html 
+7. http://www.uni-tuebingen.de/en/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/zentren/zentrum-fuer-molekularbiologie-der-pflanzen/central-facilities/analytics/costs/ 
+8. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/full-degree-students/ 
+9. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+10. https://www.expatrio.com/about-germany/tubingen 
+
+Query 77: tübingen cooking classes
+1. https://allevents.in/tubingen/cooking 
+2. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/full-degree-students/ 
+3. https://uni-tuebingen.de/en/facilities/central-institutions/university-sports-center/strength-and-fitness-hall/training-offers/classes-workshops/ 
+4. https://wanderlog.com/list/geoCategory/340348/best-italian-restaurants-in-tubingen 
+5. https://uni-tuebingen.de/en/faculties/faculty-of-science/departments/geosciences/study/organizing-your-studies/class-schedules/ 
+6. https://www.krone-tuebingen.de/en/restaurants/restaurant-ludwigs/ 
+7. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/welcome-to-tuebingen/ 
+8. http://www.uni-tuebingen.de/en/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/biologie/institute/neurobiologie/msc-neurobiology/curriculum/classes-neurobiology/ 
+9. https://wanderlog.com/list/geoCategory/199488/where-to-eat-best-restaurants-in-tubingen 
+10. https://uni-tuebingen.de/en/fakultaeten/philosophische-fakultaet/fachbereiche/asien-orient-wissenschaften/koreanistik/cks/civis/classes-summer-22/ 
+
+Query 78: tübingen walking trails
+1. http://hiiker.app/trails/germany/tubingen/pfaffingen-to-tubingen-walk 
+2. https://www.komoot.com/highlight/5699245 
+3. https://www.komoot.com/guide/881/hiking-around-landkreis-tuebingen ✅
+4. https://www.komoot.com/highlight/3585562 
+5. https://www.komoot.com/highlight/657638 
+6. https://hiiker.app/trails/germany/tubingen/forest 
+7. https://www.kyb.tuebingen.mpg.de/800048/science-walk 
+8. https://hiiker.app/trails/germany/tubingen/kalberauchtert-and-ob-den-breitwiesen-loop 
+9. https://www.tuebingen.mpg.de/science-walk 
+10. https://hiiker.app/trails/germany/tubingen/grafenberg-loop-from-altingen 
+
+Query 79: tübingen student clubs
+1. https://uni-tuebingen.de/en/study/student-life/clubs-and-societies/ ✅
+2. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/incoming-exchange-students/ 
+3. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/faecher/fachbereich-wirtschaftswissenschaft/wirtschaftswissenschaft/international/international-students/#c661045 
+4. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/full-degree-students/ 
+5. https://uni-tuebingen.de/en/research/centers-and-institutes/the-china-centre-cct/erich-paulun-institute/sino-german-student-clubs/ 
+6. https://jazz-concerts.com/en/venue/Club-Voltaire-e-V-Tubingen-5881 
+7. https://jazz-concerts.com/en/venue/Club-Voltaire-e-V-Tubingen-5881/statistics 
+8. https://uni-tuebingen.de/en/study/steps-towards-employment/ 
+9. https://uni-tuebingen.de/en/facilities/central-institutions/university-sports-center/home/newsfullview/article/3ex-program-exchange-explore-exercise/ 
+10. https://uni-tuebingen.de/en/study/prospective-students/ 
+
+Query 80: tübingen local festivals
+1. https://allevents.in/tubingen/festivals 
+2. https://allevents.in/tubingen/food-drinks?ref=eventlist-noevents 
+3. https://allevents.in/tubingen/food-drinks 
+4. https://www.songkick.com/metro-areas/28594-germany-tubingen 
+5. https://allevents.in/tubingen/street-food-festival-tÃ¼bingen-2025/200027715243208 
+6. https://allevents.in/tubingen/street food 
+7. https://allevents.in/tubingen/music-festivals 
+8. https://jazz-concerts.com/en/city/Tubingen-2929/festivals 
+9. https://uni-tuebingen.de/en/facilities/university-library/about-us/new-here/non-local-guests/ 
+10. https://allevents.in/tubingen/all?page=2 
+
+Query 81: tübingen visa registration
+1. https://uni-tuebingen.de/en/international/welcome-center/registration/ 
+2. https://uni-tuebingen.de/en/facilities/central-institutions/university-sports-center/home/terms-and-conditions/registration-and-payment/ 
+3. https://uni-tuebingen.de/en/international/study-in-tuebingen/erasmus-and-exchange-to-tuebingen/ ✅
+4. http://www.studit-tuebingen.de/en/news/registration/ 
+5. https://web.archive.org/web/20221105030343/https://uni-tuebingen.de/en/international/study-in-tuebingen/erasmus-and-exchange-to-tuebingen/arrival-and-studying/ 
+6. https://uni-tuebingen.de/en/research/centers-and-institutes/college-of-fellows/fellows/fellowships/teachtuebingen/ 
+7. https://tuebingen.ai/wiki/housing-and-cost-of-living 
+8. https://uni-tuebingen.de/en/forschung/zentren-und-institute/brasilien-und-lateinamerika-zentrum/german-brazilian-symposium-2024/about-tuebingen/ 
+9. https://uni-tuebingen.de/en/forschung/zentren-und-institute/brasilien-und-lateinamerika-zentrum/german-brazilian-symposium-2024/registration/ 
+10. https://uni-tuebingen.de/en/faculties/faculty-of-science/studies/for-students/ 
+
+Query 82: tübingen Tübingen nightlife
+1. https://www.radparken-tuebingen.de/en/ 
+2. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+3. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/welcome-to-tuebingen/ 
+4. https://uni-tuebingen.de/en/forschung/zentren-und-institute/brasilien-und-lateinamerika-zentrum/german-brazilian-symposium-2024/about-tuebingen/ 
+5. https://www.krone-tuebingen.de/en/ 
+6. https://www.expatrio.com/about-germany/tubingen 
+7. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559_webcam.html 
+8. https://uni-tuebingen.de/en/international/learning-languages/international-in-tuebingen/ 
+9. https://www.krone-tuebingen.de/en/a-holiday-in-tuebingen/old-town-area-of-tuebingen/ 
+10. https://uni-tuebingen.de/en/excellence-strategy/information/calls-for-proposals/tuebingen-reloaded/ 
+
+Query 83: tübingen pubs
+1. https://imprs-mmfd.tuebingen.mpg.de/events/38456/6443 
+2. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+3. https://uni-tuebingen.de/en/faculties/faculty-of-humanities/faculty/doctoral-students-council/pub-night/ ✅
+4. https://www.booking.com/hotel/de/am-bad-tubingen.html 
+5. https://commons.wikimedia.org/wiki/Category:Pubs_in_T%C3%BCbingen 
+6. https://www.booking.com/city/de/tubingen.html 
+7. https://wanderlog.com/place/details/9945368/the-public-pub--bar-tÃ¼bingen 
+8. https://www.booking.com/pets/city/de/tubingen.html 
+9. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/welcome-to-tuebingen/ 
+10. https://www.radparken-tuebingen.de/en/ 
+
+Query 84: tübingen study tips
+1. https://uni-tuebingen.de/en/faculties/faculty-of-humanities/study/ 
+2. https://web.archive.org/web/20221105030343/https://uni-tuebingen.de/en/international/study-in-tuebingen/erasmus-and-exchange-to-tuebingen/arrival-and-studying/ 
+3. https://uni-tuebingen.de/en/facilities/zentrum-fuer-datenverarbeitung/services/media-services/video-conferences/tips-and-hints/ 
+4. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/full-degree-students/ 
+5. https://uni-tuebingen.de/en/faculties/center-for-islamic-theology/study/useful-tips-for-beginning-students/ 
+6. https://www.studit-tuebingen.de/en/ 
+7. https://uni-tuebingen.de/en/faculties/faculty-of-economics-and-social-sciences/studies/ 
+8. https://velvetescape.com/things-to-do-in-tubingen/ 
+9. https://uni-tuebingen.de/en/faculties/faculty-of-science/studies/ 
+10. https://www.uni-tuebingen.de/en/university/job-advertisements/ 
+
+Query 85: tübingen research institutes
+1. https://tuebingenresearchcampus.com/en/campus/jobs 
+2. https://tuebingenresearchcampus.com/en/research-in-tuebingen/research 
+3. http://www.tuebingenresearchcampus.com/campus/partner-institutions/hih/ 
+4. http://www.eye-tuebingen.de/ 
+5. https://tuebingenresearchcampus.com/ 
+6. http://www.eye-tuebingen.de/#page-content 
+7. https://tuebingenresearchcampus.com/en/tuebingen/living-in-tuebingen/family/life-with-kids 
+8. https://www.dzd-ev.de/en/the-dzd/locations/uni-tuebingen/index.html 
+9. https://tuebingenresearchcampus.com/en/research-in-tuebingen/thats-my-science 
+10. https://uni-tuebingen.de/en/fakultaeten/philosophische-fakultaet/fachbereiche/asien-orient-wissenschaften/koreanistik/cks/aks-strategic-research-institute/ 
+
+Query 86: tübingen cinemas
+1. https://commons.wikimedia.org/wiki/Category:Cinemas_in_T%C3%BCbingen 
+2. https://www.krone-tuebingen.de/en/a-holiday-in-tuebingen/old-town-area-of-tuebingen/ 
+3. https://commons.wikimedia.org/wiki/Category:Cinemas_in_Landkreis_T%C3%BCbingen 
+4. https://wanderlog.com/place/details/296543/room-theater-tÃ¼bingen-gmbh 
+5. https://www.radparken-tuebingen.de/en/ 
+6. https://wanderlog.com/place/details/5028733/landestheater-tÃ¼bingen 
+7. https://uni-tuebingen.de/en/forschung/zentren-und-institute/brasilien-und-lateinamerika-zentrum/german-brazilian-symposium-2024/about-tuebingen/ 
+8. https://en.wikipedia.org/wiki/Landestheater_T%C3%BCbingen 
+9. https://www.expatrio.com/about-germany/tubingen 
+10. https://tuebingen.ai/wiki/language-culture-and-daily-life ✅
+
+Query 87: tübingen roommates
+1. https://www.expatrio.com/about-germany/tubingen 
+2. https://www.radparken-tuebingen.de/en/ 
+3. https://www.booking.com/guest-house/city/de/tubingen.html 
+4. https://uni-tuebingen.de/en/forschung/zentren-und-institute/brasilien-und-lateinamerika-zentrum/german-brazilian-symposium-2024/about-tuebingen/ 
+5. https://www.booking.com/city/de/tubingen.html 
+6. https://www.booking.com/hostels/city/de/tubingen.html 
+7. https://uni-tuebingen.de/en/international/learning-languages/international-in-tuebingen/ 
+8. https://www.booking.com/pets/city/de/tubingen.html 
+9. https://uni-tuebingen.de/en/excellence-strategy/information/calls-for-proposals/tuebingen-reloaded/ 
+10. https://uni-tuebingen.de/en/224925 
+
+Query 88: tübingen climate
+1. https://wanderlog.com/weather/11001/1/tubingen-weather-in-january 
+2. https://wanderlog.com/weather/11001/5/tubingen-weather-in-may 
+3. https://wanderlog.com/weather/11001/8/tubingen-weather-in-august 
+4. https://wanderlog.com/weather/11001/3/tubingen-weather-in-march 
+5. https://wanderlog.com/weather/11001/11/tubingen-weather-in-november 
+6. https://wanderlog.com/weather/11001/9/tubingen-weather-in-september 
+7. https://uni-tuebingen.de/en/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/geowissenschaften/arbeitsgruppen/geo-und-umweltnaturwissenschaften/geo-und-umweltnaturwissenschaften/ehemalige-geologie/paleoclimate-and-climate-dynamics/ 
+8. https://www.weather-forecast.com/locations/Tubingen/forecasts/latest 
+9. https://uni-tuebingen.de/en/forschung/zentren-und-institute/brasilien-und-lateinamerika-zentrum/german-brazilian-symposium-2024/thematic-sessions/d-human-resilience-and-climate-justice/ 
+10. https://www.cmfi.uni-tuebingen.de/en/news-events/news/the-silent-signals-of-climate-change 
+
+Query 89: tübingen expat tips
+1. https://uni-tuebingen.de/en/facilities/zentrum-fuer-datenverarbeitung/services/media-services/video-conferences/tips-and-hints/ 
+2. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+3. https://uni-tuebingen.de/en/faculties/center-for-islamic-theology/study/useful-tips-for-beginning-students/ 
+4. https://www.booking.com/city/de/tubingen.html 
+5. https://wanderlog.com/place/details/1995469/universitÃ¤tsstadt-tÃ¼bingen 
+6. https://www.booking.com/hostels/city/de/tubingen.html 
+7. https://wanderlog.com/place/details/296535/stadtmuseum-tÃ¼bingen 
+8. https://www.booking.com/hostels/city/de/tubingen.en-gb.html 
+9. https://wanderlog.com/place/details/3013450/willi-tÃ¼bingen 
+10. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1562.html 
+
+Query 90: tübingen youth hostels
+1. https://www.booking.com/hostels/city/de/tubingen.html 
+2. https://www.booking.com/hostels/city/de/tubingen.en-gb.html 
+3. https://uni-tuebingen.de/en/study/prospective-students/tuebingen-as-a-place-to-study/ 
+4. https://uni-tuebingen.de/en/research/centers-and-institutes/research-center-for-science-communication-rcs/projects/youth-presents/ 
+5. https://web.archive.org/web/20090416010806/http://www.tuebingen.de/en/1560_2508.html 
+6. https://www.expatrio.com/about-germany/tubingen 
+7. https://weltethos-institut.org/en/events/youth-entrepreneurship-in-tuebingen/ 
+8. https://uni-tuebingen.de/en/224925 
+9. https://www.booking.com/hotel/de/gzt-das-ga-stehaus.html 
+10. https://www.booking.com/city/de/tubingen.html 
+
+Query 91: tübingen city bus
+1. https://www.krone-tuebingen.de/en/hotel/location-and-getting-here/ 
+2. https://www.tuebingen.mpg.de/172008/Leben-in-Tuebingen 
+3. https://commons.wikimedia.org/wiki/Category:Bus_transport_in_Landkreis_T%C3%BCbingen 
+4. https://uni-tuebingen.de/en/forschung/zentren-und-institute/european-research-center-on-contemporary-taiwan/links/ 
+5. https://uni-tuebingen.de/en/forschung/zentren-und-institute/brasilien-und-lateinamerika-zentrum/german-brazilian-symposium-2024/about-tuebingen/how-can-i-arrive-in-tuebingen/ 
+6. https://commons.wikimedia.org/wiki/Category:City_walls_and_city_gates_of_T%C3%BCbingen 
+7. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+8. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1560_1587.html 
+9. https://stadttubingen.hotelmix.co.uk/ 
+10. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1560.html 
+
+Query 92: tübingen timetable
+1. https://uni-tuebingen.de/en/international/study-in-tuebingen/erasmus-and-exchange-to-tuebingen/ ✅
+2. https://www.bahnhof.de/en/tuebingen-hbf/schedule 
+3. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/welcome-to-tuebingen/ 
+4. https://www.radparken-tuebingen.de/en/ 
+5. https://allevents.in/tubingen/band 
+6. https://uni-tuebingen.de/en/forschung/zentren-und-institute/brasilien-und-lateinamerika-zentrum/german-brazilian-symposium-2024/about-tuebingen/ 
+7. https://allevents.in/tubingen/performances 
+8. https://www.expatrio.com/about-germany/tubingen 
+9. https://allevents.in/tubingen/performer 
+10. https://uni-tuebingen.de/en/international/learning-languages/international-in-tuebingen/ 
+
+Query 93: tübingen travel card
+1. https://uni-tuebingen.de/en/facilities/university-library/searching-borrowing/library-card-loans/library-card/ 
+2. https://www.krone-tuebingen.de/en/rooms/packages-offers/all-inclusive-arrangement-tuebingen-melange/ 
+3. https://www.fodors.com/world/europe/germany/heidelberg-and-the-neckar-valley/places/tubingen/restaurants 
+4. https://www.booking.com/city/de/tubingen.html 
+5. https://www.fodors.com/world/europe/germany/heidelberg-and-the-neckar-valley/places/tubingen/restaurants?keywords=dinner 
+6. https://uni-tuebingen.de/en/forschung/zentren-und-institute/european-research-center-on-contemporary-taiwan/links/ 
+7. https://uni-tuebingen.de/en/facilities/university-library/searching-borrowing/library-card-loans/ 
+8. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+9. https://uni-tuebingen.de/en/facilities/university-library/searching-borrowing/library-card-loans/library-card/departmental-library-card/ 
+10. https://uni-tuebingen.de/en/forschung/zentren-und-institute/brasilien-und-lateinamerika-zentrum/german-brazilian-symposium-2024/conference-venue/hotels-and-accommodation/ 
+
+Query 94: tübingen local radio
+1. https://uni-tuebingen.de/en/facilities/university-library/about-us/new-here/non-local-guests/ 
+2. https://allevents.in/tubingen 
+3. https://uni-tuebingen.de/en/faculties/faculty-of-economics-and-social-sciences/subjects/department-of-social-sciences/research-on-far-right-extremism/institute/research-units/local-political-cultures/ 
+4. https://www.krone-tuebingen.de/en/ 
+5. https://tuebingen.ai/news/have-a-pint-with-your-local-scientist 
+6. https://www.booking.com/city/de/tubingen.html 
+7. https://www.timeanddate.com/worldclock/germany/tuebingen 
+8. https://www.mygermanyvacation.com/best-things-to-do-and-see-in-tubingen-germany/ 
+9. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/faecher/fachbereich-sozialwissenschaften/soziologie/forschung/global-tuebingen-urbanities-research-network-g-turn/past-activities/newsfullview-pastactivities/?tx_news_pi1%5Baction%5D=detail&tx_news_pi1%5Bcontroller%5D=News&tx_news_pi1%5Bnews%5D=102750&cHash=b061d7718e52a2faf4a548583fd84b25 
+10. https://justinpluslauren.com/things-to-do-in-tubingen-germany/ 
+
+Query 95: tübingen post office
+1. https://www.deutschepost.de/en/s/standorte.html 
+2. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+3. https://uni-tuebingen.de/en/research/centers-and-institutes/college-of-fellows/fellows/fellowships/teachtuebingen/ 
+4. https://www.cmfi.uni-tuebingen.de/en/team/office 
+5. https://uni-tuebingen.de/en/einrichtungen/zentrale-einrichtungen/tuebingen-school-of-education-tuese/research/promotion-of-early-career-researchers/postdoc-college/cohort-1-education-and-ai-in-the-21st-century-postdocteifun/ 
+6. https://commons.wikimedia.org/wiki/Category:Post_boxes_in_T%C3%BCbingen 
+7. https://www.my-stuwe.de/en/refectory/cafeteria-theologicum-tuebingen/ 
+8. https://uni-tuebingen.de/en/faculties/faculty-of-science/departments/biology/department-of-biology/examinations-office/ 
+9. https://uni-tuebingen.de/en/faculties/faculty-of-economics-and-social-sciences/offices-resources/ 
+10. https://uni-tuebingen.de/en/forschung/zentren-und-institute/european-research-center-on-contemporary-taiwan/links/ 
+
+Query 96: tübingen grocery stores
+1. https://www.radparken-tuebingen.de/en/ 
+2. https://uni-tuebingen.de/en/universitaet/aktuelles-und-publikationen/newsletter-uni-tuebingen-aktuell/2025/2/forum/2/ 
+3. https://www.booking.com/city/de/tubingen.html 
+4. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
+5. https://uni-tuebingen.de/en/forschung/zentren-und-institute/brasilien-und-lateinamerika-zentrum/german-brazilian-symposium-2024/about-tuebingen/ 
+6. https://www.booking.com/hostels/city/de/tubingen.html 
+7. https://www.expatrio.com/about-germany/tubingen 
+8. https://www.krone-tuebingen.de/en/a-holiday-in-tuebingen/ 
+9. https://uni-tuebingen.de/en/international/learning-languages/international-in-tuebingen/ 
+10. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1562.html 
+
+Query 97: tübingen biking safety
+1. https://www.komoot.com/collection/1092705/13-exciting-themed-bike-tours-around-tuebingen-in-germany 
+2. https://www.radparken-tuebingen.de/en/ ✅
+3. https://www.komoot.com/highlight/92113 
+4. https://uni-tuebingen.de/en/facilities/administration/division-viii-construction-safety-and-environment/ 
+5. https://www.komoot.com/collection/1069961/road-cycling-around-tuebingen-in-germany 
+6. https://www.komoot.com/highlight/3585562 
+7. https://www.komoot.com/highlight/6829174 
+8. https://www.komoot.com/highlight/4449402 
+9. https://commons.wikimedia.org/wiki/Category:Road_transport_safety_in_Landkreis_T%C3%BCbingen 
+10. https://www.radparken-tuebingen.de/en/order/booking 
+
+Query 98: tübingen guided tours
+1. https://www.geschichtswerkstatt-tuebingen.de/en/offers/tours 
+2. https://visit-tubingen.co.uk/category/things-to-do-in-tubingen/ 
+3. https://uni-tuebingen.de/en/facilities/university-library/learning-working/workshops-consultations-and-guided-tours/guided-tours/ ✅
+4. https://www.unimuseum.uni-tuebingen.de/en/info/bookable-guided-tours/guided-tour-of-the-castle 
+5. https://www.krone-tuebingen.de/en/a-holiday-in-tuebingen/old-town-area-of-tuebingen/ 
+6. https://www.unimuseum.uni-tuebingen.de/en/meta/visitation/book-a-guided-tour-or-course 
+7. https://allevents.in/tubingen 
+8. https://www.geschichtswerkstatt-tuebingen.de/en/offers/tours/fuehrungen-der-jungen-geschichtswerktatt 
+9. https://www.mygermanyvacation.com/best-things-to-do-and-see-in-tubingen-germany/ 
+10. https://fdat.uni-tuebingen.de/help/search 
+
+Query 99: tübingen weekend ideas
+1. https://allevents.in/tubingen/this-weekend 
+2. https://allevents.in/tubingen/live-music 
+3. https://uni-tuebingen.de/en/research/centers-and-institutes/research-center-for-science-communication-rcs/projects/from-idea-to-impact/ 
+4. https://uni-tuebingen.de/en/fakultaeten/wirtschafts-und-sozialwissenschaftliche-fakultaet/international/study-in-tuebingen/welcome-to-tuebingen/ 
+5. https://www.mygermanyvacation.com/tag/tubingen/ 
+6. https://wanderlog.com/list/geoCategory/199488/where-to-eat-best-restaurants-in-tubingen 
+7. https://uni-tuebingen.de/en/fakultaeten/philosophische-fakultaet/fachbereiche/philosophie-rhetorik-medien/philosophisches-seminar/forschung-1/erc-projekt-text-and-idea-of-aristoteles-sciencs-of-living-things/ 
+8. https://www.krone-tuebingen.de/en/rooms/packages-offers/ 
+9. https://www.radparken-tuebingen.de/en/ 
+10. https://allevents.in/tubingen 
+
+Query 100: tübingen surrounding towns
+1. https://www.germany.travel/en/cities-culture/tuebingen.html 
+2. https://www.germany.travel/en/cities-culture/tuebingen.html#main 
+3. https://www.krone-tuebingen.de/en/a-holiday-in-tuebingen/tuebingen-the-surrounding-area/ 
+4. https://justinpluslauren.com/things-to-do-in-tubingen-germany/ 
+5. https://www.visit-bw.com/en/article/old-town-of-tubingen/c82ceb67-f78d-4b4e-8911-3972ca794cbc#/ 
+6. https://velvetescape.com/things-to-do-in-tubingen/ 
+7. https://simplifylivelove.com/tubingen-germany/ ✅
+8. https://www.mygermanyvacation.com/best-things-to-do-and-see-in-tubingen-germany/ 
+9. https://placesofgermany.de/en/places/tubingen-old-town/ 
+10. https://web.archive.org/web/20090417002710/http://www.tuebingen.de/en/1559.html 
