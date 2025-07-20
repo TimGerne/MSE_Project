@@ -1,8 +1,8 @@
 import streamlit as st
-from streamlit_js_eval import streamlit_js_eval, get_geolocation
 from streamlit_extras.stylable_container import stylable_container
 from streamlit_extras.bottom_container import bottom
 from streamlit_extras.word_importances import format_word_importances
+from streamlit_extras.grid import grid
 import itertools
 
 import pandas as pd
@@ -12,13 +12,11 @@ import io
 import random
 import requests
 from bs4 import BeautifulSoup
+from yake import KeywordExtractor
 import cohere
 from transformers import pipeline
 import fasttext
-
-
-import streamlit as st
-from st_screen_stats import ScreenData, StreamlitNativeWidgetScreen, WindowQuerySize, WindowQueryHelper
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 
 #Examples inputs################
@@ -26,7 +24,6 @@ example_retrieved_docs = pd.DataFrame({"Query":[0,0,0,0,1,1,1,1],
                                        "Rank":[1,2,3,4,1,2,3,4],
                                        "URL":["https://www.bbc.com","https://www.n24.de","https://www.tagesschau.de","https://www.n-tv.de","https://www.ard.de","https://www.zdf.de","https://www.youtube.com","https://www.netflix.com"],
                                        "Relevance":[1,0.5,0.3,0.1,1,0.5,0.3,0.1]})
-example_queries = ["Tübingen","Food"]
 #################################
 
 def retrieve_queries(query:str,query_file)->list:
@@ -74,7 +71,8 @@ def get_queries(query:str|None,queries_file:st.runtime.uploaded_file_manager.Upl
 
 
 def load_session(current_session:int):
-    st.session_state.current_session = current_session
+    st.session_state.i_session = current_session
+    st.session_state.i_query = 0
     st.rerun()
 
 
@@ -108,7 +106,7 @@ def create_sidebar(history):
                     session_queries = session[0]
                     session_name = session[2]
                     
-                    if st.session_state.current_session==i:
+                    if st.session_state.i_session==i:
                         #st.badge("active", color="green")
                         current_session_icon = ":material/my_location:"
                     else:
@@ -132,12 +130,47 @@ def predict_text_categories(url,k=3):
     pred = model.predict(content,k=k)
     return pred
 
+def get_keywords(meta:str,get_unique_keywords:bool):
+    #get keywords first version non unique only keywords
+    keywords_list = []
+    if get_unique_keywords:
+        vectorizer = TfidfVectorizer(stop_words='english')
+        tfidf_matrix = vectorizer.fit_transform(metas)
+        feature_names = np.array(vectorizer.get_feature_names_out())
+        for doc_idx in range(tfidf_matrix.shape[0]):
+            row = tfidf_matrix[doc_idx].toarray().flatten()
+            top_indices = row.argsort()[::-1][:3]
+            top_words = feature_names[top_indices]
+            keywords_list.append(top_words.tolist())
+
+    else:
+        kw_extractor = KeywordExtractor(lan="en", n=1, top=3)
+        for meta in metas:
+            keywords = [x[0] for x in kw_extractor.extract_keywords(meta)]
+            keywords_list.append(keywords)
+    return keywords_list
+
+
+def get_color_keyword_dict(keywords:list)->dict:
+    keywords = set(keywords)
+    color_keyword_dict = dict()
+    colors = [
+        "#e6194b", "#3cb44b", "#ffe119", "#0082c8", "#f58231", "#911eb4",
+        "#46f0f0", "#f032e6", "#d2f53c", "#fabebe", "#008080", "#e6beff",
+        "#aa6e28", "#fffac8", "#800000", "#aaffc3", "#808000", "#ffd8b1",
+        "#000080", "#808080", "#FFFFFF", "#000000", "#a9a9a9", "#ff69b4",
+        "#b0e0e6", "#98fb98", "#dda0dd", "#fa8072", "#20b2aa", "#f0e68c"
+    ]
+    for i,keyword in enumerate(keywords): 
+        color_keyword_dict[keyword] = colors[i%len(colors)]
+    return color_keyword_dict
+
+
 
 ##Code for heavy compute but high qulaity summary with huggingface run client side
 @st.cache_resource
 def load_summarizer():
     return pipeline("summarization", model="sshleifer/distilbart-cnn-12-6") #mt5-small
-
 
 def get_summary(content:str)->str:
     st.write(len(content))
@@ -151,7 +184,7 @@ def get_summary(content:str)->str:
 
 #more lightweight but needs api
 def get_summary_cohere(content:str)->str:
-    co = cohere.Client("COHERE_API_KEY") #TODO Mask this
+    co = cohere.Client(st.secrets["COHERE_API_KEY"])
     response = co.generate(
         model="command",
         prompt=f"Summarize the following website:n\n{content}",
@@ -160,19 +193,17 @@ def get_summary_cohere(content:str)->str:
     )
     return response.generations[0].text.strip()
 
-
 ###############################################################################################
 @st.dialog("Website Summary")
 def get_summary(url:str,use_cohere=True):
     st.title(url)
     content = extract_text_from_url(url)
     if use_cohere:
-        summary = get_summary_cohere(content)
+        summary = url
+        #summary = get_summary_cohere(content)
     else:
         summary = get_summary(content)
     st.write(summary)
-
-
 
 
 def extract_text_from_url(url):
@@ -224,7 +255,7 @@ def LLM_query_refinement(system_prompt,prev_messages,use_cohere=False):
     system_message = [{"role":"system","content": system_prompt}]
     messages = system_message + prev_messages
     if use_cohere:
-        co = cohere.ClientV2("COHERE_API_KEY") #TODO Mask this
+        co = cohere.ClientV2(st.secrets["COHERE_API_KEY"])
         response = co.chat_stream(
             model="command-a-03-2025", 
             messages=messages
@@ -237,19 +268,19 @@ def LLM_query_refinement(system_prompt,prev_messages,use_cohere=False):
         yield from talk_as_stream("Activate Cohere")
 
 
-def LLM_website_recommendation(system_prompt,prev_messages,use_cohere=False):
+def LLM_website_recommendation(system_prompt,prev_messages,use_cohere=True):
     """This is RAG based"""
     if st.session_state.history == []:
         print("This case")
         yield from talk_as_stream("Please search first")
     else:
-        docs = st.session_state.history[st.session_state.current_session][1]
+        docs = st.session_state.history[st.session_state.i_session][1]
         urls = docs[docs["Query"]==0]["URL"].tolist()
         descriptions = [extract_meta_description(url) for url in urls]
         docs = [{"data":{"text": content, "url":url}} for url,content in zip(urls,descriptions)]
         system_message = [{"role":"system","content": system_prompt}]
         if use_cohere:
-            co = cohere.ClientV2("COHERE_API_KEY") #TODO Mask this
+            co = cohere.ClientV2(st.secrets["COHERE_API_KEY"])
             response = co.chat_stream(
                 model="command-a-03-2025",
                 messages=system_message +prev_messages,
@@ -270,11 +301,9 @@ def conversate_with_LLM(mode):
     system_prompt = general_system_prompt
     if mode == "Query refinement":
         system_prompt += system_prompt_query_refinement
-        #return talk_as_stream(f"dddddddddihey {len(st.session_state.messages)}")
         yield from LLM_query_refinement(system_prompt = system_prompt, prev_messages=messages)
     if mode == "Website recommendation":
         system_prompt += system_prompt_website_recommendation
-        #return talk_as_stream(f"hihey {len(st.session_state.messages)}")
         yield from LLM_website_recommendation(system_prompt = system_prompt, prev_messages=messages)
 
 
@@ -329,48 +358,70 @@ def compute_shapley_values(query:list,original_urls:str)->list:
 #logic for popover button with agent
 def assistant():
     with st.popover("",icon=":material/smart_toy:",use_container_width=True):
-        left_side,right_side = st.columns([5,1])
-        if right_side.button("",key="delete_chat",icon=":material/delete:",type="tertiary"):
-            st.session_state.messages=[]
-            st.rerun()
-        left_side.markdown("##### What can i help you with?")
+        
+        st.markdown("##### What can i help you with?")
         mode = st.pills("Mode",["Query refinement","Website recommendation"],default=st.session_state.chatbot_mode,label_visibility="collapsed")
         if mode != st.session_state.chatbot_mode:
             st.session_state.messages=[]
         st.session_state.chatbot_mode = mode
 
-        with st.container(height=150,border=False):
-            for message in st.session_state.messages:
-                with st.chat_message(message["role"]):
-                    st.markdown(message["content"])
-                    
-            if len(st.session_state.messages) % 2 ==0:
-                with st.chat_message("assistant"):
-                    response = st.write_stream(begin_conversation(st.session_state.chatbot_mode))
-                st.session_state.messages.append({"role": "assistant", "content": response})
+        st.markdown("""
+            <div style='max-height: 150px; overflow-y: auto; padding-right: 10px;'>
+        """, unsafe_allow_html=True)
+        for message in st.session_state.messages:
+            with st.chat_message(message["role"]):
+                st.markdown(message["content"])
+                
+        if len(st.session_state.messages) % 2 ==0:
+            with st.chat_message("assistant"):
+                response = st.write_stream(begin_conversation(st.session_state.chatbot_mode))
+            st.session_state.messages.append({"role": "assistant", "content": response})
+        st.markdown("</div>", unsafe_allow_html=True)
 
-        prompt = st.chat_input("Get assistance")
-
+        left_side,right_side = st.columns([5,1])
+        if right_side.button("",key="delete_chat",icon=":material/delete:",type="tertiary"):
+            st.session_state.messages=[]
+            st.rerun()
+        prompt = left_side.chat_input("Get assistance")
         if prompt:
             st.session_state.messages.append({"role":"user","content": prompt})
             st.rerun()
 
+
+def colored_pill(text, color):
+    return f"""
+    <span style="
+        background-color: {color};
+        color: white;
+        padding: 0.25em 0.75em;
+        margin: 0.25em;
+        border-radius: 999px;
+        font-size: 0.9em;
+        white-space: nowrap;
+        display: inline-block;
+    ">{text}</span>
+    """
 
 ##Initialization
 st.set_page_config(page_title="Search",page_icon="🔎",layout="wide")
 if "ndocs" not in st.session_state:
     st.session_state.ndocs=10000 #Look for documents
 st.session_state.n_results = 100
-if "current_session" not in st.session_state:
-    st.session_state.current_session = None
+if "i_session" not in st.session_state:
+    st.session_state.i_session = None
+if "i_query" not in st.session_state:
+    st.session_state.i_query = None
 if "history" not in st.session_state:
     st.session_state.history = []
-if "highlight_clicked" not in st.session_state:
-    st.session_state.highlight_clicked = False
+if "use_meta_data" not in st.session_state:
+    st.session_state.use_meta_data = False
+if "unique_keywords" not in st.session_state:
+    st.session_state.unique_keywords = False
 if "messages" not in st.session_state:
     st.session_state.messages = []
 if "chatbot_mode" not in st.session_state:
     st.session_state.chatbot_mode = "Query refinement"
+
 
 
 queries_file=None
@@ -392,15 +443,12 @@ with st.sidebar:
     create_sidebar(st.session_state.history)
     st.html("<hr>")
     
-    
-    left_sb,right_sb = st.columns(2)
-    
-    left_sb.link_button("","https://github.com/TimGerne/MSE_Project",icon=":material/school:",type="secondary",use_container_width=True)
-    with right_sb:
-        assistant()
+    st.link_button("","https://github.com/TimGerne/MSE_Project",icon=":material/school:",type="tertiary",use_container_width=True)
+        
 
 
-st.title("Our search engine")
+#st.title("Kopernikus 🔭")
+st.markdown("<h1 style='text-align: center;'>Kopernikus 🔭</h1>", unsafe_allow_html=True)
 
 st.markdown(f':orange-badge[{st.session_state.ndocs} documents to search]')
 
@@ -416,85 +464,129 @@ with st.form("search_form"):
         docs = start_searching(query,queries_file)
         docs = example_retrieved_docs #TODO: remove when search implemented
         #st.session_state.pd_docs = docs
-        st.session_state.current_session = len(st.session_state.history)
-        session_name = f"{st.session_state.current_session +1}. Session"
+        st.session_state.i_session = len(st.session_state.history)
+        st.session_state.i_query = 0
+        session_name = f"{st.session_state.i_session +1}. Session"
         st.session_state.history.append([queries,docs,session_name])
         st.rerun()
 
 
 st.html("<hr>")
 
-left,right = st.columns([6,1])
-with left:
-    st.markdown("### Search results")
-with right:
-    popover = st.popover("",icon=":material/settings:")
-    st.session_state.n_results = popover.number_input("number of results",min_value=1,value=20,label_visibility="visible",help="Number of results shown")
-    left_side,right_side = popover.columns([2,1])
-    #st.session_state.show_tags = left_side.checkbox("Generate Tags",help="Crawls the websites to generate small texts")
-    if right_side.button(label="",icon=":material/refresh:",key="Rerun_button",type="tertiary"):
-        st.rerun()
+st.markdown(f"<h2 style='text-align: center;'>Search results</h2>", unsafe_allow_html=True)
+
+
 
 
 if len(st.session_state.history)>0: #check if already searched
 
-    current_session = st.session_state.current_session
-    current_queries,current_docs,current_session_name = st.session_state.history[current_session]
+    i_session = st.session_state.i_session
+    queries,docs,session_name = st.session_state.history[i_session]
     
-    left_side,right_side = st.columns([5,1])
-    left_side.markdown(f"## {current_session_name}")
+    left_side,right_side = st.columns([9,1])
+    left_side.markdown(f"## {session_name}")
+
+    with right_side:
+        popover = st.popover("",icon=":material/settings:")
+        st.session_state.n_results = popover.number_input("number of results",min_value=1,value=20,label_visibility="visible",help="Number of results shown")
+        left_side,right_side = popover.columns([2,1])
+        st.session_state.use_meta_data = left_side.checkbox("Use metadata",help="Makes the search engine slightly slower",value=st.session_state.use_meta_data)
+        if right_side.button(label="",icon=":material/refresh:",key="Rerun_button",type="tertiary"):
+            st.rerun()
+        st.session_state.unique_keywords = left_side.checkbox("Generate unique keywords",help="Only if metadata is enabled",value=st.session_state.unique_keywords)
+        
     
-    
-    query_tabs_name = [f"Results {i}" for i in range(len(current_queries))]
-    query_tabs = st.tabs(query_tabs_name)
-    for i,(query,tab) in enumerate(zip(current_queries,query_tabs)):
-        with tab:
-            example_retrieved_docs = current_docs
-            ls,rs = st.columns([7,1])
-            ls.markdown(f"##### Query: {query}")
-            rs.download_button("📥",example_retrieved_docs[example_retrieved_docs["Query"]==i].to_csv(index=False,header=False,sep='\t'),file_name=f"results_query_{query}.tsc")
-            retrieved_docs = example_retrieved_docs.loc[example_retrieved_docs["Query"]==i].iloc[:,1:]
-            shown_docs = retrieved_docs.iloc[:st.session_state.n_results,:]
+    query_tabs_name = [f"Results {i}" for i in range(len(queries))]
+
+    col1, col2, col3,col4 = st.columns([1, 4, 1, 2],gap="small")
+
+    with col1:
+        if st.button("", key="query_back", icon=":material/arrow_back:", use_container_width=True):
+            if st.session_state.i_query>0:
+                st.session_state.i_query -= 1
+
+    with col2:
+        if st.button(f"{st.session_state.i_query + 1}. Query", type="tertiary", use_container_width=True):
+            st.toast("You discovered an Easter 🥚")
+
+    with col3:
+        if st.button("", key="query_next", icon=":material/arrow_forward:",use_container_width=True):
+            if st.session_state.i_query<len(queries)-1:
+                st.session_state.i_query += 1
+
+    with col4:
+        st.session_state.i_query = st.selectbox("",label_visibility="collapsed",options=range(len(queries)),format_func=lambda i: queries[i],index=st.session_state.i_query)
+
+    st.html("<hr>")
+    with st.container():
+        ls,rs = st.columns([7,1])
+        i_query = st.session_state.i_query
+        query = queries[i_query]
+        ls.markdown(f"##### Query: {query}")
+        rs.download_button("📥",docs[docs["Query"]==i_query].to_csv(index=False,header=False,sep='\t'),type="tertiary",file_name=f"results_query_{query}.tsc")
+        retrieved_docs = docs.loc[docs["Query"]==i_query].iloc[:,1:]
+        shown_docs = retrieved_docs.iloc[:st.session_state.n_results,:]
+        
+        #will slow the browser down
+        if st.session_state.use_meta_data:
+            metas = [extract_meta_description(url) for url in  shown_docs["URL"]]
+            keywords_list = get_keywords(metas,st.session_state.unique_keywords)
+            colors_keyword_dict = get_color_keyword_dict([keyword for keywords in keywords_list for keyword in keywords])
+        
+        for j,element in shown_docs.iterrows():
+            col1,col2,col3,col4 = st.columns([3,3,1,1])
+            rank = element["Rank"]
+            url = element["URL"]
+            rel = element["Relevance"]
+            col1.markdown(f"#### {rank}. [{url}]({url})")
             
-            left_side,middle_side,right_side = tab.columns([1,1,1])
-            for j,element in shown_docs.iterrows():
-                rank = element["Rank"]
-                url = element["URL"]
-                rel = element["Relevance"]
-                left_side.markdown(f"{rank}. [{url}]({url})")
-                if right_side.button("Summary",key=f"summary_button{j}",icon=":material/summarize:"):
-                    get_summary(url)
-                
-            #Show results as Dataframe
-            #tab.dataframe(
-            #    shown_docs,
-            #    column_config={
-            #        "Rank": st.column_config.NumberColumn("Rank",width="small"),
-            #        "URL": st.column_config.LinkColumn("URL",width="mid"),
-            #        "Relevance": st.column_config.NumberColumn("Relevance",width="small")
-            #    },
-            #    hide_index=True,
-            #)
-        left_side,right_side = st.columns(2)
-        if right_side.button("Compute Query importance",icon=":material/memory:"):
-            st.write(st.session_state.history)
-            docs = st.session_state.history[st.session_state.current_session][1]
-            query = st.session_state.history[st.session_state.current_session][0][0]
-            ori_urls = docs[docs["Query"]==0]["URL"]
+            #keywords 
+            with col2:
+                if st.session_state.use_meta_data:
+                    meta = metas[j]
+                    keywords = keywords_list[j]
+
+                    pills_html = "".join([colored_pill(keyword, colors_keyword_dict[keyword]) for keyword in keywords])
+                    full_html = f"""
+                    <div style="display: flex; flex-wrap: wrap; align-items: center;">
+                        {pills_html}
+                    """
+                    st.markdown(full_html, unsafe_allow_html=True)
+
+
+            if col3.button("Summary",key=f"summary_button{j}",icon=":material/summarize:"):
+                get_summary(url)
+            col4.markdown(rel)
+
+            if st.session_state.use_meta_data:
+                st.markdown(f"[{meta}]({url})")
+            
+            
+
+    #shapley value feature
+    st.html("<hr>")
+    left_side,right_side = st.columns(2)
+    with right_side:
+        
+        if st.button("Compute Query importance",icon=":material/memory:",type="tertiary",use_container_width=True):
+            queries,docs = st.session_state.history[st.session_state.i_session]
+            query = queries[st.session_state.i_query]
+            ori_urls = docs[docs["Query"]==i_query]["URL"]
             shap_val = compute_shapley_values(query.split(),original_urls=ori_urls)
             html = format_word_importances(
                 words=query.split(),
                 importances=shap_val)
             st.write(html, unsafe_allow_html=True)
 
+        
 
+    left_side.download_button('Download all results', docs.to_csv(index=False,header=False,sep='\t'),type="tertiary",icon=":material/download:",file_name="Results.tsv",use_container_width=True)
 
-    left_side.download_button('Download all results', example_retrieved_docs.to_csv(index=False,header=False,sep='\t'),icon=":material/download:",file_name="Results.tsv")
-
-    #@st.cache_resource for ML resources #https://docs.streamlit.io/get-started/fundamentals/advanced-concepts #DB connection #st.metric("Some Value",42,2)
-#streamlit extras grid for layout #stateful_chats for conversation with assistant #pdf viewer #rowlayout
 else:
     st.markdown("## No results")
     
 
-#with bottom():
+with bottom():
+    _,right_side = st.columns([3,1])
+    with right_side:
+        assistant()
