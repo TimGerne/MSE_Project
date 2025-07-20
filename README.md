@@ -1,4 +1,4 @@
-# 📘 Tübingen Search Engine Project
+# Tübingen Search Engine Project
 
 This project implements a domain-specific search engine focused on retrieving **English-language web content about Tübingen**. It supports sparse (BM25), dense (semantic), and hybrid retrieval, with optional query expansion and neural reranking.
 
@@ -95,18 +95,6 @@ Three expansion strategies were implemented:
 
 ---
 
-## Output Format
-
-If saving result rankings:
-
-```
-query_id<TAB>rank<TAB>url<TAB>score
-```
-
-Each query gets 100 results, sorted by final score.
-
----
-
 ## Final Notes
 
 * **Final model**: `HybridReciprocalRankFusionModel` with `k=20`, no expansion, no reranker
@@ -118,4 +106,5 @@ Each query gets 100 results, sorted by final score.
 ## Author
 
 Aline Breitinger, Moritz Christ, Lili Even, Tim Gerne und Jonathan Nemitz
+
  – Modern Search Engines Project – Summer Term 2025
