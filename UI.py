@@ -48,7 +48,7 @@ def start_searching(query,queries)->list:
         queries = retrieve_queries(query,queries)
         st.toast("Started Search")
         with st.spinner(text="Search in Progress"):
-            time.sleep(2)
+            time.sleep(1)
             #docs = start_search(queries)
             docs=None
             #TODO: Replace by actual start search call
@@ -133,80 +133,46 @@ def predict_text_categories(url,k=3):
     return pred
 
 
-def LLM_website_summary(content):
-    summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
-    summary = summarizer(content,max_length=150,min_length=50,do_sample=False)
+##Code for heavy compute but high qulaity summary with huggingface run client side
+@st.cache_resource
+def load_summarizer():
+    return pipeline("summarization", model="sshleifer/distilbart-cnn-12-6") #mt5-small
+
+
+def get_summary(content:str)->str:
+    st.write(len(content))
+    min_text_len = 20
+    if len(content)<min_text_len:
+        return content
+    summarizer = load_summarizer()
+    summary = summarizer(content,max_length=150,min_length=min_text_len,truncation=True,do_sample=False)
     return summary[0]["summary_text"]
+###############################################################################################
+
+#more lightweight but needs api
+def get_summary_cohere(content:str)->str:
+    co = cohere.Client("COHERE_API_KEY") #TODO Mask this
+    response = co.generate(
+        model="command",
+        prompt=f"Summarize the following website:n\n{content}",
+        max_tokens= 150,
+        temperature=0.3,
+    )
+    return response.generations[0].text.strip()
 
 
-def get_website_summary(url:str):
-    content = extract_text_from_url(url)
-    return LLM_website_summary(content)
-
-
+###############################################################################################
 @st.dialog("Website Summary")
-def get_summary(url:str):
+def get_summary(url:str,use_cohere=True):
     st.title(url)
-    summary = get_website_summary(url)
+    content = extract_text_from_url(url)
+    if use_cohere:
+        summary = get_summary_cohere(content)
+    else:
+        summary = get_summary(content)
     st.write(summary)
 
 
-def talk_as_stream(response:str):
-    for word in response.split():
-        yield word + " "
-        time.sleep(0.05)
-
-
-def LLM_query_refinement(system_prompt,prev_messages,use_cohere=False):
-    "normal LLM"
-    system_message = {"role":"system","content": system_prompt}
-    if use_cohere:
-        co = cohere.ClientV2("cohere_KEY")#TODO: geheimnis nacher wieder masken
-        #response = co.chat(
-        #    model="command-a-03-2025", 
-        #    messages=system_message + prev_messages
-        #)
-        response = co.chat_stream(
-            model="command-a-03-2025", 
-            messages=system_message + prev_messages
-        )
-
-        return response.message.content[0].text
-    else:
-        return talk_as_stream("Activate Cohere")
-
-
-def extract_meta_description(url):
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, 'html.parser')
-    
-    # Look for the <meta name="description"> tag
-    meta_description = soup.find('meta', attrs={'name': 'description'})
-    
-    if meta_description:
-        # If found, return the content of the meta description
-        return meta_description.get('content')
-    else:
-        # If no meta description is found, return a message
-        return "No meta description found."
-
-
-def LLM_website_recommendation(system_prompt,prev_messages):
-    """This is RAG based"""
-
-    if len(st.session_state.history)<1:
-        return talk_as_stream("Search first")
-    urls = st.session_state.history[st.session_state.current_session][st.session_state.history[st.session_state.current_session]['Query']==0]["URL"].tolist()
-    descriptions = [extract_meta_description(url) for url in urls]
-    docs = [{"data":{"text": content, "url":url}} for url,content in zip(urls,descriptions)]
-
-    system_message = {"role":"system","content": system_prompt}
-    co = cohere.ClientV2("cohere_KEY")
-    response = co.chat_stream(
-        model="command-a-03-2025",
-        messages=system_message +prev_messages,
-        documents=docs)
-    return response.message.content[0].text
 
 
 def extract_text_from_url(url):
@@ -232,20 +198,84 @@ def extract_text_from_url(url):
         return f"Error: {e}"
 
 
+def extract_meta_description(url):
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, 'html.parser')
+    
+    # Look for the <meta name="description"> tag
+    meta_description = soup.find('meta', attrs={'name': 'description'})
+    
+    if meta_description:
+        # If found, return the content of the meta description
+        return meta_description.get('content')
+    else:
+        # If no meta description is found, return a message
+        return "No meta description found."
+
+
+def talk_as_stream(response:str):
+    for word in response.split():
+        yield word + " "
+        time.sleep(0.05)
+
+
+def LLM_query_refinement(system_prompt,prev_messages,use_cohere=False):
+    "normal LLM"
+    system_message = [{"role":"system","content": system_prompt}]
+    messages = system_message + prev_messages
+    if use_cohere:
+        co = cohere.ClientV2("COHERE_API_KEY") #TODO Mask this
+        response = co.chat_stream(
+            model="command-a-03-2025", 
+            messages=messages
+        )
+
+        for event in response:
+            if event and event.type == "content-delta":
+                yield event.delta.message.content.text
+    else:
+        yield from talk_as_stream("Activate Cohere")
+
+
+def LLM_website_recommendation(system_prompt,prev_messages,use_cohere=False):
+    """This is RAG based"""
+    if st.session_state.history == []:
+        print("This case")
+        yield from talk_as_stream("Please search first")
+    else:
+        docs = st.session_state.history[st.session_state.current_session][1]
+        urls = docs[docs["Query"]==0]["URL"].tolist()
+        descriptions = [extract_meta_description(url) for url in urls]
+        docs = [{"data":{"text": content, "url":url}} for url,content in zip(urls,descriptions)]
+        system_message = [{"role":"system","content": system_prompt}]
+        if use_cohere:
+            co = cohere.ClientV2("COHERE_API_KEY") #TODO Mask this
+            response = co.chat_stream(
+                model="command-a-03-2025",
+                messages=system_message +prev_messages,
+                documents=docs)
+            
+            for event in response:
+                    if event and event.type == "content-delta":
+                        yield event.delta.message.content.text
+        else:
+            yield from talk_as_stream("Activate Cohere")
+
+
 def conversate_with_LLM(mode):
     messages = st.session_state.messages
-    general_system_prompt = "You are a knowledgeable and friendly assistant that helps users with technical questions. Respond professionally, with warmth and clarity, avoiding robotic or overly formal language. Never use emojis in your responses. If you do not know the answer to a question, say so honestly, do not invent facts."
+    general_system_prompt = "You are a knowledgeable and friendly assistant that helps users with technical questions. Respond professionally, with warmth and clarity, avoiding robotic or overly formal language. Never use emojis in your responses. If you do not know the answer to a question, say so honestly, do not invent facts. Answer short but precise."
     system_prompt_query_refinement = "Your primary task is to analyze user queries and identify any arbitrary, vague, or potentially misleading terms that could confuse search engines or cause unrelated websites to rank highly. Once you highlight these terms, wait for the user's clarification. After that, suggest improved versions of the query that reduce ambiguity and improve search precision—based on the user's intent."
-    system_prompt_website_recommendation = "Your primary task is to help the user find the most suitable website from a curated list of 100 options. Based on the user's query, identify and recommend the best-matching website from this set. If the query is ambiguous or missing key details, politely ask follow-up questions to clarify the user's intent. Once clarified, explain why a specific website fits the user's needs and offer one or more relevant alternatives if appropriate."
+    system_prompt_website_recommendation = "Your primary task is to help the user find the most suitable website from a curated list of 100 options. Based on the user's query, identify and recommend the best-matching website from this set. If the query is ambiguous or missing key details, politely ask follow-up questions to clarify the user's intent. Once clarified, explain shortly why a specific website fits the user's needs and offer one or more relevant alternatives if appropriate."
     system_prompt = general_system_prompt
     if mode == "Query refinement":
         system_prompt += system_prompt_query_refinement
-        return talk_as_stream(f"dddddddddihey {len(st.session_state.messages)}")
-        return LLM_query_refinement(system_prompt = system_prompt, prev_messages=messages)
-    if mode == "Query recomendation":
+        #return talk_as_stream(f"dddddddddihey {len(st.session_state.messages)}")
+        yield from LLM_query_refinement(system_prompt = system_prompt, prev_messages=messages)
+    if mode == "Website recommendation":
         system_prompt += system_prompt_website_recommendation
-        return talk_as_stream(f"hihey {len(st.session_state.messages)}")
-        return LLM_website_recommendation(system_prompt = system_prompt, prev_messages=messages)
+        #return talk_as_stream(f"hihey {len(st.session_state.messages)}")
+        yield from LLM_website_recommendation(system_prompt = system_prompt, prev_messages=messages)
 
 
 def begin_conversation(mode:str):
@@ -254,11 +284,11 @@ def begin_conversation(mode:str):
     n_messages = len(st.session_state.messages)
     if n_messages ==0:
         if mode == "Query refinement":
-            return talk_as_stream(first_message_query_refinement)
+            yield from talk_as_stream(first_message_query_refinement)
         if mode == "Website recommendation":
-            return talk_as_stream(first_message_website_recommendation)
+            yield from talk_as_stream(first_message_website_recommendation)
     else:
-        return conversate_with_LLM(mode)
+        yield from conversate_with_LLM(mode)
 
 
 def compute_all_subsets_of_query(query:list):
@@ -332,7 +362,7 @@ if "ndocs" not in st.session_state:
     st.session_state.ndocs=10000 #Look for documents
 st.session_state.n_results = 100
 if "current_session" not in st.session_state:
-    st.session_state.current_session =None
+    st.session_state.current_session = None
 if "history" not in st.session_state:
     st.session_state.history = []
 if "highlight_clicked" not in st.session_state:
@@ -435,11 +465,6 @@ if len(st.session_state.history)>0: #check if already searched
                 if right_side.button("Summary",key=f"summary_button{j}",icon=":material/summarize:"):
                     get_summary(url)
                 
-                
-                #with right_side.expander("Show page summary") as exp:
-                #    if exp:
-                #        st.write("so cool")
-
             #Show results as Dataframe
             #tab.dataframe(
             #    shown_docs,
@@ -464,7 +489,7 @@ if len(st.session_state.history)>0: #check if already searched
 
 
 
-    left_side.download_button('Download all results', example_retrieved_docs.to_csv(index=False,header=False,sep='\t'),icon=":material/ad:",file_name="Results.tsv")
+    left_side.download_button('Download all results', example_retrieved_docs.to_csv(index=False,header=False,sep='\t'),icon=":material/download:",file_name="Results.tsv")
 
     #@st.cache_resource for ML resources #https://docs.streamlit.io/get-started/fundamentals/advanced-concepts #DB connection #st.metric("Some Value",42,2)
 #streamlit extras grid for layout #stateful_chats for conversation with assistant #pdf viewer #rowlayout
