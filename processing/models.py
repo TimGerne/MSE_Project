@@ -13,7 +13,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sentence_transformers import SentenceTransformer
 from indexing.tokenize_utils import normalize_and_tokenize
 from indexing.embedding_index import build_embeddings, build_faiss_index
-from query_expansion import expand_query_with_prf, expand_query_with_synonyms, expand_query_with_filtered_synonyms
+from query_expansion import expand_query_with_prf, expand_query_with_synonyms, expand_query_with_filtered_synonyms, expand_query_with_glove
 
 INDEX_DIR: str = "indexing/output"
 FAISS_INDEX_PATH: str = f"{INDEX_DIR}/semantic_index.faiss"
@@ -134,7 +134,9 @@ class BM25RetrievalModel(BaseRetrievalModel):
         """
         if self.use_expansion:
             #query = query = expand_query_with_filtered_synonyms(query, self.vocabulary)
-            query = expand_query_with_prf(query, self.texts, top_k=10, num_terms=3)
+            #query = expand_query_with_prf(query, self.texts, top_k=10, num_terms=3)
+            if len(query.split()) <= 3:  # only expand short queries
+                query = expand_query_with_glove(query, self.vocabulary)
 
         query_tokens = self.tokenize(query)
         scores = [
@@ -169,7 +171,9 @@ class TFIDFRetrievalModel(BaseRetrievalModel):
             List[Dict[str, Any]]: Ranked results with URL, score, snippet.
         """
         if self.use_expansion:
-            query = expand_query_with_synonyms(query)
+            #query = expand_query_with_synonyms(query)
+            if len(query.split()) <= 3:  # only expand short queries
+                query = expand_query_with_glove(query, self.vocabulary)
 
         query_vec = self.vectorizer.transform([query])
         scores = (self.doc_matrix @ query_vec.T).toarray().flatten()
@@ -206,7 +210,9 @@ class DenseRetrievalModel:
             List[Dict[str, Any]]: Ranked results with title, URL, score.
         """
         if self.use_expansion:
-            query = expand_query_with_synonyms(query)
+            #query = expand_query_with_synonyms(query)
+            if len(query.split()) <= 3:
+                query = expand_query_with_glove(query, set(self.doc_mapping[str(i)]['title'].lower() for i in range(len(self.doc_mapping))))
 
         query_vec = self.model.encode([query], convert_to_numpy=True).astype("float32")
         D, I = self.index.search(query_vec, top_k)

@@ -3,7 +3,9 @@ from indexing.tokenize_utils import normalize_and_tokenize
 import numpy as np
 from collections import Counter
 from typing import List
+from gensim.downloader import load as gensim_load
 
+glove_model = gensim_load("glove-wiki-gigaword-100") 
 
 def expand_query_with_synonyms(query: str, max_synonyms=2) -> str:
     expanded_terms = []
@@ -79,3 +81,20 @@ def expand_query_with_prf(query: str, texts: List[str], top_k: int = 10, num_ter
     expanded_query = query + " " + " ".join(expansion_terms)
 
     return expanded_query
+
+
+def expand_query_with_glove(query: str, vocabulary: set, max_expansions_per_term: int = 2) -> str:
+    query_tokens = normalize_and_tokenize(query)
+    expanded = set(query_tokens)
+
+    for token in query_tokens:
+        if token not in glove_model:
+            continue
+        similar_words = glove_model.most_similar(token, topn=10)
+        for similar_word, _ in similar_words:
+            if similar_word in vocabulary and similar_word not in expanded:
+                expanded.add(similar_word)
+            if len(expanded) - len(query_tokens) >= max_expansions_per_term:
+                break
+
+    return ' '.join(expanded)

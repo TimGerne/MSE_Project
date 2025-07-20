@@ -7,6 +7,7 @@ from models import BM25RetrievalModel, DenseRetrievalModel, load_faiss_and_mappi
 import json
 from hybrid_alpha_model import HybridAlphaModel
 import time
+from reranker import CrossEncoderReranker
 
 def load_qrels(path):
     qrels = defaultdict(set)
@@ -58,7 +59,15 @@ def evaluate(model, queries_path, qrels_path, k=100):
             qid, query = line.strip().split('\t')
             relevant = qrels.get(qid, set())
 
-            results = model.retrieve(query, top_k=k)
+            results = model.retrieve(query, top_k=100)  # retrieve more for reranking
+            if args.use_reranker:
+                try:
+                    from reranker import CrossEncoderReranker
+                    reranker = CrossEncoderReranker()
+                    results = reranker.rerank(query, results, top_k=k)
+                except Exception as e:
+                    print(f"[⚠️ Reranker Error] {e} – using original results")
+
             retrieved_urls = [r['url'] for r in results]
 
             out.write(f"\nQuery {qid}: {query}\n")
@@ -221,6 +230,9 @@ if __name__ == "__main__":
     parser.add_argument("--alpha", type=float, default=0.5, help="Alpha weight for BM25 in hybrid_alpha model")
     parser.add_argument("--use_expansion", action="store_true", help="Enable query expansion")
     parser.add_argument("--grid_search", action="store_true", help="Run full grid search across parameters")
+    parser.add_argument("--use_reranker", action="store_true", help="Enable transformer reranking stage")
+
+    
 
 
     args = parser.parse_args()

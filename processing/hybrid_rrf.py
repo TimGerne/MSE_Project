@@ -38,7 +38,7 @@ class HybridReciprocalRankFusionModel:
                 "url": url,
                 "score": score,
                 "title": self.doc_mapping.get(self.url_to_doc_id.get(url, ""), {}).get("title", ""),
-                "snippet": self.doc_mapping.get(self.url_to_doc_id.get(url, ""), {}).get("title", "")
+                "snippet": self.doc_mapping.get(self.url_to_doc_id.get(url, ""), {}).get("main_content", "")[:500]
             }
             for url, score in ranked
         ]
