@@ -5,6 +5,9 @@ from streamlit_extras.word_importances import format_word_importances
 from streamlit_extras.grid import grid
 import itertools
 
+from processing.hybrid_rrf import HybridReciprocalRankFusionModel
+from processing.models import DenseRetrievalModel,BM25RetrievalModel,load_faiss_and_mapping
+
 import pandas as pd
 import numpy as np
 import time
@@ -17,7 +20,6 @@ import cohere
 from transformers import pipeline
 import fasttext
 from sklearn.feature_extraction.text import TfidfVectorizer
-
 
 #Examples inputs################
 example_retrieved_docs = pd.DataFrame({"Query":[0,0,0,0,1,1,1,1],
@@ -37,8 +39,32 @@ def retrieve_queries(query:str,query_file)->list:
     return queries
     
 
-def start_search(queries:list):
-    pass
+@st.cache_resource
+def instantiate_retrieval_model(qrels="qrels_filtered.txt",use_expansion=True):
+    
+    faiss_index, doc_mapping = load_faiss_and_mapping(
+        "indexing/output/semantic_index.faiss",
+        "indexing/output/doc_mapping.json"
+    )
+    texts = [doc["title"] for doc in doc_mapping.values()]
+    urls = [doc["url"] for doc in doc_mapping.values()]
+    bm25 = BM25RetrievalModel(texts, urls, use_expansion=use_expansion)
+    dense = DenseRetrievalModel(faiss_index, doc_mapping, use_expansion=use_expansion)
+    model = HybridReciprocalRankFusionModel(bm25, dense, doc_mapping=doc_mapping)
+    return model
+
+def start_search(queries:list,retriever,top_k=100):
+    records = []
+    for i, query in enumerate(queries):
+        results = retriever.retrieve(query, top_k=top_k)
+        for rank, item in enumerate(results, 1):
+            records.append({
+                "Query": i,
+                "Rank": rank,
+                "URL": item["url"],
+                "Relevance": item.get("score", 0.0)
+            })
+    return pd.DataFrame.from_records(records)
 
 def start_searching(query,queries)->list:
     if queries or query:
@@ -328,13 +354,13 @@ def compute_all_subsets_of_query(query:list):
     return subsets[1:]
 
 
-def compute_shapley_values(query:list,original_urls:str)->list:
+def compute_shapley_values(query:list,original_urls:str,retriever)->list:
     subsets = compute_all_subsets_of_query(query)
     computable_subset = subsets
     if len(subsets)>30: #limit to a sensible size
         computable_subset = random.sample(subsets,30)
     new_queries = [" ".join(query_tuple) for query_tuple in computable_subset]
-    shap_docs = start_search(new_queries)
+    shap_docs = start_search(new_queries,retriever)
     
     fraction_same_docs = []
     for i in range(len(computable_subset)):
@@ -402,6 +428,7 @@ def colored_pill(text, color):
     ">{text}</span>
     """
 
+
 ##Initialization
 st.set_page_config(page_title="Search",page_icon="🔎",layout="wide")
 if "ndocs" not in st.session_state:
@@ -452,6 +479,8 @@ st.markdown("<h1 style='text-align: center;'>Kopernikus 🔭</h1>", unsafe_allow
 
 st.markdown(f':orange-badge[{st.session_state.ndocs} documents to search]')
 
+retriever = instantiate_retrieval_model()
+
 with st.form("search_form"):
     queries_file = st.file_uploader("Upload Queries via file 📁",help="Upload tab separated format",accept_multiple_files=False) 
     query = st.text_input("or put your Query here 👇",placeholder="What are you looking for?",help="Accept only one lined query")
@@ -461,8 +490,8 @@ with st.form("search_form"):
     if submitted:
         queries = get_queries(query,queries_file)
         #st.session_state.queries=queries
-        docs = start_searching(query,queries_file)
-        docs = example_retrieved_docs #TODO: remove when search implemented
+        docs = start_searching(query,queries_file,retriever)
+        #docs = example_retrieved_docs #TODO: remove when search implemented
         #st.session_state.pd_docs = docs
         st.session_state.i_session = len(st.session_state.history)
         st.session_state.i_query = 0
@@ -572,7 +601,7 @@ if len(st.session_state.history)>0: #check if already searched
             queries,docs = st.session_state.history[st.session_state.i_session]
             query = queries[st.session_state.i_query]
             ori_urls = docs[docs["Query"]==i_query]["URL"]
-            shap_val = compute_shapley_values(query.split(),original_urls=ori_urls)
+            shap_val = compute_shapley_values(query.split(),original_urls=ori_urls,retriever=retriever)
             html = format_word_importances(
                 words=query.split(),
                 importances=shap_val)
