@@ -8,7 +8,10 @@ This project implements a domain-specific search engine focused on retrieving **
 
 ```bash
 .
-├── crawling/               # Crawling code
+├── crawling/   
+    ├── crawler.py                  # Main script for crawling
+    ├── crawler_file_IO.py          # External file management
+    ├── frontier_seeds.txt          # Starting point for new crawl
 ├── indexing/               # Indexing code
 ├── processing/             
     ├── models.py                   # BM25, Dense, Hybrid  
