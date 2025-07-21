@@ -20,7 +20,8 @@ import cohere
 from transformers import pipeline
 import fasttext
 from sklearn.feature_extraction.text import TfidfVectorizer
-
+import faiss
+import json
 
 def retrieve_queries(query:str,query_file)->list:
     queries = []
@@ -33,14 +34,13 @@ def retrieve_queries(query:str,query_file)->list:
     return queries
     
 
-@st.cache_resource
+#@st.cache_resource
 def instantiate_retrieval_model(use_expansion=False):
+
+    faiss_index = faiss.read_index("../indexing/indexing/output/semantic_index.faiss")
+    with open("../indexing/indexing/output/doc_mapping.json", "r", encoding="utf-8") as f:
+        doc_mapping = json.load(f)
     
-    faiss_index, doc_mapping = load_faiss_and_mapping(
-        
-        "./indexing/indexing/output/semantic_index.faiss",
-        "./indexing/indexing/output/doc_mapping.json"
-    )
     texts = [doc["title"] for doc in doc_mapping.values()]
     urls = [doc["url"] for doc in doc_mapping.values()]
     bm25 = BM25RetrievalModel(texts, urls, use_expansion=use_expansion)
@@ -61,15 +61,12 @@ def start_search(queries:list,retriever,top_k=100):
             })
     return pd.DataFrame.from_records(records)
 
-def start_searching(query,queries)->list:
+def start_searching(query,queries,retriever)->list:
     if queries or query:
         queries = retrieve_queries(query,queries)
         st.toast("Started Search")
         with st.spinner(text="Search in Progress"):
-            time.sleep(1)
-            #docs = start_search(queries)
-            docs=None
-            #TODO: Replace by actual start search call
+            docs = start_search(queries,retriever)
             st.success("✅ Retrieved Documents")
             return docs
     else:
@@ -144,7 +141,7 @@ def create_sidebar(history):
                         popover.text(session_query)
                     
 
-
+@st.cache_data
 def get_keywords(meta:str,get_unique_keywords:bool):
     #get keywords first version non unique only keywords
     keywords_list = []
@@ -243,20 +240,23 @@ def extract_text_from_url(url):
     except Exception as e:
         return f"Error: {e}"
 
+@st.cache_data
+def extract_metas_description(urls):
 
-def extract_meta_description(url):
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, 'html.parser')
-    
-    # Look for the <meta name="description"> tag
-    meta_description = soup.find('meta', attrs={'name': 'description'})
-    
-    if meta_description:
-        # If found, return the content of the meta description
-        return meta_description.get('content')
-    else:
-        # If no meta description is found, return a message
-        return "No meta description found."
+    def extract_meta_description(url):
+        response = requests.get(url)
+        soup = BeautifulSoup(response.text, 'html.parser')
+        
+        # Look for the <meta name="description"> tag
+        meta_description = soup.find('meta', attrs={'name': 'description'})
+        
+        if meta_description:
+            # If found, return the content of the meta description
+            return meta_description.get('content')
+        else:
+            # If no meta description is found, return a message
+            return "No meta description found."
+    return [extract_meta_description(url) for url in urls]
 
 
 def talk_as_stream(response:str):
@@ -291,7 +291,7 @@ def LLM_website_recommendation(system_prompt,prev_messages,use_cohere=True):
     else:
         docs = st.session_state.history[st.session_state.i_session][1]
         urls = docs[docs["Query"]==0]["URL"].tolist()
-        descriptions = [extract_meta_description(url) for url in urls]
+        descriptions = extract_metas_description(urls)
         docs = [{"data":{"text": content, "url":url}} for url,content in zip(urls,descriptions)]
         system_message = [{"role":"system","content": system_prompt}]
         if use_cohere:
@@ -359,7 +359,7 @@ def compute_shapley_values(query:list,original_urls:str,retriever)->list:
     
     in_subset = np.zeros((len(query),len(fraction_same_docs)),dtype=bool)
     fraction = np.zeros((len(query),len(fraction_same_docs)),dtype=bool)
-    for i,element_query in range(query):
+    for i,element_query in enumerate(query):
         for j,new_query in enumerate(computable_subset):
             if element_query in new_query:
                 in_subset[i][j]=True
@@ -495,7 +495,6 @@ st.markdown(f"<h2 style='text-align: center;'>Search results</h2>", unsafe_allow
 
 
 
-
 if len(st.session_state.history)>0: #check if already searched
 
     i_session = st.session_state.i_session
@@ -547,7 +546,7 @@ if len(st.session_state.history)>0: #check if already searched
         
         #will slow the browser down
         if st.session_state.use_meta_data:
-            metas = [extract_meta_description(url) for url in  shown_docs["URL"]]
+            metas =extract_metas_description(shown_docs["URL"])
             keywords_list = get_keywords(metas,st.session_state.unique_keywords)
             colors_keyword_dict = get_color_keyword_dict([keyword for keywords in keywords_list for keyword in keywords])
         
@@ -574,7 +573,7 @@ if len(st.session_state.history)>0: #check if already searched
 
             if col3.button("Summary",key=f"summary_button{j}",icon=":material/summarize:"):
                 get_summary(url)
-            col4.markdown(rel)
+            col4.markdown(round(float(rel),ndigits=4))
 
             if st.session_state.use_meta_data:
                 st.markdown(f"[{meta}]({url})")
@@ -587,13 +586,14 @@ if len(st.session_state.history)>0: #check if already searched
     with right_side:
         
         if st.button("Compute Query importance",icon=":material/memory:",type="tertiary",use_container_width=True):
-            queries,docs = st.session_state.history[st.session_state.i_session]
+            queries,docs,_ = st.session_state.history[st.session_state.i_session]
             query = queries[st.session_state.i_query]
             ori_urls = docs[docs["Query"]==i_query]["URL"]
             shap_val = compute_shapley_values(query.split(),original_urls=ori_urls,retriever=retriever)
             html = format_word_importances(
                 words=query.split(),
                 importances=shap_val)
+            st.write("Importance Indicator:")
             st.write(html, unsafe_allow_html=True)
 
         
