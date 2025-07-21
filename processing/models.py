@@ -14,6 +14,7 @@ from sentence_transformers import SentenceTransformer
 from indexing.tokenize_utils import normalize_and_tokenize
 from indexing.embedding_index import build_embeddings, build_faiss_index
 from query_expansion import expand_query_with_prf, expand_query_with_synonyms, expand_query_with_filtered_synonyms, expand_query_with_glove
+from collections import defaultdict
 
 INDEX_DIR: str = "indexing/output"
 FAISS_INDEX_PATH: str = f"{INDEX_DIR}/semantic_index.faiss"
@@ -225,6 +226,76 @@ class DenseRetrievalModel:
             for j, i in enumerate(I[0])
         ]
 
+
+class HybridAlphaModel:
+    def __init__(self, bm25_model, dense_model, alpha: float = 0.5):
+        self.bm25_model = bm25_model
+        self.dense_model = dense_model
+        self.alpha = alpha
+
+    def retrieve(self, query: str, top_k: int = 10) -> List[Dict[str, Any]]:
+        bm25_results = self.bm25_model.retrieve(query, top_k=top_k * 2)
+        dense_results = self.dense_model.retrieve(query, top_k=top_k * 2)
+
+        # Map URL to score
+        bm25_scores = {r['url']: r.get('score', 1.0) for r in bm25_results}
+        dense_scores = {r['url']: r.get('score', 1.0) for r in dense_results}
+
+        # Combine all URLs
+        all_urls = set(bm25_scores) | set(dense_scores)
+        combined = []
+        for url in all_urls:
+            bm25 = bm25_scores.get(url, 0.0)
+            dense = dense_scores.get(url, 0.0)
+            score = self.alpha * bm25 + (1 - self.alpha) * dense
+            combined.append({
+                "url": url,
+                "score": score
+            })
+
+        combined.sort(key=lambda x: x['score'], reverse=True)
+        return combined[:top_k]
+
+class HybridReciprocalRankFusionModel:
+    def __init__(self,
+                 bm25_model: BM25RetrievalModel,
+                 dense_model: DenseRetrievalModel,
+                 doc_mapping: Dict[str, Dict[str, Any]],
+                 k: int = 40) -> None:
+        self.bm25_model = bm25_model
+        self.dense_model = dense_model
+        self.doc_mapping = doc_mapping
+        self.k = k
+        self.url_to_doc_id = {
+            doc["url"]: doc_id for doc_id, doc in doc_mapping.items()
+        }
+
+    def retrieve(self, query: str, top_k: int = 10) -> List[Dict[str, Any]]:
+        #print(f"[HybridRRF] Using RRF k = {self.k}")
+        bm25_results = self.bm25_model.retrieve(query, top_k=top_k * 10)
+        dense_results = self.dense_model.retrieve(query, top_k=top_k * 10)
+
+        rrf_scores = defaultdict(float)
+
+        def update_rrf(results: List[Dict[str, Any]]):
+            for rank, item in enumerate(results):
+                url = item["url"]
+                rrf_scores[url] += 1.0 / (self.k + rank + 1)
+
+        update_rrf(bm25_results)
+        update_rrf(dense_results)
+
+        ranked = sorted(rrf_scores.items(), key=lambda x: x[1], reverse=True)[:top_k]
+
+        return [
+            {
+                "url": url,
+                "score": score,
+                "title": self.doc_mapping.get(self.url_to_doc_id.get(url, ""), {}).get("title", ""),
+                "snippet": self.doc_mapping.get(self.url_to_doc_id.get(url, ""), {}).get("main_content", "")[:500]
+            }
+            for url, score in ranked
+        ]
 
 def load_faiss_and_mapping(index_path: str, mapping_path: str) -> Tuple[faiss.IndexFlatIP, Dict[str, Dict[str, Any]]]:
     """

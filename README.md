@@ -14,13 +14,13 @@ This project implements a domain-specific search engine focused on retrieving **
     ├── frontier_seeds.txt          # Starting point for new crawl
 ├── indexing/               # Indexing code
 ├── processing/             
-    ├── models.py                   # BM25, Dense, Hybrid  
+    ├── models.py                   # BM25, Dense, HybridReciprocalRankFusionModel and HybridAlphaModel  
     ├── reranker.py                 # Optional reranker (cross-encoder)
     ├── evaluation.py               # Main script to evaluate models
     ├── queries.txt                 # Evaluation queries
     ├── qrels_filtered.txt          # Relevance judgments
     ├── grid_search_results.json    # Output files (if generated)
-    ├── retrieval_interface.py    # Output files (if generated)
+    ├── retrieval_interface.py      # takes a list of queries and returns a Pandas DataFrame
 └── README.md               
 ```
 

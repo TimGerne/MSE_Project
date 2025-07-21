@@ -1,11 +1,9 @@
 from collections import defaultdict
 import numpy as np
-from hybrid_rrf import HybridReciprocalRankFusionModel
 import matplotlib.pyplot as plt
 import argparse
-from models import BM25RetrievalModel, DenseRetrievalModel, load_faiss_and_mapping
+from models import BM25RetrievalModel, DenseRetrievalModel, HybridAlphaModel, HybridReciprocalRankFusionModel, load_faiss_and_mapping
 import json
-from hybrid_alpha_model import HybridAlphaModel
 import time
 from reranker import CrossEncoderReranker
 
@@ -260,15 +258,15 @@ if __name__ == "__main__":
             raise ValueError("You must provide --model unless --grid_search is specified")
 
         if args.model == "bm25":
-            model = BM25RetrievalModel(texts, urls, use_expansion=args.use_expansion)
+            model = BM25RetrievalModel(texts, urls, k1=1.2, b = 0.5, use_expansion=args.use_expansion)
         elif args.model == "dense":
             model = DenseRetrievalModel(faiss_index, faiss_mapping, use_expansion=args.use_expansion)
         elif args.model == "hybrid_rrf":
-            bm25_model = BM25RetrievalModel(texts, urls, use_expansion=args.use_expansion)
+            bm25_model = BM25RetrievalModel(texts, urls, k1=1.2, b = 0.5, use_expansion=args.use_expansion)
             dense_model = DenseRetrievalModel(faiss_index, faiss_mapping, use_expansion=args.use_expansion)
             model = HybridReciprocalRankFusionModel(bm25_model, dense_model, doc_mapping=faiss_mapping, k=20)
         elif args.model == "hybrid_alpha":
-            bm25_model = BM25RetrievalModel(texts, urls, use_expansion=args.use_expansion)
+            bm25_model = BM25RetrievalModel(texts, urls, k1=1.2, b = 0.5, use_expansion=args.use_expansion)
             dense_model = DenseRetrievalModel(faiss_index, faiss_mapping, use_expansion=args.use_expansion)
             model = HybridAlphaModel(bm25_model, dense_model, alpha=args.alpha)
         else:

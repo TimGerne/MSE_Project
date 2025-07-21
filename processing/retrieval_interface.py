@@ -1,13 +1,17 @@
 import pandas as pd
 from typing import List
-from models import BM25RetrievalModel, DenseRetrievalModel, load_faiss_and_mapping
-from hybrid_rrf import HybridReciprocalRankFusionModel
-from hybrid_alpha_model import HybridAlphaModel
+from models import BM25RetrievalModel, DenseRetrievalModel, HybridAlphaModel, HybridReciprocalRankFusionModel,load_faiss_and_mapping
+
 
 def generate_results_dataframe(queries: List[str], model_name: str = "bm25", use_expansion: bool = False, alpha: float = 0.5, top_k: int = 100) -> pd.DataFrame:
+    """
+    Takes a list of queries and returns a Pandas DataFrame containing the 
+    top-k retrieval results (with rank, URL, and score) for each query using a 
+    selected retrieval model
+    """
     faiss_index, doc_mapping = load_faiss_and_mapping(
-        "indexing/output/semantic_index.faiss",
-        "indexing/output/doc_mapping.json"
+        "Users/lilieven/Documents/Uni/Master/Semester_4/ModernSearchEngines/MSE_Project/indexing/indexing/output/semantic_index.faiss",
+        "Users/lilieven/Documents/Uni/Master/Semester_4/ModernSearchEngines/MSE_Project/indexing/indexing/output/doc_mapping.json"
     )
     texts = [doc["title"] for doc in doc_mapping.values()]
     urls = [doc["url"] for doc in doc_mapping.values()]
