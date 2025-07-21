@@ -573,7 +573,7 @@ if len(st.session_state.history)>0: #check if already searched
 
             if col3.button("Summary",key=f"summary_button{j}",icon=":material/summarize:"):
                 get_summary(url)
-            col4.markdown(rel)
+            col4.markdown(round(float(rel),ndigits=4))
 
             if st.session_state.use_meta_data:
                 st.markdown(f"[{meta}]({url})")
