@@ -141,7 +141,7 @@ def create_sidebar(history):
                         popover.text(session_query)
                     
 
-
+@st.cache_data
 def get_keywords(meta:str,get_unique_keywords:bool):
     #get keywords first version non unique only keywords
     keywords_list = []
@@ -240,20 +240,23 @@ def extract_text_from_url(url):
     except Exception as e:
         return f"Error: {e}"
 
+@st.cache_data
+def extract_metas_description(urls):
 
-def extract_meta_description(url):
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, 'html.parser')
-    
-    # Look for the <meta name="description"> tag
-    meta_description = soup.find('meta', attrs={'name': 'description'})
-    
-    if meta_description:
-        # If found, return the content of the meta description
-        return meta_description.get('content')
-    else:
-        # If no meta description is found, return a message
-        return "No meta description found."
+    def extract_meta_description(url):
+        response = requests.get(url)
+        soup = BeautifulSoup(response.text, 'html.parser')
+        
+        # Look for the <meta name="description"> tag
+        meta_description = soup.find('meta', attrs={'name': 'description'})
+        
+        if meta_description:
+            # If found, return the content of the meta description
+            return meta_description.get('content')
+        else:
+            # If no meta description is found, return a message
+            return "No meta description found."
+    return [extract_meta_description(url) for url in urls]
 
 
 def talk_as_stream(response:str):
@@ -288,7 +291,7 @@ def LLM_website_recommendation(system_prompt,prev_messages,use_cohere=True):
     else:
         docs = st.session_state.history[st.session_state.i_session][1]
         urls = docs[docs["Query"]==0]["URL"].tolist()
-        descriptions = [extract_meta_description(url) for url in urls]
+        descriptions = extract_metas_description(urls)
         docs = [{"data":{"text": content, "url":url}} for url,content in zip(urls,descriptions)]
         system_message = [{"role":"system","content": system_prompt}]
         if use_cohere:
@@ -356,7 +359,7 @@ def compute_shapley_values(query:list,original_urls:str,retriever)->list:
     
     in_subset = np.zeros((len(query),len(fraction_same_docs)),dtype=bool)
     fraction = np.zeros((len(query),len(fraction_same_docs)),dtype=bool)
-    for i,element_query in range(query):
+    for i,element_query in enumerate(query):
         for j,new_query in enumerate(computable_subset):
             if element_query in new_query:
                 in_subset[i][j]=True
@@ -543,7 +546,7 @@ if len(st.session_state.history)>0: #check if already searched
         
         #will slow the browser down
         if st.session_state.use_meta_data:
-            metas = [extract_meta_description(url) for url in  shown_docs["URL"]]
+            metas =extract_metas_description(shown_docs["URL"])
             keywords_list = get_keywords(metas,st.session_state.unique_keywords)
             colors_keyword_dict = get_color_keyword_dict([keyword for keywords in keywords_list for keyword in keywords])
         
@@ -583,7 +586,7 @@ if len(st.session_state.history)>0: #check if already searched
     with right_side:
         
         if st.button("Compute Query importance",icon=":material/memory:",type="tertiary",use_container_width=True):
-            queries,docs = st.session_state.history[st.session_state.i_session]
+            queries,docs,_ = st.session_state.history[st.session_state.i_session]
             query = queries[st.session_state.i_query]
             ori_urls = docs[docs["Query"]==i_query]["URL"]
             shap_val = compute_shapley_values(query.split(),original_urls=ori_urls,retriever=retriever)
