@@ -61,15 +61,12 @@ def start_search(queries:list,retriever,top_k=100):
             })
     return pd.DataFrame.from_records(records)
 
-def start_searching(query,queries)->list:
+def start_searching(query,queries,retriever)->list:
     if queries or query:
         queries = retrieve_queries(query,queries)
         st.toast("Started Search")
         with st.spinner(text="Search in Progress"):
-            time.sleep(1)
-            #docs = start_search(queries)
-            docs=None
-            #TODO: Replace by actual start search call
+            start_search(queries,retriever)
             st.success("✅ Retrieved Documents")
             return docs
     else:
