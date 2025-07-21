@@ -20,7 +20,8 @@ import cohere
 from transformers import pipeline
 import fasttext
 from sklearn.feature_extraction.text import TfidfVectorizer
-
+import faiss
+import json
 
 def retrieve_queries(query:str,query_file)->list:
     queries = []
@@ -33,14 +34,13 @@ def retrieve_queries(query:str,query_file)->list:
     return queries
     
 
-@st.cache_resource
+#@st.cache_resource
 def instantiate_retrieval_model(use_expansion=False):
+
+    faiss_index = faiss.read_index("../indexing/indexing/output/semantic_index.faiss")
+    with open("../indexing/indexing/output/doc_mapping.json", "r", encoding="utf-8") as f:
+        doc_mapping = json.load(f)
     
-    faiss_index, doc_mapping = load_faiss_and_mapping(
-        
-        "./indexing/indexing/output/semantic_index.faiss",
-        "./indexing/indexing/output/doc_mapping.json"
-    )
     texts = [doc["title"] for doc in doc_mapping.values()]
     urls = [doc["url"] for doc in doc_mapping.values()]
     bm25 = BM25RetrievalModel(texts, urls, use_expansion=use_expansion)
@@ -492,7 +492,6 @@ with st.form("search_form"):
 st.html("<hr>")
 
 st.markdown(f"<h2 style='text-align: center;'>Search results</h2>", unsafe_allow_html=True)
-
 
 
 
