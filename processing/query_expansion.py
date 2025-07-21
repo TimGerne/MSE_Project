@@ -4,6 +4,7 @@ import numpy as np
 from collections import Counter
 from typing import List
 from gensim.downloader import load as gensim_load
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 glove_model = gensim_load("glove-wiki-gigaword-100") 
 
@@ -43,28 +44,14 @@ def expand_query_with_filtered_synonyms(query: str, vocabulary: set, max_synonym
 
 def expand_query_with_prf(query: str, texts: List[str], top_k: int = 10, num_terms: int = 3) -> str:
     """
-    Expand query using Pseudo-Relevance Feedback (PRF).
-
-    Args:
-        query (str): Original user query.
-        texts (List[str]): Corpus documents (same as passed to BM25).
-        top_k (int): Number of top documents to use for feedback.
-        num_terms (int): Number of expansion terms to add.
-
-    Returns:
-        str: Expanded query.
+    Expand query using Pseudo-Relevance Feedback
     """
-    from sklearn.feature_extraction.text import TfidfVectorizer
-
-    # Fit TF-IDF on the entire corpus
     vectorizer = TfidfVectorizer()
     doc_matrix = vectorizer.fit_transform(texts)
 
-    # Transform query
     query_vec = vectorizer.transform([query])
     scores = (doc_matrix @ query_vec.T).toarray().flatten()
 
-    # Select top_k documents
     top_doc_indices = np.argsort(-scores)[:top_k]
     token_counter = Counter()
 
@@ -72,7 +59,6 @@ def expand_query_with_prf(query: str, texts: List[str], top_k: int = 10, num_ter
         tokens = normalize_and_tokenize(texts[idx])
         token_counter.update(tokens)
 
-    # Remove query terms from expansion
     query_tokens = set(normalize_and_tokenize(query))
     candidate_terms = [term for term, _ in token_counter.most_common()
                        if term not in query_tokens and len(term) > 2]
