@@ -28,7 +28,6 @@ CHUNKSIZE = 50
 CRAWLER_NAME = 'MSE_Crawler_1'
 REQUEST_TIMEOUT = 10    # in seconds
 TUEBINGENS = ['tübingen', 'tubingen', 'tuebingen']
-SIMHASH_THRESHOLD = 50
 
 parsers = {}
 
