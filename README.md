@@ -12,7 +12,15 @@ This project implements a domain-specific search engine focused on retrieving **
     ├── crawler.py                  # Main script for crawling
     ├── crawler_file_IO.py          # External file management
     ├── frontier_seeds.txt          # Starting point for new crawl
-├── indexing/               # Indexing code
+├── indexing/  
+    ├── embedding_index.py          # Creation of Embedding and FAISS index 
+    ├── indexing.py                 # Main script to create indeces
+    ├── language_detection.py       # Functionality to detect language of webpage
+    ├── tokenize_utils.py           # Content Preprocessing 
+    ├── output
+        ├── semantic_index.faiss    # Currently used semantic Index
+        ├── inverted_index.json     # Token-based Index
+        ├── doc_mapping.json        # Mapping Document to ID
 ├── processing/             
     ├── models.py                   # BM25, Dense, HybridReciprocalRankFusionModel and HybridAlphaModel  
     ├── reranker.py                 # Optional reranker (cross-encoder)
@@ -27,6 +35,13 @@ This project implements a domain-specific search engine focused on retrieving **
 ---
 
 ## How to Run
+
+Run UI:
+
+```bash
+streamlit run .processing/UI.py
+```
+
 
 Run evaluation using different models:
 
