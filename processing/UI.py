@@ -593,6 +593,7 @@ if len(st.session_state.history)>0: #check if already searched
             html = format_word_importances(
                 words=query.split(),
                 importances=shap_val)
+            st.write("Importance Indicator:")
             st.write(html, unsafe_allow_html=True)
 
         
