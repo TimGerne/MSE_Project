@@ -66,7 +66,7 @@ def start_searching(query,queries,retriever)->list:
         queries = retrieve_queries(query,queries)
         st.toast("Started Search")
         with st.spinner(text="Search in Progress"):
-            start_search(queries,retriever)
+            docs = start_search(queries,retriever)
             st.success("✅ Retrieved Documents")
             return docs
     else:
