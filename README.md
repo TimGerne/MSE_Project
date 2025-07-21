@@ -108,11 +108,6 @@ Three expansion strategies were implemented:
 
 ---
 
-## Evaluation Results (Top-10)
-
-
----
-
 ## Final Notes
 
 * **Final model**: `HybridReciprocalRankFusionModel` with `k=20`, no expansion, no reranker
