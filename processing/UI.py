@@ -32,7 +32,7 @@ def retrieve_queries(query:str,query_file)->list:
     if query_file:
         query_file_content = query_file.read().decode("utf-8")
         lines = query_file_content.splitlines()
-        queries.append(lines)
+        queries += lines
     return queries
     
 
