@@ -521,7 +521,7 @@ if len(st.session_state.history)>0: #check if already searched
                 st.session_state.i_query -= 1
 
     with col2:
-        if st.button(f"Query. {st.session_state.i_query + 1}", type="tertiary", use_container_width=True):
+        if st.button(f"Query No. {st.session_state.i_query + 1}", type="tertiary", use_container_width=True):
             st.toast("You discovered an Easter 🥚")
 
     with col3:
