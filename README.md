@@ -1,6 +1,7 @@
 # Tübingen Search Engine Project
 
-This project implements a domain-specific search engine focused on retrieving **English-language web content about Tübingen**. It supports sparse (BM25), dense (semantic), and hybrid retrieval, with optional query expansion and neural reranking.
+This project implements a domain-specific search engine focused on retrieving **English-language web content about Tübingen**. It is hosted at streamlit under [https://kopernikus.streamlit.app](https://kopernikus.streamlit.app)
+It supports sparse (BM25), dense (semantic), and hybrid retrieval, with optional query expansion and neural reranking.
 
 ---
 
