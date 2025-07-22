@@ -23,7 +23,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import faiss
 import json
 import os
-st.write(os.getcwd())
+#st.write(os.getcwd())
 
 def retrieve_queries(query:str,query_file)->list:
     queries = []
@@ -39,8 +39,8 @@ def retrieve_queries(query:str,query_file)->list:
 #@st.cache_resource
 def instantiate_retrieval_model(use_expansion=False):
 
-    faiss_index = faiss.read_index("../indexing/indexing/output/semantic_index.faiss")
-    with open("../indexing/indexing/output/doc_mapping.json", "r", encoding="utf-8") as f:
+    faiss_index = faiss.read_index("./indexing/indexing/output/semantic_index.faiss")
+    with open("./indexing/indexing/output/doc_mapping.json", "r", encoding="utf-8") as f:
         doc_mapping = json.load(f)
     
     texts = [doc["title"] for doc in doc_mapping.values()]
