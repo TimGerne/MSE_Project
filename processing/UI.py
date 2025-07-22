@@ -211,8 +211,8 @@ def get_summary(url:str,use_cohere=True):
     st.title(url)
     content = extract_text_from_url(url)
     if use_cohere:
-        summary = url
-        #summary = get_summary_cohere(content)
+        #summary = url
+        summary = get_summary_cohere(content)
     else:
         summary = get_summary(content)
     st.write(summary)
@@ -265,8 +265,7 @@ def talk_as_stream(response:str):
         time.sleep(0.05)
 
 
-def LLM_query_refinement(system_prompt,prev_messages,use_cohere=False):
-    "normal LLM"
+def LLM_query_refinement(system_prompt,prev_messages,use_cohere=True):
     system_message = [{"role":"system","content": system_prompt}]
     messages = system_message + prev_messages
     if use_cohere:
@@ -421,7 +420,7 @@ def colored_pill(text, color):
 ##Initialization
 st.set_page_config(page_title="Search",page_icon="🔎",layout="wide")
 if "ndocs" not in st.session_state:
-    st.session_state.ndocs=10000 #Look for documents
+    st.session_state.ndocs=9042 #Look for documents
 st.session_state.n_results = 100
 if "i_session" not in st.session_state:
     st.session_state.i_session = None
