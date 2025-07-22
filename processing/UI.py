@@ -22,9 +22,8 @@ import fasttext
 from sklearn.feature_extraction.text import TfidfVectorizer
 import faiss
 import json
-######## necessary streamlit change #######
-import nltk
-###############################
+import os
+st.write(os.getcwd())
 
 def retrieve_queries(query:str,query_file)->list:
     queries = []
