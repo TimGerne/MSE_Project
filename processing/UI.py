@@ -22,8 +22,7 @@ import fasttext
 from sklearn.feature_extraction.text import TfidfVectorizer
 import faiss
 import json
-import os
-#st.write(os.getcwd())
+import re
 
 def retrieve_queries(query:str,query_file)->list:
     queries = []
@@ -31,6 +30,7 @@ def retrieve_queries(query:str,query_file)->list:
         queries.append(query)
     if query_file:
         query_file_content = query_file.read().decode("utf-8")
+        query_file_content = re.sub(r'^\d+\t', '', query_file_content, flags=re.MULTILINE)
         lines = query_file_content.splitlines()
         queries += lines
     return queries
