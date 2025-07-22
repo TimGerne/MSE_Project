@@ -3,7 +3,7 @@ from streamlit_extras.stylable_container import stylable_container
 from streamlit_extras.bottom_container import bottom
 from streamlit_extras.word_importances import format_word_importances
 import itertools
-from pathlib import Path
+from urllib.parse import quote
 
 #from processing.query_expansion import expand_query_with_prf, expand_query_with_synonyms, expand_query_with_filtered_synonyms, expand_query_with_glove
 from models import DenseRetrievalModel,BM25RetrievalModel,HybridReciprocalRankFusionModel,HybridAlphaModel,load_faiss_and_mapping
@@ -255,7 +255,7 @@ def extract_metas_description(urls):
             return meta_description.get('content')
         else:
             # If no meta description is found, return a message
-            return "No meta description found."
+            return "No meta description"
     return [extract_meta_description(url) for url in urls]
 
 
@@ -431,7 +431,7 @@ if "history" not in st.session_state:
 if "use_meta_data" not in st.session_state:
     st.session_state.use_meta_data = False
 if "unique_keywords" not in st.session_state:
-    st.session_state.unique_keywords = False
+    st.session_state.unique_keywords = True
 if "messages" not in st.session_state:
     st.session_state.messages = []
 if "chatbot_mode" not in st.session_state:
@@ -474,13 +474,10 @@ with st.form("search_form"):
     query = st.text_input("or put your Query here 👇",placeholder="What are you looking for?",help="Accept only one lined query")
     
     #Search code
-    submitted = st.form_submit_button('Start Search 🔎')#,on_click=start_searching)
+    submitted = st.form_submit_button('Start Search 🔎')
     if submitted:
         queries = get_queries(query,queries_file)
-        #st.session_state.queries=queries
         docs = start_searching(query,queries_file,retriever)
-        #docs = example_retrieved_docs #TODO: remove when search implemented
-        #st.session_state.pd_docs = docs
         st.session_state.i_session = len(st.session_state.history)
         st.session_state.i_query = 0
         session_name = f"{st.session_state.i_session +1}. Session"
@@ -552,7 +549,7 @@ if len(st.session_state.history)>0: #check if already searched
         for j,element in shown_docs.iterrows():
             col1,col2,col3,col4 = st.columns([3,3,1,1])
             rank = element["Rank"]
-            url = element["URL"]
+            url = quote(element["URL"], safe=':/#')
             rel = element["Relevance"]
             col1.markdown(f"#### {rank}. [{url}]({url})")
             
@@ -560,14 +557,23 @@ if len(st.session_state.history)>0: #check if already searched
             with col2:
                 if st.session_state.use_meta_data:
                     meta = metas[j]
-                    keywords = keywords_list[j]
+                    if meta != "No meta description":
+                        keywords = keywords_list[j]
 
-                    pills_html = "".join([colored_pill(keyword, colors_keyword_dict[keyword]) for keyword in keywords])
-                    full_html = f"""
-                    <div style="display: flex; flex-wrap: wrap; align-items: center;">
-                        {pills_html}
-                    """
-                    st.markdown(full_html, unsafe_allow_html=True)
+                        pills_html = "".join([colored_pill(keyword, colors_keyword_dict[keyword]) for keyword in keywords])
+                        full_html = f"""
+                        <div style="display: flex; flex-wrap: wrap; align-items: center;">
+                            {pills_html}
+                        """
+                        st.markdown(full_html, unsafe_allow_html=True)
+                    else:
+                        pills_html = "".join([colored_pill("No description" ,"#9f9f9f")])
+                        full_html = f"""
+                        <div style="display: flex; flex-wrap: wrap; align-items: center;">
+                            {pills_html}
+                        """
+                        st.markdown(full_html, unsafe_allow_html=True)
+
 
 
             if col3.button("Summary",key=f"summary_button{j}",icon=":material/summarize:"):
@@ -575,7 +581,8 @@ if len(st.session_state.history)>0: #check if already searched
             col4.markdown(round(float(rel),ndigits=4))
 
             if st.session_state.use_meta_data:
-                st.markdown(f"[{meta}]({url})")
+                if meta != "No meta description":
+                    st.markdown(f"[{meta}]({url})")
             
             
 
