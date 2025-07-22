@@ -10,6 +10,9 @@ from typing import List
 LANGUAGE = "english"
 
 # Initialize tools
+nltk.data.path.append("../nltk_data")
+from nltk.corpus import stopwords
+
 stop_words = set(stopwords.words(LANGUAGE))
 stemmer = SnowballStemmer(LANGUAGE)
 
