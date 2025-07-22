@@ -22,6 +22,10 @@ import fasttext
 from sklearn.feature_extraction.text import TfidfVectorizer
 import faiss
 import json
+######## necessary streamlit change #######
+import nltk
+nltk.download("stopwords")
+###############################
 
 def retrieve_queries(query:str,query_file)->list:
     queries = []
@@ -567,7 +571,7 @@ if len(st.session_state.history)>0: #check if already searched
                         """
                         st.markdown(full_html, unsafe_allow_html=True)
                     else:
-                        pills_html = "".join([colored_pill("No description" ,"#9f9f9f")])
+                        pills_html = "".join([colored_pill("No description" ,"#45454e")])
                         full_html = f"""
                         <div style="display: flex; flex-wrap: wrap; align-items: center;">
                             {pills_html}
