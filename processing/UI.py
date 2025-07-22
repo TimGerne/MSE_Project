@@ -24,7 +24,6 @@ import faiss
 import json
 ######## necessary streamlit change #######
 import nltk
-nltk.download("stopwords")
 ###############################
 
 def retrieve_queries(query:str,query_file)->list:
