@@ -464,6 +464,11 @@ with st.sidebar:
         
 
 
+with bottom():
+    _,right_side = st.columns([3,1])
+    with right_side:
+        assistant()
+
 #st.title("Kopernikus 🔭")
 st.markdown("<h1 style='text-align: center;'>Kopernikus 🔭</h1>", unsafe_allow_html=True)
 
@@ -611,8 +616,3 @@ if len(st.session_state.history)>0: #check if already searched
 else:
     st.markdown("## No results")
     
-
-with bottom():
-    _,right_side = st.columns([3,1])
-    with right_side:
-        assistant()
